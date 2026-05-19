@@ -465,7 +465,7 @@ async function loadFixtures(force=false) {
   if(el) el.innerHTML = `<div class="loading"><div class="spin"></div><div class="ltxt">Chargement tournois...</div></div>`;
 
   try {
-    const data = await api("/fixtures/2"); // tour 2 = PGA Tour
+    const data = await api("/fixtures/2/2026"); // tour 2 = PGA Tour, saison 2026
     const now = new Date();
     S.fixtures = (data.results||[])
       .filter(f=>f.start_date)
@@ -532,7 +532,7 @@ async function loadPlayers(tid) {
   try {
     const [entData, rkData] = await Promise.all([
       api(`/entry-list/${tid}`),
-      api("/world-rankings/2").catch(()=>({results:[]})),
+      api("/world-rankings/2/2026").catch(()=>({results:[]})),
     ]);
 
     const ranks = {};
