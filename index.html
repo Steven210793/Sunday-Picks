@@ -540,9 +540,14 @@ async function loadPlayers(tid) {
     const ranks = {};
     (rkData.results||[]).forEach(p=>{ ranks[p.player_id]=p.position; });
 
-    S.players = (entData.results||[]).map(e=>({
+    // Fix: entry-list API returns results.entry_list not results directly
+    const entryList = (entData.results && entData.results.entry_list)
+      ? entData.results.entry_list
+      : (Array.isArray(entData.results) ? entData.results : []);
+
+    S.players = entryList.map(e=>({
       id: String(e.player_id||e.id),
-      name: e.player_name||e.name||"—",
+      name: ((e.first_name||"")+" "+(e.last_name||e.player_name||e.name||"")).trim()||"—",
       flag: c2f(e.country||""),
       country: e.country||"",
       wr: ranks[e.player_id]||999,
