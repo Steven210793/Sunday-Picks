@@ -971,41 +971,86 @@ function openHD(idx){
 // ============================================================
 function renderProfil(){
   const badge=getBadge(S.totalPoints);
+  const nxt=getNext(S.totalPoints);
+  const prog=getProgress(S.totalPoints);
   const c=document.getElementById("prfc");
   const ini=(S.pseudo||"?").substring(0,2).toUpperCase();
+  const unlockedBadges=BADGES.filter(b=>S.totalPoints>=b.min);
+  const lockedBadges=BADGES.filter(b=>S.totalPoints<b.min);
 
   let h=`
-    <div class="avsec">
-      <div class="av">${ini}</div>
-      <div class="avp">${S.pseudo||"Joueur"}</div>
-      <div class="avpt">${S.totalPoints.toLocaleString("fr")} points</div>
+    <!-- AVATAR + NOM -->
+    <div style="text-align:center;padding:28px 20px 20px;">
+      <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--red),#c01830);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:34px;font-weight:900;color:#fff;margin:0 auto 14px;border:3px solid rgba(232,35,58,0.3);">${ini}</div>
+      <div style="font-family:var(--fd);font-size:30px;font-weight:900;letter-spacing:1px;">${S.pseudo||"Joueur"} <span style="font-size:18px;cursor:pointer;" onclick="openEP()">✏️</span></div>
+      <div style="font-family:var(--fd);font-size:28px;font-weight:900;color:var(--white);margin-top:4px;">${S.totalPoints.toLocaleString("fr")} <span style="font-size:16px;color:var(--muted);font-weight:600;">PTS</span></div>
+      <div style="font-size:13px;color:var(--muted);margin-top:2px;">Top ${getPercentile(S.totalPoints)}% des joueurs</div>
     </div>
-    <div class="cbc">
-      <div class="cbe">${badge.emoji}</div>
-      <div class="cbinfo">
-        <div class="cbl">BADGE ACTUEL</div>
-        <div class="cbn">${badge.name}</div>
-        <div class="cbr">${badge.min.toLocaleString("fr")} – ${badge.max===Infinity?"∞":badge.max.toLocaleString("fr")} pts</div>
+
+    <!-- BADGE ACTUEL HERO -->
+    <div style="margin:0 18px 20px;background:linear-gradient(135deg,#1a1228,#0d1a2e);border:1.5px solid rgba(232,35,58,0.3);border-radius:20px;padding:24px;text-align:center;">
+      <div style="font-size:64px;line-height:1;margin-bottom:10px;">${badge.emoji}</div>
+      <div style="font-family:var(--fd);font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--white);">${badge.name}</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:1px;">${badge.min.toLocaleString("fr")} – ${badge.max===Infinity?"∞":badge.max.toLocaleString("fr")} pts</div>
+      <!-- PROGRESS -->
+      <div style="margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span>
+          <span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">${prog}%</span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;">
+          <div style="height:100%;width:${prog}%;background:linear-gradient(90deg,var(--red),#FF6B35);border-radius:99px;transition:width 0.6s ease;"></div>
+        </div>
+        ${nxt?`<div style="font-size:12px;color:var(--muted);margin-top:8px;">Prochain : <span style="color:var(--white);font-weight:700;">${nxt.name}</span> ${nxt.emoji} — ${(nxt.min-S.totalPoints).toLocaleString("fr")} pts</div>`:"<div style="font-size:12px;color:var(--gold);margin-top:8px;font-weight:700;">🏆 Badge maximum atteint !</div>"}
       </div>
     </div>
-    <div class="stl" style="margin-bottom:12px;">LES BADGES</div>
-    <div class="bgrid">
+
+    <!-- BADGES DÉBLOQUÉS -->
+    <div style="padding:0 18px;">
+      <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">MES BADGES (${unlockedBadges.length}/${BADGES.length})</div>
+      <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;">
+        ${unlockedBadges.map(b=>`
+          <div style="flex-shrink:0;background:linear-gradient(135deg,rgba(232,35,58,0.15),rgba(232,35,58,0.05));border:1.5px solid rgba(232,35,58,0.3);border-radius:14px;padding:14px;text-align:center;width:100px;">
+            <div style="font-size:36px;line-height:1;margin-bottom:6px;">${b.emoji}</div>
+            <div style="font-family:var(--fd);font-size:11px;font-weight:700;color:var(--white);letter-spacing:0.5px;line-height:1.2;">${b.name}</div>
+          </div>
+        `).join("")}
+        ${unlockedBadges.length===0?`<div style="color:var(--muted);font-size:13px;padding:20px;">Joue ton premier tournoi !</div>`:""}
+      </div>
+    </div>
+
+    <!-- TOUS LES BADGES -->
+    <div style="padding:0 18px;margin-top:8px;">
+      <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">TOUS LES BADGES</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+        ${BADGES.map(b=>{
+          const ul=S.totalPoints>=b.min;
+          const isCur=badge.name===b.name;
+          return `<div style="background:${ul?"linear-gradient(135deg,rgba(232,35,58,0.08),rgba(232,35,58,0.03))":"var(--card)"};border:1.5px solid ${isCur?"var(--red)":ul?"rgba(232,35,58,0.25)":"var(--border)"};border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;opacity:${ul?1:0.45};">
+            <div style="font-size:36px;flex-shrink:0;">${b.emoji}</div>
+            <div style="flex:1;">
+              <div style="font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:0.5px;${isCur?"color:var(--red);":""}">${b.name}${isCur?' <span style="font-size:11px;background:var(--red);color:#fff;padding:2px 7px;border-radius:99px;letter-spacing:1px;vertical-align:middle;">ACTUEL</span>':""}</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px;">${b.min.toLocaleString("fr")}${b.max===Infinity?"+":"–"+b.max.toLocaleString("fr")} pts</div>
+            </div>
+            <div style="font-size:20px;">${ul?"✅":"🔒"}</div>
+          </div>`;
+        }).join("")}
+      </div>
+      <button class="logb" onclick="resetApp()">Réinitialiser l'application</button>
+    </div>
   `;
-
-  BADGES.forEach(b=>{
-    const ul=S.totalPoints>=b.min;
-    h+=`<div class="brow ${ul?"ul":"lk"}">
-      <div class="be">${b.emoji}</div>
-      <div class="binfo">
-        <div class="bn2">${b.name}</div>
-        <div class="br2">${b.min.toLocaleString("fr")}${b.max===Infinity?"+":"–"+b.max.toLocaleString("fr")} pts</div>
-      </div>
-      <div style="color:${ul?"var(--green)":"var(--muted2)"};font-size:16px;">${ul?"✓":"🔒"}</div>
-    </div>`;
-  });
-
-  h+=`</div><button class="logb" onclick="resetApp()">Réinitialiser l'application</button>`;
   c.innerHTML=h;
+}
+
+function getPercentile(pts){
+  if(pts>=25000) return "0.1";
+  if(pts>=15000) return "0.5";
+  if(pts>=10000) return "1";
+  if(pts>=7500)  return "2";
+  if(pts>=5000)  return "5";
+  if(pts>=2500)  return "10";
+  if(pts>=1000)  return "25";
+  return "50";
 }
 
 // ============================================================
