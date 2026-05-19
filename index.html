@@ -794,7 +794,7 @@ function savePicks(){
   const ten=S.picks.tenPlayers||[];
   if(S.picks.top3.filter(Boolean).length<3){showToast("Complète ton Top 3 !");return;}
   if(ten.length>0&&!ten.every(id=>S.picks.tenPicks[id])){showToast("Analyse tous les joueurs !");return;}
-  S.saved=true; saveS(); showToast("✓ Picks enregistrés !"); renderHome(); renderPicks();
+  S.saved=true; saveS(); showToast("✓ Picks enregistrés !"); setTimeout(()=>navTo("home"), 800);
 }
 
 // ============================================================
