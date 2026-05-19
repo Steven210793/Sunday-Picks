@@ -480,9 +480,11 @@ async function loadFixtures(force=false) {
 
     S.fixtLoaded = true;
 
-    const live = S.fixtures.find(f=>["inprogress","live","In Progress"].includes(f.status));
-    const next = S.fixtures.find(f=>f.start >= now);
-    const cur  = live||next;
+    const live    = S.fixtures.find(f=>["inprogress","live","In Progress"].includes(f.status));
+    const ongoing = S.fixtures.find(f=> f.start <= now && f.end >= now);
+    const next    = S.fixtures.find(f=> f.start > now);
+    const past    = [...S.fixtures].reverse().find(f=> f.end < now);
+    const cur     = live || ongoing || next || past;
 
     if (cur && S.currentId !== cur.id) {
       S.currentId = cur.id;
