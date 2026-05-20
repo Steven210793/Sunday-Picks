@@ -12,344 +12,225 @@
 <title>Sunday Picks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --bg:#0B1629;--bg2:#0F1E36;--card:#13203A;--card2:#192B47;
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.12);
-  --red:#E8233A;--red-soft:rgba(232,35,58,0.15);
-  --green:#22C55E;--green-soft:rgba(34,197,94,0.12);
-  --gold:#F5A623;--gold-soft:rgba(245,166,35,0.12);
-  --white:#FFFFFF;--text:#E8EDF5;--muted:#6B7F9E;--muted2:#4A5C75;
-  --fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+:root {
+  --bg: #0B1629; --bg2: #0F1E36; --card: #13203A; --card2: #192B47;
+  --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.13);
+  --red: #E8233A; --green: #22C55E; --gold: #F5A623;
+  --text: #E8EDF5; --muted: #6B7F9E; --muted2: #4A5C75;
+  --fd: 'Barlow Condensed', sans-serif; --fb: 'Barlow', sans-serif;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--fb);overflow:hidden;}
-.app{max-width:430px;margin:0 auto;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
-.screen{display:none;flex:1;overflow-y:auto;flex-direction:column;-webkit-overflow-scrolling:touch;}
-.screen.active{display:flex;}
-.screen::-webkit-scrollbar{display:none;}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--fb); overflow: hidden; }
+.app { max-width: 430px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-/* NAV */
-.bnav{display:none;background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0;}
-.bnav.v{display:flex;}
-.nb{flex:1;padding:10px 0 14px;background:transparent;border:none;color:var(--muted);font-size:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:color 0.2s;font-family:var(--fd);font-weight:700;letter-spacing:1px;text-transform:uppercase;}
-.nb.active{color:var(--red);}
-.nb svg{width:22px;height:22px;}
+/* SCREENS */
+.scr { display: none; flex: 1; overflow-y: auto; flex-direction: column; -webkit-overflow-scrolling: touch; }
+.scr.on { display: flex; }
+.scr::-webkit-scrollbar { display: none; }
 
-/* ONBOARDING */
-.obw{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;gap:32px;}
-.obt{font-family:var(--fd);font-size:48px;font-weight:900;text-align:center;line-height:1;letter-spacing:2px;}
-.obt span{color:var(--red);}
-.oi{width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:12px;padding:16px 18px;color:var(--white);font-size:18px;font-family:var(--fd);font-weight:700;letter-spacing:2px;outline:none;transition:border-color 0.2s;}
-.oi:focus{border-color:var(--red);}
-.oi::placeholder{color:var(--muted2);}
-.bp{width:100%;padding:16px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:transform 0.15s,opacity 0.15s;}
-.bp:active{transform:scale(0.97);opacity:0.9;}
-.bp:disabled{opacity:0.3;cursor:not-allowed;}
+/* BOTTOM NAV */
+.bnav { display: none; background: var(--bg2); border-top: 1px solid var(--border); flex-shrink: 0; }
+.bnav.show { display: flex; }
+.nb { flex: 1; padding: 10px 0 14px; background: transparent; border: none; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: color 0.2s; font-family: var(--fd); font-weight: 700; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.nb.on { color: var(--red); }
+.nb svg { width: 22px; height: 22px; }
 
-/* HOME */
-.hh{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;}
-.hc{padding:0 18px 100px;flex:1;}
-.tc{background:linear-gradient(135deg,#162847,#0F1E36 60%,#1a0a0a);border:1px solid var(--border2);border-radius:16px;overflow:hidden;margin-bottom:16px;}
-.tci{padding:18px;}
-.lb{display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;}
-.ld{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-.tn{font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;}
-.tl{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:16px;}
-.ts{background:rgba(0,0,0,0.3);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
-.tsl{font-family:var(--fd);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.td{display:flex;gap:8px;align-items:baseline;}
-.tu{text-align:center;}
-.tnum{font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);line-height:1;}
-.tsep{font-family:var(--fd);font-size:28px;font-weight:900;color:var(--gold);opacity:0.5;line-height:1;margin-bottom:2px;}
-.tlsm{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-.bpk{width:100%;padding:15px;background:var(--red);border:none;border-radius:10px;color:#fff;font-family:var(--fd);font-size:17px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:transform 0.15s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.bpk:active{transform:scale(0.97);}
-.bpk.done{background:var(--green);}
-.ss{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
-.spts{font-family:var(--fd);font-size:42px;font-weight:900;color:var(--white);line-height:1;}
-.spts span{font-size:18px;color:var(--muted);margin-left:2px;}
-.sbn{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-.bi{font-size:42px;line-height:1;}
-.pw{margin-bottom:16px;}
-.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.pl{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
-.pn{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--red);}
-.pbar{height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.pfill{height:100%;background:linear-gradient(90deg,var(--red),#FF6B35);border-radius:99px;transition:width 0.6s ease;}
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.stl{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-.pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
-.pci{flex:1;}
-.pcn{font-family:var(--fd);font-size:15px;font-weight:700;}
-.pcd{font-size:12px;color:var(--muted);margin-top:1px;}
+/* BUTTONS */
+.btn-red { width: 100%; padding: 15px; background: var(--red); border: none; border-radius: 12px; color: #fff; font-family: var(--fd); font-size: 17px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-red:active { opacity: 0.85; }
+.btn-red:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-green { background: var(--green); }
+.btn-outline { width: 100%; padding: 13px; background: transparent; border: 1.5px solid var(--border2); border-radius: 12px; color: var(--muted); font-family: var(--fd); font-size: 15px; font-weight: 700; letter-spacing: 1px; cursor: pointer; margin-top: 8px; }
 
-/* PICKS SCREEN */
-.pkh{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;}
-.bk{background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;}
-.pkt{font-family:var(--fd);font-size:20px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;}
-.psb{background:none;border:none;color:var(--red);font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:1px;cursor:pointer;flex-shrink:0;}
-.pkc{padding:16px 18px 140px;flex:1;overflow-y:auto;}
-.pkc::-webkit-scrollbar{display:none;}
-.pst{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
-.t3s{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.t3sl{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color 0.2s;min-height:60px;}
-.t3sl.filled{border-color:var(--red-soft);background:rgba(232,35,58,0.05);}
-.t3p{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--muted2);width:28px;flex-shrink:0;text-align:center;}
-.t3p.p1{color:#FFD700;}.t3p.p2{color:#C0C0C0;}.t3p.p3{color:#CD7F32;}
-.t3pn{font-family:var(--fd);font-size:17px;font-weight:700;letter-spacing:0.5px;}
-.t3pc{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--red);margin-top:1px;}
-.t3pe{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--muted2);letter-spacing:1px;}
-.t3rm{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px;flex-shrink:0;}
-.sw{position:relative;margin-bottom:14px;}
-.si{width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:10px;padding:12px 14px 12px 40px;color:var(--white);font-size:15px;font-family:var(--fb);outline:none;transition:border-color 0.2s;}
-.si:focus{border-color:var(--red);}
-.si::placeholder{color:var(--muted2);}
-.sic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);width:16px;height:16px;}
-.pr{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background 0.15s;margin-bottom:6px;}
-.pr:active{background:var(--card2);}
-.pr.sel{border-color:var(--red);background:rgba(232,35,58,0.07);}
-.pr.used{opacity:0.4;pointer-events:none;}
-.prf{font-size:20px;width:26px;text-align:center;flex-shrink:0;}
-.prn{font-family:var(--fd);font-size:16px;font-weight:700;flex:1;}
-.prr{font-size:12px;color:var(--muted);flex-shrink:0;}
-.prc{font-family:var(--fd);font-size:14px;font-weight:800;color:var(--red);flex-shrink:0;min-width:36px;text-align:right;}
-.ten{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-.tr{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;}
-.trt{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.trf{font-size:20px;flex-shrink:0;}
-.trn{font-family:var(--fd);font-size:17px;font-weight:800;flex:1;}
-.trc{font-family:var(--fd);font-size:15px;font-weight:800;color:var(--red);}
-.tcat{display:flex;gap:5px;flex-wrap:wrap;}
-.cb{flex:1;min-width:56px;padding:8px 4px;background:transparent;border:1.5px solid var(--border2);border-radius:8px;color:var(--muted);font-family:var(--fd);font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all 0.15s;}
-.cb.sel{background:var(--red);border-color:var(--red);color:#fff;}
-.cb.sel.mc{background:var(--muted2);border-color:var(--muted2);}
-.vbar{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:calc(min(430px,100%) - 36px);z-index:100;}
-.vbtn{width:100%;padding:16px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 32px rgba(232,35,58,0.4);display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.15s;}
-.vbtn:active{transform:scale(0.97);}
-.vbtn:disabled{opacity:0.3;cursor:not-allowed;box-shadow:none;}
+/* INPUTS */
+.inp { width: 100%; background: var(--card); border: 1.5px solid var(--border2); border-radius: 12px; padding: 15px 16px; color: #fff; font-size: 17px; font-family: var(--fd); font-weight: 700; letter-spacing: 1px; outline: none; }
+.inp:focus { border-color: var(--red); }
+.inp::placeholder { color: var(--muted2); }
 
-/* CLASSEMENT */
-.clh{padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.clh h2{font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;}
-.clc{padding:16px 18px 100px;flex:1;overflow-y:auto;}
-.clc::-webkit-scrollbar{display:none;}
-.msc{background:linear-gradient(135deg,#1a0d14,#1a1228);border:1.5px solid rgba(232,35,58,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
-.msc .pts{font-family:var(--fd);font-size:60px;font-weight:900;color:var(--white);line-height:1;}
-.msc .pts span{font-size:22px;color:var(--muted);}
-.msc .bn{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
-.sb{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
-.sn{font-family:var(--fd);font-size:36px;font-weight:900;color:var(--white);line-height:1;}
-.sl{font-size:11px;color:var(--muted);margin-top:4px;}
-.hr{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;}
-.hr:active{background:var(--card2);}
-.hti{flex:1;}
-.htn{font-family:var(--fd);font-size:15px;font-weight:700;}
-.htd{font-size:12px;color:var(--muted);margin-top:1px;}
-.hp{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--green);}
-.hp.z{color:var(--muted2);}
+/* SECTION LABEL */
+.slbl { font-family: var(--fd); font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
 
-/* HISTORIQUE DETAIL */
-.hdh{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;}
-.hdc{padding:16px 18px 100px;flex:1;overflow-y:auto;}
-.hdc::-webkit-scrollbar{display:none;}
-.sdc{background:linear-gradient(135deg,#0d1f10,#0d1a2e);border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
-.sdc .pts{font-family:var(--fd);font-size:64px;font-weight:900;color:var(--green);line-height:1;}
-.sdc .pts span{font-size:22px;color:var(--muted);}
-.sdc .tn2{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--white);margin-top:6px;}
-.sdc .dt{font-size:13px;color:var(--muted);margin-top:2px;}
-.ds{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;}
-.dst{font-family:var(--fd);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
-.dpr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
-.dpr:last-child{border-bottom:none;}
-.dp{font-family:var(--fd);font-size:18px;font-weight:900;width:26px;text-align:center;flex-shrink:0;}
-.df{font-size:18px;flex-shrink:0;}
-.dn{font-family:var(--fd);font-size:15px;font-weight:700;flex:1;}
-.dr{font-size:12px;font-weight:700;font-family:var(--fd);letter-spacing:0.5px;}
-.dr.ok{color:var(--green);}.dr.ko{color:var(--muted2);}
-.dpts{font-family:var(--fd);font-size:16px;font-weight:900;flex-shrink:0;min-width:40px;text-align:right;}
-.dpts.pos{color:var(--green);}.dpts.z{color:var(--muted2);}
-.tdr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
-.tdr:last-child{border-bottom:none;}
-.tdn{font-family:var(--fd);font-size:14px;font-weight:700;flex:1;}
-.tdc{font-size:11px;font-family:var(--fd);font-weight:700;padding:3px 8px;border-radius:6px;flex-shrink:0;}
-.tdc.ok{background:var(--green-soft);color:var(--green);}
-.tdc.ko{background:rgba(255,255,255,0.05);color:var(--muted);}
-.tdp{font-family:var(--fd);font-size:15px;font-weight:900;flex-shrink:0;min-width:36px;text-align:right;}
-.tdp.pos{color:var(--green);}.tdp.z{color:var(--muted2);}
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
 
-/* PROFIL */
-.prfh{padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;}
-.prfh h2{font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;}
-.prfc{padding:16px 18px 100px;flex:1;overflow-y:auto;}
-.prfc::-webkit-scrollbar{display:none;}
-.avsec{text-align:center;padding:20px 0 24px;}
-.av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--red),#c01830);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:32px;font-weight:900;color:#fff;margin:0 auto 12px;}
-.avp{font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;}
-.avpt{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--muted);margin-top:2px;}
-.cbc{background:linear-gradient(135deg,#1a1228,#0d1a2e);border:1.5px solid rgba(232,35,58,0.25);border-radius:16px;padding:20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;}
-.cbe{font-size:56px;line-height:1;}
-.cbinfo{flex:1;}
-.cbl{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
-.cbn{font-family:var(--fd);font-size:22px;font-weight:900;letter-spacing:1px;}
-.cbr{font-size:13px;color:var(--muted);margin-top:2px;}
-.bgrid{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.brow{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;}
-.brow.ul{border-color:rgba(232,35,58,0.2);background:rgba(232,35,58,0.04);}
-.brow.lk{opacity:0.4;}
-.be{font-size:30px;flex-shrink:0;}
-.binfo{flex:1;}
-.bn2{font-family:var(--fd);font-size:16px;font-weight:700;}
-.br2{font-size:12px;color:var(--muted);margin-top:1px;}
-.logb{width:100%;padding:14px;background:transparent;border:1.5px solid var(--border2);border-radius:12px;color:var(--muted);font-family:var(--fd);font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;margin-top:8px;}
+/* LOADING */
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; gap: 12px; }
+.spin { width: 28px; height: 28px; border: 3px solid var(--border2); border-top-color: var(--red); border-radius: 50%; animation: sp 0.8s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+.ltxt { font-family: var(--fd); font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 1px; }
 
-/* UTILS */
-.sep{height:1px;background:var(--border);margin:16px 0;}
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:12px;color:var(--muted);}
-.spin{width:30px;height:30px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:sp 0.8s linear infinite;}
-@keyframes sp{to{transform:rotate(360deg);}}
-.ltxt{font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:1px;}
-.ainfo{background:var(--gold-soft);border:1px solid rgba(245,166,35,0.3);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--gold);font-family:var(--fd);font-weight:700;}
-.aerr{background:rgba(232,35,58,0.08);border:1px solid rgba(232,35,58,0.3);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--red);font-family:var(--fd);font-weight:700;}
-.sved{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
-.svedtxt{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--green);}
-.noinfo{background:var(--gold-soft);border:1px solid rgba(245,166,35,0.3);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--gold);font-family:var(--fd);font-weight:700;}
-.es{text-align:center;padding:40px 20px;color:var(--muted);}
-.esi{font-size:48px;margin-bottom:12px;}
-.est{font-family:var(--fd);font-size:16px;font-weight:700;letter-spacing:1px;}
-.rfb{background:var(--card);border:1px solid var(--border2);color:var(--green);border-radius:8px;padding:6px 12px;font-size:12px;font-family:var(--fd);font-weight:700;letter-spacing:1px;cursor:pointer;}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--white);color:#000;font-family:var(--fd);font-weight:800;padding:12px 24px;border-radius:99px;font-size:14px;letter-spacing:1px;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:200;display:none;align-items:flex-end;justify-content:center;}
-.modal-bg.open{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px 20px 0 0;padding:20px 18px 40px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto;}
-.modal::-webkit-scrollbar{display:none;}
-.mh{width:36px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 16px;}
-.mt{font-family:var(--fd);font-size:20px;font-weight:800;letter-spacing:1px;margin-bottom:14px;}
-@keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.fi{animation:fi 0.3s ease forwards;}
+/* MODAL */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 20px 20px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 430px; max-height: 85vh; overflow-y: auto; }
+.modal::-webkit-scrollbar { display: none; }
+.modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 99px; margin: 0 auto 16px; }
+
+/* TOAST */
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: #fff; color: #000; font-family: var(--fd); font-weight: 800; padding: 12px 24px; border-radius: 99px; font-size: 14px; letter-spacing: 1px; z-index: 999; opacity: 0; transition: all 0.3s; white-space: nowrap; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* PROGRESS BAR */
+.pbar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+.pfill { height: 100%; background: linear-gradient(90deg, var(--red), #FF6B35); border-radius: 99px; transition: width 0.5s ease; }
+
+/* ANIM */
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.fadeup { animation: fadeUp 0.3s ease forwards; }
+
+/* TIMER */
+.timer-box { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
+.timer-row { display: flex; gap: 6px; align-items: baseline; }
+.tnum { font-family: var(--fd); font-size: 30px; font-weight: 900; color: var(--gold); line-height: 1; }
+.tsep { font-family: var(--fd); font-size: 26px; font-weight: 900; color: var(--gold); opacity: 0.5; margin-bottom: 2px; }
+.tlbl { font-size: 8px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; text-align: center; }
+
+/* CAT BUTTONS */
+.cats { display: flex; gap: 5px; flex-wrap: wrap; }
+.cat { flex: 1; min-width: 54px; padding: 8px 4px; background: transparent; border: 1.5px solid var(--border2); border-radius: 8px; color: var(--muted); font-family: var(--fd); font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; }
+.cat.on { background: var(--red); border-color: var(--red); color: #fff; }
+.cat.mc.on { background: var(--muted2); border-color: var(--muted2); }
+
+/* VALIDATE BAR */
+.vbar { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: calc(min(430px,100%) - 36px); z-index: 100; }
+
+/* ERROR / INFO BOXES */
+.box-err { background: rgba(232,35,58,0.08); border: 1px solid rgba(232,35,58,0.3); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--red); font-family: var(--fd); font-weight: 700; margin-bottom: 12px; }
+.box-ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.box-info { background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.3); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--gold); font-family: var(--fd); font-weight: 700; margin-bottom: 12px; }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ONBOARDING -->
-<div class="screen active" id="sc-ob">
-  <div class="obw">
+<!-- ===================== ONBOARDING ===================== -->
+<div class="scr on" id="sc-ob">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;gap:28px;">
     <img src="https://i.imgur.com/qaj1nmJ.png" style="width:100px;height:100px;border-radius:20px;"/>
-    <div>
-      <div class="obt">SUNDAY<br/><span>PICKS</span></div>
-      <div style="font-size:15px;color:var(--muted);text-align:center;margin-top:8px;">Pronos. Analyse. Performance.</div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--fd);font-size:52px;font-weight:900;line-height:1;letter-spacing:2px;">SUNDAY<br/><span style="color:var(--red);">PICKS</span></div>
+      <div style="font-size:15px;color:var(--muted);margin-top:10px;">Pronos. Analyse. Performance.</div>
     </div>
     <div style="width:100%;">
-      <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;">Ton pseudo</div>
-      <input class="oi" type="text" id="pseudo-input" placeholder="GolfAddict" maxlength="20"
-        oninput="document.getElementById('start-btn').disabled=this.value.trim().length<2"/>
+      <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">TON PSEUDO</div>
+      <input class="inp" type="text" id="ob-pseudo" placeholder="GolfAddict" maxlength="20"
+        oninput="document.getElementById('ob-btn').disabled=this.value.trim().length<2"/>
     </div>
-    <button class="bp" id="start-btn" onclick="startApp()" disabled>COMMENCER →</button>
+    <button class="btn-red" id="ob-btn" onclick="startApp()" disabled style="box-shadow:0 8px 24px rgba(232,35,58,0.4);">COMMENCER →</button>
   </div>
 </div>
 
-<!-- HOME -->
-<div class="screen" id="sc-home">
-  <div class="hh">
+<!-- ===================== HOME ===================== -->
+<div class="scr" id="sc-home">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;">
     <img src="https://i.imgur.com/qaj1nmJ.png" style="height:36px;border-radius:8px;"/>
-    <div style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;" id="hgreet">BONJOUR</div>
+    <div style="font-family:var(--fd);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;" id="h-greet">BONJOUR</div>
   </div>
-  <div class="hc">
-    <div class="tc"><div class="tci">
-      <div id="livebadge"></div>
-      <div class="tn" id="tname">Chargement...</div>
-      <div class="tl">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span id="tloc">—</span>
-      </div>
-      <div class="ts">
-        <div class="tsl">FIN DES PICKS DANS</div>
-        <div class="td">
-          <div class="tu"><div class="tnum" id="t-j">00</div><div class="tlsm">JOURS</div></div>
-          <div class="tsep">:</div>
-          <div class="tu"><div class="tnum" id="t-h">00</div><div class="tlsm">HRS</div></div>
-          <div class="tsep">:</div>
-          <div class="tu"><div class="tnum" id="t-m">00</div><div class="tlsm">MIN</div></div>
-          <div class="tsep">:</div>
-          <div class="tu"><div class="tnum" id="t-s">00</div><div class="tlsm">SEC</div></div>
+  <div style="padding:0 18px 100px;flex:1;">
+
+    <!-- TOURNOI CARD -->
+    <div style="background:linear-gradient(135deg,#162847,#0F1E36 60%,#1a0a0a);border:1px solid var(--border2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
+      <div style="padding:18px;">
+        <div id="h-livebadge"></div>
+        <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-tname">Chargement...</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="h-tloc">—</span>
         </div>
+        <div class="timer-box">
+          <div style="font-family:var(--fd);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">FIN DES PICKS DANS</div>
+          <div class="timer-row">
+            <div><div class="tnum" id="t-j">00</div><div class="tlbl">JOURS</div></div>
+            <div class="tsep">:</div>
+            <div><div class="tnum" id="t-h">00</div><div class="tlbl">HRS</div></div>
+            <div class="tsep">:</div>
+            <div><div class="tnum" id="t-m">00</div><div class="tlbl">MIN</div></div>
+            <div class="tsep">:</div>
+            <div><div class="tnum" id="t-s">00</div><div class="tlbl">SEC</div></div>
+          </div>
+        </div>
+        <button class="btn-red" id="h-picksbtn" onclick="goToPicks()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          FAIRE MES PICKS
+        </button>
       </div>
-      <button class="bpk" id="hpbtn" onclick="goToPicks()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-        FAIRE MES PICKS
-      </button>
-    </div></div>
-    <div class="ss">
+    </div>
+
+    <!-- SCORE -->
+    <div class="card" style="padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
       <div style="flex:1;">
-        <div class="spts"><span id="hscore">0</span> <span>PTS</span></div>
-        <div class="sbn" id="hbadge">MONSIEUR PROVISOIRE</div>
+        <div style="font-family:var(--fd);font-size:44px;font-weight:900;line-height:1;"><span id="h-score">0</span> <span style="font-size:18px;color:var(--muted);">PTS</span></div>
+        <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:2px;" id="h-badge">MONSIEUR PROVISOIRE</div>
       </div>
-      <div class="bi" id="hbicon">🏌️</div>
+      <div style="font-size:44px;" id="h-bicon">🏌️</div>
     </div>
-    <div class="pw">
-      <div class="ph"><div class="pl">PROGRESSION</div><div class="pn" id="pnext">Prochain badge</div></div>
-      <div class="pbar"><div class="pfill" id="pfill" style="width:0%"></div></div>
+
+    <!-- PROGRESSION -->
+    <div style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-family:var(--fd);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;">PROGRESSION</div>
+        <div style="font-family:var(--fd);font-size:11px;font-weight:700;color:var(--red);" id="h-next">Prochain badge</div>
+      </div>
+      <div class="pbar"><div class="pfill" id="h-prog" style="width:0%"></div></div>
     </div>
-    <div class="sh">
-      <div class="stl">PROCHAINS TOURNOIS</div>
-      <button class="rfb" onclick="loadFixtures(true)">↻ Actualiser</button>
+
+    <!-- PROCHAINS -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div class="slbl" style="margin:0;">PROCHAINS TOURNOIS</div>
+      <button onclick="loadFixtures(true)" style="background:var(--card);border:1px solid var(--border2);color:var(--green);border-radius:8px;padding:5px 10px;font-size:12px;font-family:var(--fd);font-weight:700;cursor:pointer;">↻</button>
     </div>
-    <div id="prochains"></div>
+    <div id="h-prochains"></div>
   </div>
 </div>
 
-<!-- PICKS -->
-<div class="screen" id="sc-picks">
-  <div class="pkh">
-    <button class="bk" onclick="navTo('home')">←</button>
-    <div class="pkt" id="pktitle">MES PICKS</div>
-    <button class="psb" onclick="savePicks()">Valider</button>
+<!-- ===================== PICKS ===================== -->
+<div class="scr" id="sc-picks">
+  <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;">
+    <button onclick="navTo('home')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="pk-title">MES PICKS</div>
+    <button onclick="savePicks()" style="background:none;border:none;color:var(--red);font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;cursor:pointer;">Valider</button>
   </div>
-  <div class="pkc" id="pkc"></div>
+  <div style="padding:16px 18px 140px;flex:1;overflow-y:auto;" id="pk-content"></div>
   <div class="vbar" id="vbar">
-    <button class="vbtn" id="vbtn" onclick="savePicks()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <button class="btn-red" id="vbtn" onclick="savePicks()" style="box-shadow:0 8px 28px rgba(232,35,58,0.4);">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       ENREGISTRER MES PICKS
     </button>
   </div>
 </div>
 
-<!-- CLASSEMENT -->
-<div class="screen" id="sc-class">
-  <div class="clh">
-    <h2>CLASSEMENT</h2>
+<!-- ===================== CLASSEMENT ===================== -->
+<div class="scr" id="sc-class">
+  <div style="padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;">
+    <div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">CLASSEMENT</div>
     <div style="font-size:13px;color:var(--muted);margin-top:2px;">Ton historique personnel</div>
   </div>
-  <div class="clc" id="clc"></div>
+  <div style="padding:16px 18px 100px;flex:1;overflow-y:auto;" id="cl-content"></div>
 </div>
 
-<!-- HIST DETAIL -->
-<div class="screen" id="sc-hdet">
-  <div class="hdh">
-    <button class="bk" onclick="navTo('class')">←</button>
-    <div class="pkt" id="hdtitle">Tournoi</div>
+<!-- ===================== HIST DETAIL ===================== -->
+<div class="scr" id="sc-hdet">
+  <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;">
+    <button onclick="navTo('class')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="hd-title">Tournoi</div>
     <div style="width:50px;"></div>
   </div>
-  <div class="hdc" id="hdc"></div>
+  <div style="padding:16px 18px 100px;flex:1;overflow-y:auto;" id="hd-content"></div>
 </div>
 
-<!-- PROFIL -->
-<div class="screen" id="sc-profil">
-  <div class="prfh">
-    <h2>MON PROFIL</h2>
-    <button onclick="openEP()" style="background:var(--card);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:16px;padding:6px 10px;cursor:pointer;">✏️</button>
+<!-- ===================== PROFIL ===================== -->
+<div class="scr" id="sc-profil">
+  <div style="padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+    <div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">MON PROFIL</div>
   </div>
-  <div class="prfc" id="prfc"></div>
+  <div style="padding:0 0 100px;flex:1;overflow-y:auto;" id="pr-content"></div>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- ===================== BOTTOM NAV ===================== -->
 <nav class="bnav" id="bnav">
-  <button class="nb active" id="nb-home" onclick="navTo('home')">
+  <button class="nb on" id="nb-home" onclick="navTo('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Accueil
   </button>
@@ -367,350 +248,461 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   </button>
 </nav>
 
-<!-- MODAL JOUEUR -->
+<!-- ===================== MODAL JOUEUR ===================== -->
 <div class="modal-bg" id="modal-p">
   <div class="modal">
-    <div class="mh"></div>
-    <div class="mt" id="modal-ptitle">Choisir le joueur</div>
-    <div class="sw">
-      <svg class="sic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="si" type="text" id="msearch" placeholder="Rechercher..." oninput="filterP(this.value)"/>
+    <div class="modal-handle"></div>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;margin-bottom:14px;" id="modal-ptitle">Choisir</div>
+    <div style="position:relative;margin-bottom:12px;">
+      <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="inp" type="text" id="modal-search" placeholder="Rechercher..." style="padding-left:36px;" oninput="filterPlayers(this.value)"/>
     </div>
-    <div id="mpl" style="max-height:50vh;overflow-y:auto;"></div>
-    <button class="logb" onclick="closeModal()" style="margin-top:10px;">Annuler</button>
+    <div id="modal-plist" style="max-height:55vh;overflow-y:auto;"></div>
+    <button class="btn-outline" onclick="closeModal()">Annuler</button>
   </div>
 </div>
 
-<!-- MODAL PSEUDO -->
+<!-- ===================== MODAL PSEUDO ===================== -->
 <div class="modal-bg" id="modal-ps">
   <div class="modal">
-    <div class="mh"></div>
-    <div class="mt">Modifier ton pseudo</div>
-    <input class="oi" type="text" id="epi" maxlength="20" style="margin-bottom:12px;"/>
-    <button class="bp" onclick="saveEP()">SAUVEGARDER</button>
-    <button class="logb" onclick="closeEP()" style="margin-top:8px;">Annuler</button>
+    <div class="modal-handle"></div>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;margin-bottom:14px;">Modifier ton pseudo</div>
+    <input class="inp" type="text" id="ps-input" maxlength="20" style="margin-bottom:12px;"/>
+    <button class="btn-red" onclick="savePseudo()">SAUVEGARDER</button>
+    <button class="btn-outline" onclick="closePseudo()">Annuler</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================================
-// API CONFIG
-// ============================================================
-const API_KEY  = "39c5cc9625mshc2f52e154b3255fp11e5b9jsn0f4c49435a11";
-const API_HOST = "golf-leaderboard-data.p.rapidapi.com";
-const API_BASE = "https://golf-leaderboard-data.p.rapidapi.com";
+"use strict";
 
-async function api(endpoint) {
-  const r = await fetch(API_BASE + endpoint, {
-    headers: {"x-rapidapi-key": API_KEY, "x-rapidapi-host": API_HOST}
+// ============================================================
+// API
+// ============================================================
+var API_KEY  = "39c5cc9625mshc2f52e154b3255fp11e5b9jsn0f4c49435a11";
+var API_HOST = "golf-leaderboard-data.p.rapidapi.com";
+var API_BASE = "https://golf-leaderboard-data.p.rapidapi.com";
+
+function apiCall(endpoint) {
+  return fetch(API_BASE + endpoint, {
+    headers: { "x-rapidapi-key": API_KEY, "x-rapidapi-host": API_HOST }
+  }).then(function(r) {
+    if (!r.ok) throw new Error("API " + r.status);
+    return r.json();
   });
-  if (!r.ok) throw new Error(r.status);
-  return r.json();
 }
 
 // ============================================================
 // CONSTANTS
 // ============================================================
-const BADGES = [
-  {name:"Monsieur provisoire",          emoji:"🏌️", min:0,     max:999},
-  {name:"Bogeyman",                     emoji:"👻", min:1000,  max:2499},
-  {name:"Chasseur de birdies",          emoji:"🐦", min:2500,  max:4999},
-  {name:"Trop touch",                   emoji:"🎯", min:5000,  max:7499},
-  {name:"Le trackman vivant",           emoji:"📡", min:7500,  max:9999},
-  {name:"Le robot du PGA Tour",         emoji:"🤖", min:10000, max:14999},
-  {name:"Rory t'attend au départ du 1", emoji:"⛳", min:15000, max:24999},
-  {name:"Tiger Woods connecté",         emoji:"🐯", min:25000, max:Infinity},
+var BADGES = [
+  { name: "Monsieur provisoire",          emoji: "🏌️", min: 0,     max: 999 },
+  { name: "Bogeyman",                     emoji: "👻", min: 1000,  max: 2499 },
+  { name: "Chasseur de birdies",          emoji: "🐦", min: 2500,  max: 4999 },
+  { name: "Trop touch",                   emoji: "🎯", min: 5000,  max: 7499 },
+  { name: "Le trackman vivant",           emoji: "📡", min: 7500,  max: 9999 },
+  { name: "Le robot du PGA Tour",         emoji: "🤖", min: 10000, max: 14999 },
+  { name: "Rory t'attend au depart du 1", emoji: "⛳", min: 15000, max: 24999 },
+  { name: "Tiger Woods connecte",         emoji: "🐯", min: 25000, max: Infinity }
 ];
-const CATS = ["Top 10","11–20","21–40","41+","Missed Cut"];
+
+var CATS = ["Top 10", "11-20", "21-40", "41+", "Missed Cut"];
 
 // ============================================================
 // STATE
 // ============================================================
-let S = {
-  pseudo:"", totalPoints:0, history:[],
-  currentId:null,
-  picks:{top3:[null,null,null], tenPicks:{}, tenPlayers:[]},
-  saved:false,
-  fixtures:[], fixtLoaded:false,
-  players:[], playLoaded:false,
+var S = {
+  pseudo: "", pts: 0, history: [],
+  tid: null, // current tournament id
+  picks: { top3: [null, null, null], tenPicks: {}, tenPlayers: [] },
+  saved: false,
+  fixtures: [], fixtOk: false,
+  players: [], playOk: false
 };
 
 function loadS() {
   try {
-    const d = JSON.parse(localStorage.getItem("sp_v2")||"{}");
-    S.pseudo       = d.pseudo||"";
-    S.totalPoints  = d.totalPoints||0;
-    S.history      = d.history||[];
-    S.currentId    = d.currentId||null;
-    S.picks        = d.picks||{top3:[null,null,null],tenPicks:{},tenPlayers:[]};
-    S.saved        = d.saved||false;
-  } catch(e){}
+    var d = JSON.parse(localStorage.getItem("sp_v3") || "{}");
+    S.pseudo  = d.pseudo  || "";
+    S.pts     = d.pts     || 0;
+    S.history = d.history || [];
+    S.tid     = d.tid     || null;
+    S.picks   = d.picks   || { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
+    S.saved   = d.saved   || false;
+  } catch(e) {}
 }
 
 function saveS() {
-  localStorage.setItem("sp_v2", JSON.stringify({
-    pseudo:S.pseudo, totalPoints:S.totalPoints, history:S.history,
-    currentId:S.currentId, picks:S.picks, saved:S.saved,
+  localStorage.setItem("sp_v3", JSON.stringify({
+    pseudo: S.pseudo, pts: S.pts, history: S.history,
+    tid: S.tid, picks: S.picks, saved: S.saved
   }));
 }
 
 // ============================================================
+// BADGE HELPERS
+// ============================================================
+function getBadge(pts) {
+  for (var i = BADGES.length - 1; i >= 0; i--) {
+    if (pts >= BADGES[i].min) return BADGES[i];
+  }
+  return BADGES[0];
+}
+
+function getNextBadge(pts) {
+  for (var i = 0; i < BADGES.length; i++) {
+    if (pts < BADGES[i].min) return BADGES[i];
+  }
+  return null;
+}
+
+function getProgress(pts) {
+  var cur = getBadge(pts);
+  var nxt = getNextBadge(pts);
+  if (!nxt) return 100;
+  return Math.min(100, Math.round(((pts - cur.min) / (nxt.min - cur.min)) * 100));
+}
+
+function getPercentile(pts) {
+  if (pts >= 25000) return "0.1";
+  if (pts >= 15000) return "0.5";
+  if (pts >= 10000) return "1";
+  if (pts >= 7500)  return "2";
+  if (pts >= 5000)  return "5";
+  if (pts >= 2500)  return "10";
+  if (pts >= 1000)  return "25";
+  return "50";
+}
+
+// ============================================================
+// COUNTRY FLAGS
+// ============================================================
+var FLAGS = {
+  "USA":"🇺🇸","ENG":"🇬🇧","SCO":"🏴","IRL":"🇮🇪","NIR":"🇬🇧",
+  "ESP":"🇪🇸","NOR":"🇳🇴","SWE":"🇸🇪","AUS":"🇦🇺","CAN":"🇨🇦",
+  "KOR":"🇰🇷","JPN":"🇯🇵","RSA":"🇿🇦","GER":"🇩🇪","FRA":"🇫🇷",
+  "ITA":"🇮🇹","ARG":"🇦🇷","CHN":"🇨🇳","MEX":"🇲🇽","COL":"🇨🇴",
+  "FIJ":"🇫🇯","NZL":"🇳🇿","BEL":"🇧🇪","DEN":"🇩🇰","FIN":"🇫🇮",
+  "AUT":"🇦🇹","CHI":"🇨🇱","BRA":"🇧🇷","TPE":"🇹🇼","THA":"🇹🇭",
+  "WAL":"🏴","VEN":"🇻🇪","ZIM":"🇿🇼","NAM":"🇳🇦","GBR":"🇬🇧",
+  "PUR":"🇵🇷","PHI":"🇵🇭","PAR":"🇵🇾","URU":"🇺🇾","RUS":"🇷🇺"
+};
+
+function flag(c) { return FLAGS[c] || "🌍"; }
+
+// ============================================================
 // API — FIXTURES
 // ============================================================
-async function loadFixtures(force=false) {
-  if (S.fixtLoaded && !force) return;
-  const el = document.getElementById("prochains");
-  if(el) el.innerHTML = `<div class="loading"><div class="spin"></div><div class="ltxt">Chargement tournois...</div></div>`;
+function loadFixtures(force) {
+  if (S.fixtOk && !force) return;
+  var el = document.getElementById("h-prochains");
+  if (el) el.innerHTML = '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>';
 
-  try {
-    const data = await api("/fixtures/2/2026"); // tour 2 = PGA Tour, saison 2026
-    const now = new Date();
-    S.fixtures = (data.results||[])
-      .filter(f=>f.start_date)
-      .map(f=>({
-        id:String(f.id), name:f.name,
-        loc:`${f.course||""}${f.country?", "+f.country:""}`,
-        start:new Date(f.start_date),
-        end:new Date(f.end_date||f.start_date),
-        status:f.status||"pre",
-      }))
-      .sort((a,b)=>a.start-b.start);
+  apiCall("/fixtures/2/2026").then(function(data) {
+    var now = new Date();
+    S.fixtures = (data.results || [])
+      .filter(function(f) { return f.start_date; })
+      .map(function(f) {
+        return {
+          id: String(f.id),
+          name: f.name,
+          loc: (f.course || "") + (f.country ? ", " + f.country : ""),
+          start: new Date(f.start_date),
+          end: new Date(f.end_date || f.start_date),
+          status: f.status || "pre"
+        };
+      })
+      .sort(function(a, b) { return a.start - b.start; });
 
-    S.fixtLoaded = true;
+    S.fixtOk = true;
 
-    const live    = S.fixtures.find(f=>["inprogress","live","In Progress"].includes(f.status));
-    const ongoing = S.fixtures.find(f=> f.start <= now && f.end >= now);
-    const next    = S.fixtures.find(f=> f.start > now);
-    const past    = [...S.fixtures].reverse().find(f=> f.end < now);
-    const cur     = live || ongoing || next || past;
+    // Find current tournament
+    var live    = null;
+    var ongoing = null;
+    var next    = null;
+    var past    = null;
 
-    if (cur && S.currentId !== cur.id) {
-      S.currentId = cur.id;
-      S.picks = {top3:[null,null,null],tenPicks:{},tenPlayers:[]};
+    for (var i = 0; i < S.fixtures.length; i++) {
+      var f = S.fixtures[i];
+      if (!live && (f.status === "inprogress" || f.status === "live")) live = f;
+      if (!ongoing && f.start <= now && f.end >= now) ongoing = f;
+      if (!next && f.start > now) next = f;
+    }
+    for (var j = S.fixtures.length - 1; j >= 0; j--) {
+      if (S.fixtures[j].end < now) { past = S.fixtures[j]; break; }
+    }
+
+    var cur = live || ongoing || next || past;
+
+    if (cur && cur.id !== S.tid) {
+      S.tid = cur.id;
+      S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
       S.saved = false;
       saveS();
-    } else if (cur && !S.currentId) {
-      S.currentId = cur.id; saveS();
+    } else if (cur && !S.tid) {
+      S.tid = cur.id;
+      saveS();
     }
 
     renderHome();
     renderProchains();
     if (cur) loadPlayers(cur.id);
 
-  } catch(e) {
-    console.error("Fixtures:", e);
-    if(el) el.innerHTML = `<div class="aerr">⚠️ Impossible de charger les tournois (${e.message})</div>`;
-  }
+  }).catch(function(e) {
+    console.error(e);
+    if (el) el.innerHTML = '<div class="box-err">Impossible de charger les tournois (' + e.message + ')</div>';
+  });
 }
 
 function getCur() {
-  return S.fixtures.find(f=>f.id===S.currentId)||null;
+  for (var i = 0; i < S.fixtures.length; i++) {
+    if (S.fixtures[i].id === S.tid) return S.fixtures[i];
+  }
+  return null;
 }
 
 function renderProchains() {
-  const el = document.getElementById("prochains");
+  var el = document.getElementById("h-prochains");
   if (!el) return;
-  const now = new Date();
-  const list = S.fixtures.filter(f=>f.id!==S.currentId && f.start>=now).slice(0,4);
-  if (!list.length) { el.innerHTML=`<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Aucun tournoi à venir</div>`; return; }
-  el.innerHTML = list.map(t=>`
-    <div class="pc">
-      <div style="width:36px;height:36px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⛳</div>
-      <div class="pci">
-        <div class="pcn">${t.name}</div>
-        <div class="pcd">${fmtD(t.start)} – ${fmtD(t.end)}</div>
-      </div>
-    </div>`).join("");
+  var now = new Date();
+  var list = S.fixtures.filter(function(f) { return f.id !== S.tid && f.start > now; }).slice(0, 4);
+  if (!list.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Aucun tournoi a venir</div>';
+    return;
+  }
+  var h = "";
+  list.forEach(function(t) {
+    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;">';
+    h += '<div style="width:36px;height:36px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⛳</div>';
+    h += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + t.name + '</div>';
+    h += '<div style="font-size:12px;color:var(--muted);margin-top:1px;">' + fmtDate(t.start) + ' — ' + fmtDate(t.end) + '</div></div>';
+    h += '</div>';
+  });
+  el.innerHTML = h;
 }
 
 // ============================================================
 // API — PLAYERS
 // ============================================================
-async function loadPlayers(tid) {
+function loadPlayers(tid) {
   if (!tid) return;
-  S.playLoaded = false;
-  try {
-    const [entData, rkData] = await Promise.all([
-      api(`/entry-list/${tid}`),
-      api("/world-rankings/2/2026").catch(()=>({results:[]})),
-    ]);
+  S.playOk = false;
 
-    const ranks = {};
-    (rkData.results||[]).forEach(p=>{ ranks[p.player_id]=p.position; });
+  Promise.all([
+    apiCall("/entry-list/" + tid),
+    apiCall("/world-rankings/2/2026").catch(function() { return { results: [] }; })
+  ]).then(function(results) {
+    var entData = results[0];
+    var rkData  = results[1];
 
-    // Fix: entry-list API returns results.entry_list not results directly
-    const entryList = (entData.results && entData.results.entry_list)
+    var ranks = {};
+    (rkData.results || []).forEach(function(p) { ranks[p.player_id] = p.position; });
+
+    var list = (entData.results && entData.results.entry_list)
       ? entData.results.entry_list
       : (Array.isArray(entData.results) ? entData.results : []);
 
-    S.players = entryList.map(e=>({
-      id: String(e.player_id||e.id),
-      name: ((e.first_name||"")+" "+(e.last_name||e.player_name||e.name||"")).trim()||"—",
-      flag: c2f(e.country||""),
-      country: e.country||"",
-      wr: ranks[e.player_id]||999,
-      coeff: calcCoeff(ranks[e.player_id]||100),
-    })).sort((a,b)=>a.wr-b.wr);
+    S.players = list.map(function(e) {
+      var wr = ranks[e.player_id] || 999;
+      return {
+        id:    String(e.player_id || e.id),
+        name:  ((e.first_name || "") + " " + (e.last_name || e.name || "")).trim(),
+        flag:  flag(e.country || ""),
+        wr:    wr,
+        coeff: calcCoeff(wr)
+      };
+    }).sort(function(a, b) { return a.wr - b.wr; });
 
-    S.playLoaded = true;
+    S.playOk = true;
 
-    if (!S.picks.tenPlayers || S.picks.tenPlayers.length===0) {
+    if (!S.picks.tenPlayers || S.picks.tenPlayers.length === 0) {
       S.picks.tenPlayers = genTen();
       saveS();
     }
 
-    if (document.getElementById("sc-picks").classList.contains("active")) renderPicks();
+    var pkScr = document.getElementById("sc-picks");
+    if (pkScr && pkScr.classList.contains("on")) renderPicks();
 
-  } catch(e) { console.error("Players:", e); }
+  }).catch(function(e) { console.error("Players:", e); });
 }
 
 function genTen() {
   if (!S.players.length) return [];
-  const top = S.players.slice(0,5).map(p=>p.id);
-  const rest = S.players.slice(5,50).sort(()=>Math.random()-0.5).slice(0,5).map(p=>p.id);
-  return [...top,...rest];
+  var top  = S.players.slice(0, 5).map(function(p) { return p.id; });
+  var rest = S.players.slice(5, 50).sort(function() { return Math.random() - 0.5; }).slice(0, 5).map(function(p) { return p.id; });
+  return top.concat(rest);
 }
 
 function calcCoeff(r) {
-  if (!r||r>200) return 8.0;
-  if (r<=5)  return 1.5;
-  if (r<=10) return 2.0;
-  if (r<=20) return 2.5;
-  if (r<=30) return 3.0;
-  if (r<=50) return 4.0;
-  if (r<=75) return 5.0;
-  if (r<=100) return 6.0;
+  if (!r || r > 200) return 8.0;
+  if (r <= 5)   return 1.5;
+  if (r <= 10)  return 2.0;
+  if (r <= 20)  return 2.5;
+  if (r <= 30)  return 3.0;
+  if (r <= 50)  return 4.0;
+  if (r <= 75)  return 5.0;
+  if (r <= 100) return 6.0;
   return 7.0;
 }
 
-function c2f(c) {
-  const m={"USA":"🇺🇸","ENG":"🇬🇧","SCO":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","IRL":"🇮🇪","NIR":"🇬🇧","ESP":"🇪🇸","NOR":"🇳🇴","SWE":"🇸🇪","AUS":"🇦🇺","CAN":"🇨🇦","KOR":"🇰🇷","JPN":"🇯🇵","RSA":"🇿🇦","GER":"🇩🇪","FRA":"🇫🇷","ITA":"🇮🇹","ARG":"🇦🇷","CHN":"🇨🇳","MEX":"🇲🇽","COL":"🇨🇴","FIJ":"🇫🇯","NZL":"🇳🇿","BEL":"🇧🇪","DEN":"🇩🇰","FIN":"🇫🇮","AUT":"🇦🇹","CHI":"🇨🇱","BRA":"🇧🇷","TPE":"🇹🇼","THA":"🇹🇭","WAL":"🏴󠁧󠁢󠁷󠁬󠁳󠁿","VEN":"🇻🇪","PAR":"🇵🇾","URU":"🇺🇾","ZIM":"🇿🇼","NAM":"🇳🇦","GBR":"🇬🇧"};
-  return m[c]||"🌍";
+function getP(id) {
+  for (var i = 0; i < S.players.length; i++) {
+    if (S.players[i].id === id) return S.players[i];
+  }
+  return null;
 }
-
-function getPById(id) { return S.players.find(p=>p.id===id); }
 
 // ============================================================
 // HELPERS
 // ============================================================
-function fmtD(d) {
+function fmtDate(d) {
   if (!d) return "";
-  const dt = d instanceof Date ? d : new Date(d);
-  return dt.toLocaleDateString("fr-FR",{day:"numeric",month:"short"});
+  var dt = d instanceof Date ? d : new Date(d);
+  return dt.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 }
 
-function getBadge(pts) {
-  for (let i=BADGES.length-1;i>=0;i--) if(pts>=BADGES[i].min) return BADGES[i];
-  return BADGES[0];
-}
-function getNext(pts) { return BADGES.find(b=>pts<b.min)||null; }
-function getProgress(pts) {
-  const c=getBadge(pts),n=getNext(pts);
-  if(!n) return 100;
-  return Math.min(100,Math.round(((pts-c.min)/(n.min-c.min))*100));
-}
 function picksDone() {
-  const p=S.picks;
-  const t3=p.top3.filter(Boolean).length===3;
-  const ten=!p.tenPlayers||p.tenPlayers.length===0||p.tenPlayers.every(id=>p.tenPicks[id]);
-  return t3&&ten;
+  var p = S.picks;
+  if (p.top3.filter(Boolean).length < 3) return false;
+  var ten = p.tenPlayers || [];
+  if (ten.length > 0) {
+    for (var i = 0; i < ten.length; i++) {
+      if (!p.tenPicks[ten[i]]) return false;
+    }
+  }
+  return true;
 }
 
 // ============================================================
 // TIMER
 // ============================================================
-let tmr=null;
+var tmrId = null;
+
 function startTimer() {
-  if(tmr) clearInterval(tmr);
-  function upd() {
-    const cur=getCur(); if(!cur) return;
-    const dl=cur.start; if(!dl) return;
-    const diff=new Date(dl)-new Date();
-    if(diff<=0){["t-j","t-h","t-m","t-s"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent="00";});return;}
-    const v=[Math.floor(diff/86400000),Math.floor((diff%86400000)/3600000),Math.floor((diff%3600000)/60000),Math.floor((diff%60000)/1000)];
-    ["t-j","t-h","t-m","t-s"].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=String(v[i]).padStart(2,"0");});
+  if (tmrId) clearInterval(tmrId);
+  function tick() {
+    var cur = getCur();
+    if (!cur) return;
+    var diff = cur.start - new Date();
+    if (diff <= 0) {
+      ["t-j","t-h","t-m","t-s"].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = "00";
+      });
+      return;
+    }
+    var vals = [
+      Math.floor(diff / 86400000),
+      Math.floor((diff % 86400000) / 3600000),
+      Math.floor((diff % 3600000) / 60000),
+      Math.floor((diff % 60000) / 1000)
+    ];
+    ["t-j","t-h","t-m","t-s"].forEach(function(id, i) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = String(vals[i]).padStart(2, "0");
+    });
   }
-  upd(); tmr=setInterval(upd,1000);
+  tick();
+  tmrId = setInterval(tick, 1000);
 }
 
 // ============================================================
 // NAVIGATION
 // ============================================================
-const SCREENS = {home:"sc-home",class:"sc-class",picks:"sc-picks",profil:"sc-profil",hdet:"sc-hdet"};
+var SCREENS = { home:"sc-home", class:"sc-class", picks:"sc-picks", profil:"sc-profil", hdet:"sc-hdet" };
 
 function navTo(tab) {
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("active"));
-  const sc=SCREENS[tab]||"sc-home";
-  document.getElementById(sc).classList.add("active");
-  const nb=document.getElementById("nb-"+tab);
-  if(nb) nb.classList.add("active");
-  if(tab==="home") renderHome();
-  if(tab==="class") renderClass();
-  if(tab==="picks") renderPicks();
-  if(tab==="profil") renderProfil();
+  Object.keys(SCREENS).forEach(function(k) {
+    var el = document.getElementById(SCREENS[k]);
+    if (el) el.classList.remove("on");
+  });
+  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
+
+  var scEl = document.getElementById(SCREENS[tab] || "sc-home");
+  if (scEl) scEl.classList.add("on");
+  var nbEl = document.getElementById("nb-" + tab);
+  if (nbEl) nbEl.classList.add("on");
+
+  if (tab === "home")   renderHome();
+  if (tab === "class")  renderClass();
+  if (tab === "picks")  renderPicks();
+  if (tab === "profil") renderProfil();
 }
 
 function goToPicks() {
   navTo("picks");
-  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("active"));
-  document.getElementById("nb-picks").classList.add("active");
+  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
+  var nb = document.getElementById("nb-picks");
+  if (nb) nb.classList.add("on");
 }
 
 // ============================================================
 // ONBOARDING
 // ============================================================
 function startApp() {
-  const p=document.getElementById("pseudo-input").value.trim();
-  if(p.length<2) return;
-  S.pseudo=p; saveS();
-  document.getElementById("sc-ob").classList.remove("active");
-  document.getElementById("bnav").classList.add("v");
+  var p = document.getElementById("ob-pseudo").value.trim();
+  if (p.length < 2) return;
+  S.pseudo = p;
+  saveS();
+  document.getElementById("sc-ob").classList.remove("on");
+  document.getElementById("bnav").classList.add("show");
   navTo("home");
-  loadFixtures();
+  loadFixtures(false);
 }
 
 // ============================================================
 // HOME
 // ============================================================
 function renderHome() {
-  const cur=getCur();
-  const badge=getBadge(S.totalPoints);
-  const nxt=getNext(S.totalPoints);
-  const prog=getProgress(S.totalPoints);
+  var cur   = getCur();
+  var badge = getBadge(S.pts);
+  var nxt   = getNextBadge(S.pts);
+  var prog  = getProgress(S.pts);
+  var h     = new Date().getHours();
 
-  const h=new Date().getHours();
-  document.getElementById("hgreet").textContent=(h<18?"BONJOUR ":"BONSOIR ")+(S.pseudo||"").toUpperCase();
+  var greet = document.getElementById("h-greet");
+  if (greet) greet.textContent = (h < 18 ? "BONJOUR " : "BONSOIR ") + S.pseudo.toUpperCase();
 
-  if(cur) {
-    document.getElementById("tname").textContent=cur.name||"PGA Tour";
-    document.getElementById("tloc").textContent=cur.loc||"—";
-    const isLive=["inprogress","live","In Progress"].includes(cur.status);
-    document.getElementById("livebadge").innerHTML=isLive?`<div class="lb"><div class="ld"></div>LIVE</div>`:"";
-  } else {
-    document.getElementById("tname").textContent="Chargement...";
-    document.getElementById("tloc").textContent="—";
+  if (cur) {
+    var tn = document.getElementById("h-tname");
+    var tl = document.getElementById("h-tloc");
+    var lb = document.getElementById("h-livebadge");
+    if (tn) tn.textContent = cur.name;
+    if (tl) tl.textContent = cur.loc || "—";
+    if (lb) {
+      var isLive = cur.status === "inprogress" || cur.status === "live";
+      lb.innerHTML = isLive
+        ? '<div style="display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE</div>'
+        : "";
+    }
   }
 
-  const done=picksDone();
-  const btn=document.getElementById("hpbtn");
-  if(done){
-    btn.classList.add("done");
-    btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PICKS ENREGISTRÉS`;
-  } else {
-    btn.classList.remove("done");
-    btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>FAIRE MES PICKS`;
+  var done = picksDone();
+  var btn  = document.getElementById("h-picksbtn");
+  if (btn) {
+    if (done) {
+      btn.className = "btn-red btn-green";
+      btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PICKS ENREGISTRES';
+    } else {
+      btn.className = "btn-red";
+      btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>FAIRE MES PICKS';
+    }
   }
 
-  document.getElementById("hscore").textContent=S.totalPoints.toLocaleString("fr");
-  document.getElementById("hbadge").textContent=badge.name.toUpperCase();
-  document.getElementById("hbicon").textContent=badge.emoji;
-  document.getElementById("pfill").style.width=prog+"%";
-  document.getElementById("pnext").textContent=nxt
-    ?`${(nxt.min-S.totalPoints).toLocaleString("fr")} pts → ${nxt.name}`
-    :"Badge max atteint 🏆";
+  var sc = document.getElementById("h-score");
+  var bd = document.getElementById("h-badge");
+  var bi = document.getElementById("h-bicon");
+  var pf = document.getElementById("h-prog");
+  var pn = document.getElementById("h-next");
+  if (sc) sc.textContent = S.pts.toLocaleString("fr");
+  if (bd) bd.textContent = badge.name.toUpperCase();
+  if (bi) bi.textContent = badge.emoji;
+  if (pf) pf.style.width = prog + "%";
+  if (pn) pn.textContent = nxt
+    ? (nxt.min - S.pts).toLocaleString("fr") + " pts → " + nxt.name
+    : "Badge max atteint 🏆";
 
   startTimer();
   renderProchains();
@@ -719,379 +711,421 @@ function renderHome() {
 // ============================================================
 // PICKS
 // ============================================================
-let selSlot=null;
+var selSlot = null;
 
 function renderPicks() {
-  const cur=getCur();
-  const pkc=document.getElementById("pkc");
-  if(cur){
-    const t=(cur.name||"").length>22?(cur.name||"").substring(0,22)+"…":(cur.name||"");
-    document.getElementById("pktitle").textContent=t.toUpperCase();
+  var cur = getCur();
+  var el  = document.getElementById("pk-content");
+  if (!el) return;
+
+  var title = document.getElementById("pk-title");
+  if (title && cur) {
+    var t = cur.name.length > 22 ? cur.name.substring(0, 22) + "…" : cur.name;
+    title.textContent = t.toUpperCase();
   }
 
-  document.getElementById("vbar").style.display="block";
-  const ten=S.picks.tenPlayers||[];
-  const t3ok=S.picks.top3.filter(Boolean).length===3;
-  const tenok=ten.length===0||ten.every(id=>S.picks.tenPicks[id]);
-  document.getElementById("vbtn").disabled=!(t3ok&&tenok);
+  var vbtn = document.getElementById("vbtn");
+  var vbar = document.getElementById("vbar");
+  if (vbar) vbar.style.display = "block";
+  if (vbtn) vbtn.disabled = !picksDone();
 
-  let h="";
+  var h = "";
 
-  if(S.saved) h+=`<div class="sved"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><div class="svedtxt">PICKS ENREGISTRÉS — Modifiable jusqu'à la deadline</div></div>`;
+  // Saved banner
+  if (S.saved) {
+    h += '<div class="box-ok"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+    h += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--green);">PICKS ENREGISTRES — Modifiable jusqu\'a la deadline</div></div>';
+  }
 
-  if(!S.playLoaded && !S.players.length) {
-    h+=`<div class="loading"><div class="spin"></div><div class="ltxt">Chargement des joueurs...</div></div>`;
-    pkc.innerHTML=h; return;
+  // Loading
+  if (!S.playOk && !S.players.length) {
+    h += '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement des joueurs...</div></div>';
+    el.innerHTML = h;
+    return;
   }
 
   // TOP 3
-  h+=`<div class="pst">TON TOP 3 PRÉVISIONNEL</div><div class="t3s">`;
-  const pl=["1er","2e","3e"], pc=["p1","p2","p3"];
-  S.picks.top3.forEach((pid,i)=>{
-    const p=pid?getPById(pid):null;
-    h+=`<div class="t3sl ${p?"filled":""}" onclick="openPM(${i})">
-      <div class="t3p ${pc[i]}">${pl[i]}</div>
-      <div style="flex:1;">${p
-        ?`<div class="t3pn">${p.flag} ${p.name}</div><div class="t3pc">×${p.coeff}${p.wr<999?" — #"+p.wr+" mondial":""}</div>`
-        :`<div class="t3pe">Sélectionner...</div>`}
-      </div>
-      ${p?`<button class="t3rm" onclick="event.stopPropagation();rmTop3(${i})">✕</button>`:`<span style="color:var(--muted2);font-size:20px;">+</span>`}
-    </div>`;
-  });
-  h+=`</div>`;
+  h += '<div class="slbl">TON TOP 3 PREVISIONNEL</div>';
+  var posL = ["1er", "2e", "3e"];
+  var posC = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
-  // 10 JOUEURS
-  if(ten.length>0){
-    h+=`<div class="sep"></div><div class="pst" style="margin-bottom:4px;">ANALYSE DES 10 JOUEURS</div>`;
-    h+=`<div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Attribue une catégorie à chaque joueur</div>`;
-    h+=`<div class="ten">`;
-    ten.forEach(pid=>{
-      const p=getPById(pid); if(!p) return;
-      const sel=S.picks.tenPicks[pid]||null;
-      h+=`<div class="tr">
-        <div class="trt">
-          <span class="trf">${p.flag}</span>
-          <span class="trn">${p.name}</span>
-          <span class="trc">×${p.coeff}</span>
-        </div>
-        <div class="tcat">
-          ${CATS.map(c=>`<button class="cb ${sel===c?"sel":""} ${sel===c&&c==="Missed Cut"?"mc":""}" onclick="setCat('${pid}','${c}')">${c}</button>`).join("")}
-        </div>
-      </div>`;
-    });
-    h+=`</div>`;
-  } else if(S.playLoaded){
-    h+=`<div class="noinfo">⚠️ Les 10 joueurs seront disponibles prochainement.</div>`;
+  for (var i = 0; i < 3; i++) {
+    var pid = S.picks.top3[i];
+    var pl  = pid ? getP(pid) : null;
+    h += '<div style="background:var(--card);border:1.5px solid ' + (pl ? "rgba(232,35,58,0.3)" : "var(--border)") + ';border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;min-height:60px;" onclick="openModal(' + i + ')">';
+    h += '<div style="font-family:var(--fd);font-size:22px;font-weight:900;color:' + posC[i] + ';width:28px;text-align:center;flex-shrink:0;">' + posL[i] + '</div>';
+    h += '<div style="flex:1;">';
+    if (pl) {
+      h += '<div style="font-family:var(--fd);font-size:17px;font-weight:700;">' + pl.flag + ' ' + pl.name + '</div>';
+      h += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--red);margin-top:1px;">x' + pl.coeff + (pl.wr < 999 ? ' — #' + pl.wr + ' mondial' : '') + '</div>';
+    } else {
+      h += '<div style="font-family:var(--fd);font-size:15px;font-weight:600;color:var(--muted2);">Selectionner...</div>';
+    }
+    h += '</div>';
+    if (pl) {
+      h += '<button style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px;" onclick="event.stopPropagation();rmTop3(' + i + ')">✕</button>';
+    } else {
+      h += '<span style="color:var(--muted2);font-size:20px;">+</span>';
+    }
+    h += '</div>';
   }
 
-  pkc.innerHTML=h;
+  // 10 JOUEURS
+  var ten = S.picks.tenPlayers || [];
+  if (ten.length > 0) {
+    h += '<div style="height:1px;background:var(--border);margin:16px 0;"></div>';
+    h += '<div class="slbl" style="margin-bottom:4px;">ANALYSE DES 10 JOUEURS</div>';
+    h += '<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Attribue une categorie a chaque joueur</div>';
+
+    ten.forEach(function(pid) {
+      var p = getP(pid);
+      if (!p) return;
+      var sel = S.picks.tenPicks[pid] || null;
+      h += '<div style="background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;">';
+      h += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">';
+      h += '<span style="font-size:20px;">' + p.flag + '</span>';
+      h += '<span style="font-family:var(--fd);font-size:17px;font-weight:800;flex:1;">' + p.name + '</span>';
+      h += '<span style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--red);">x' + p.coeff + '</span>';
+      h += '</div><div class="cats">';
+      CATS.forEach(function(c) {
+        var isSel = sel === c;
+        var isMC  = c === "Missed Cut";
+        h += '<button class="cat' + (isSel ? (' on' + (isMC ? ' mc' : '')) : '') + '" onclick="setCat(\'' + pid + '\',\'' + c + '\')">' + c + '</button>';
+      });
+      h += '</div></div>';
+    });
+  } else if (S.playOk) {
+    h += '<div class="box-info">Les 10 joueurs seront disponibles prochainement.</div>';
+  }
+
+  el.innerHTML = h;
 }
 
-function rmTop3(i){S.picks.top3[i]=null;saveS();renderPicks();}
-function setCat(pid,cat){S.picks.tenPicks[pid]=cat;saveS();renderPicks();}
+function rmTop3(i) { S.picks.top3[i] = null; saveS(); renderPicks(); }
 
-function savePicks(){
-  const ten=S.picks.tenPlayers||[];
-  if(S.picks.top3.filter(Boolean).length<3){showToast("Complète ton Top 3 !");return;}
-  if(ten.length>0&&!ten.every(id=>S.picks.tenPicks[id])){showToast("Analyse tous les joueurs !");return;}
-  S.saved=true; saveS(); navTo("home"); showToast("✓ Picks enregistrés !");
+function setCat(pid, cat) { S.picks.tenPicks[pid] = cat; saveS(); renderPicks(); }
+
+function savePicks() {
+  if (S.picks.top3.filter(Boolean).length < 3) { toast("Complete ton Top 3 !"); return; }
+  var ten = S.picks.tenPlayers || [];
+  if (ten.length > 0) {
+    for (var i = 0; i < ten.length; i++) {
+      if (!S.picks.tenPicks[ten[i]]) { toast("Analyse tous les joueurs !"); return; }
+    }
+  }
+  S.saved = true;
+  saveS();
+  navTo("home");
+  toast("✓ Picks enregistres !");
 }
 
 // ============================================================
 // MODAL JOUEUR
 // ============================================================
-function openPM(i){
-  selSlot=i;
-  document.getElementById("modal-ptitle").textContent=`Choisir — ${["1er","2e","3e"][i]}`;
-  document.getElementById("msearch").value="";
-  renderMP("");
+function openModal(slot) {
+  selSlot = slot;
+  var t = document.getElementById("modal-ptitle");
+  var s = document.getElementById("modal-search");
+  if (t) t.textContent = "Choisir — " + ["1er","2e","3e"][slot];
+  if (s) s.value = "";
+  renderModalList("");
   document.getElementById("modal-p").classList.add("open");
 }
-function closeModal(){document.getElementById("modal-p").classList.remove("open");selSlot=null;}
 
-function renderMP(q){
-  const list=document.getElementById("mpl");
-  if(!S.players.length){list.innerHTML=`<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>`;return;}
-  const fil=S.players.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())).slice(0,60);
-  list.innerHTML=fil.map(p=>{
-    const in3=S.picks.top3.includes(p.id);
-    const isSel=S.picks.top3[selSlot]===p.id;
-    return `<div class="pr ${isSel?"sel":""} ${in3&&!isSel?"used":""}" onclick="${in3&&!isSel?"":"selP('"+p.id+"')"}">
-      <span class="prf">${p.flag}</span>
-      <span class="prn">${p.name}</span>
-      <span class="prr">${p.wr<999?"#"+p.wr:""}</span>
-      <span class="prc">×${p.coeff}</span>
-    </div>`;
-  }).join("")||`<div class="es"><div class="est">Aucun résultat</div></div>`;
+function closeModal() {
+  document.getElementById("modal-p").classList.remove("open");
+  selSlot = null;
 }
-function filterP(q){renderMP(q);}
-function selP(id){if(selSlot===null)return;S.picks.top3[selSlot]=id;saveS();closeModal();renderPicks();}
+
+function renderModalList(q) {
+  var el = document.getElementById("modal-plist");
+  if (!el) return;
+  if (!S.players.length) {
+    el.innerHTML = '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>';
+    return;
+  }
+  var q2  = q.toLowerCase();
+  var fil = S.players.filter(function(p) { return p.name.toLowerCase().indexOf(q2) !== -1; }).slice(0, 60);
+  var h   = "";
+  fil.forEach(function(p) {
+    var in3  = S.picks.top3.indexOf(p.id) !== -1;
+    var isSel = S.picks.top3[selSlot] === p.id;
+    h += '<div style="background:var(--card);border:1px solid ' + (isSel ? "var(--red)" : "var(--border)") + ';border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:6px;cursor:pointer;opacity:' + (in3 && !isSel ? '0.4' : '1') + ';" onclick="' + (in3 && !isSel ? '' : 'pickPlayer(\'' + p.id + '\')') + '">';
+    h += '<span style="font-size:20px;width:26px;text-align:center;">' + p.flag + '</span>';
+    h += '<span style="font-family:var(--fd);font-size:16px;font-weight:700;flex:1;">' + p.name + '</span>';
+    h += (p.wr < 999 ? '<span style="font-size:12px;color:var(--muted);">#' + p.wr + '</span>' : '');
+    h += '<span style="font-family:var(--fd);font-size:14px;font-weight:800;color:var(--red);">x' + p.coeff + '</span>';
+    h += '</div>';
+  });
+  el.innerHTML = h || '<div style="text-align:center;padding:20px;color:var(--muted);">Aucun resultat</div>';
+}
+
+function filterPlayers(q) { renderModalList(q); }
+
+function pickPlayer(id) {
+  if (selSlot === null) return;
+  S.picks.top3[selSlot] = id;
+  saveS();
+  closeModal();
+  renderPicks();
+}
 
 // ============================================================
 // CLASSEMENT
 // ============================================================
-function renderClass(){
-  const badge=getBadge(S.totalPoints);
-  const nxt=getNext(S.totalPoints);
-  const prog=getProgress(S.totalPoints);
-  const c=document.getElementById("clc");
+function renderClass() {
+  var el    = document.getElementById("cl-content");
+  if (!el) return;
+  var badge = getBadge(S.pts);
+  var nxt   = getNextBadge(S.pts);
+  var prog  = getProgress(S.pts);
+  var nb    = S.history.length;
+  var best  = 0, total = 0, scored = 0;
+  S.history.forEach(function(h) { if (h.pts > best) best = h.pts; total += h.pts; if (h.pts > 0) scored++; });
+  var avg = nb ? Math.round(total / nb) : 0;
 
-  const nb=S.history.length;
-  const best=nb?Math.max(...S.history.map(h=>h.pts)):0;
-  const avg=nb?Math.round(S.history.reduce((a,h)=>a+h.pts,0)/nb):0;
-  const sc=S.history.filter(h=>h.pts>0).length;
+  var h = "";
 
-  let h=`
-    <div class="msc fi">
-      <div style="font-size:40px;">${badge.emoji}</div>
-      <div class="pts">${S.totalPoints.toLocaleString("fr")} <span>PTS</span></div>
-      <div class="bn">${badge.name.toUpperCase()}</div>
-      <div style="margin-top:14px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-          <span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span>
-          <span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">${prog}%</span>
-        </div>
-        <div class="pbar"><div class="pfill" style="width:${prog}%"></div></div>
-        ${nxt?`<div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">${(nxt.min-S.totalPoints).toLocaleString("fr")} pts → ${nxt.name}</div>`:""}
-      </div>
-    </div>
-    <div class="sg">
-      <div class="sb"><div class="sn">${nb}</div><div class="sl">Tournois joués</div></div>
-      <div class="sb"><div class="sn">${best}</div><div class="sl">Meilleur score</div></div>
-      <div class="sb"><div class="sn">${avg}</div><div class="sl">Score moyen</div></div>
-      <div class="sb"><div class="sn">${sc}</div><div class="sl">Tournois scorés</div></div>
-    </div>
-    <div class="sh"><div class="stl">HISTORIQUE DES TOURNOIS</div></div>
-  `;
+  // Score card
+  h += '<div style="background:linear-gradient(135deg,#1a0d14,#1a1228);border:1.5px solid rgba(232,35,58,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;" class="fadeup">';
+  h += '<div style="font-size:40px;">' + badge.emoji + '</div>';
+  h += '<div style="font-family:var(--fd);font-size:60px;font-weight:900;line-height:1;">' + S.pts.toLocaleString("fr") + ' <span style="font-size:22px;color:var(--muted);">PTS</span></div>';
+  h += '<div style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:4px;">' + badge.name + '</div>';
+  h += '<div style="margin-top:14px;">';
+  h += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span><span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">' + prog + '%</span></div>';
+  h += '<div class="pbar"><div class="pfill" style="width:' + prog + '%;"></div></div>';
+  if (nxt) h += '<div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">' + (nxt.min - S.pts).toLocaleString("fr") + ' pts → ' + nxt.name + '</div>';
+  h += '</div></div>';
 
-  if(!nb){
-    h+=`<div class="es"><div class="esi">📋</div><div class="est">Aucun historique<br/><span style="font-size:13px;font-family:var(--fb);color:var(--muted2);font-weight:400;">Joue ton premier tournoi !</span></div></div>`;
+  // Stats
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
+  [["Tournois joues",nb],["Meilleur score",best],["Score moyen",avg],["Scores >0",scored]].forEach(function(s) {
+    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:36px;font-weight:900;">' + s[1] + '</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">' + s[0] + '</div></div>';
+  });
+  h += '</div>';
+
+  // History
+  h += '<div class="slbl">HISTORIQUE</div>';
+  if (!nb) {
+    h += '<div style="text-align:center;padding:40px 20px;color:var(--muted);"><div style="font-size:48px;margin-bottom:12px;">📋</div><div style="font-family:var(--fd);font-size:16px;font-weight:700;">Aucun historique</div><div style="font-size:13px;margin-top:6px;">Joue ton premier tournoi !</div></div>';
   } else {
-    S.history.slice().reverse().forEach((en,ri)=>{
-      const idx=S.history.length-1-ri;
-      h+=`<div class="hr" onclick="openHD(${idx})">
-        <div style="font-size:24px;">⛳</div>
-        <div class="hti">
-          <div class="htn">${en.tname||en.tid||"Tournoi"}</div>
-          <div class="htd">${en.date||""}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
-          <div class="hp ${en.pts===0?"z":""}">+${en.pts}</div>
-          <div style="font-size:10px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:0.5px;">DÉTAIL →</div>
-        </div>
-      </div>`;
+    S.history.slice().reverse().forEach(function(en, ri) {
+      var idx = S.history.length - 1 - ri;
+      h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;" onclick="openHD(' + idx + ')">';
+      h += '<div style="font-size:24px;">⛳</div>';
+      h += '<div style="flex:1;"><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + (en.tname || "Tournoi") + '</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">' + (en.date || "") + '</div></div>';
+      h += '<div style="text-align:right;"><div style="font-family:var(--fd);font-size:22px;font-weight:900;color:' + (en.pts ? 'var(--green)' : 'var(--muted2)') + ';">+' + en.pts + '</div><div style="font-size:10px;color:var(--muted);font-family:var(--fd);font-weight:700;">DETAIL →</div></div>';
+      h += '</div>';
     });
   }
-  c.innerHTML=h;
+
+  el.innerHTML = h;
 }
 
 // ============================================================
 // HISTORIQUE DETAIL
 // ============================================================
-function openHD(idx){
-  const en=S.history[idx]; if(!en) return;
-  document.getElementById("hdtitle").textContent=en.tname||"Tournoi";
-  const c=document.getElementById("hdc");
-  const posC=["#FFD700","#C0C0C0","#CD7F32"];
-  const posL=["1er","2e","3e"];
+function openHD(idx) {
+  var en = S.history[idx];
+  if (!en) return;
+  var el = document.getElementById("hd-content");
+  var tt = document.getElementById("hd-title");
+  if (tt) tt.textContent = en.tname || "Tournoi";
 
-  let h=`
-    <div class="sdc fi">
-      <div class="pts">${en.pts||0} <span>PTS</span></div>
-      <div class="tn2">${en.tname||en.tid||"Tournoi"}</div>
-      <div class="dt">${en.date||""}</div>
-    </div>
-  `;
+  var posC = ["#FFD700","#C0C0C0","#CD7F32"];
+  var posL = ["1er","2e","3e"];
+  var h = "";
 
-  // TOP 3
-  if(en.top3&&en.top3.length){
-    h+=`<div class="ds"><div class="dst">TON TOP 3</div>`;
-    en.top3.forEach((pid,i)=>{
-      const nm=en.pnames?.[pid]||pid;
-      const fl=en.pflags?.[pid]||"🌍";
-      const correct=en.results?.top3?.includes(pid);
-      const exact=en.results?.top3?.[i]===pid;
-      const pts=exact?50:0;
-      h+=`<div class="dpr">
-        <div class="dp" style="color:${posC[i]}">${posL[i]}</div>
-        <div class="df">${fl}</div>
-        <div class="dn">${nm}</div>
-        <div class="dr ${en.results?(correct?"ok":"ko"):""}">
-          ${en.results?(exact?"✓ Exact":correct?"✓ Top 3":"✗ Absent"):"⏳ En attente"}
-        </div>
-        <div class="dpts ${pts>0?"pos":"z"}">${pts>0?"+"+pts:"—"}</div>
-      </div>`;
+  h += '<div style="background:linear-gradient(135deg,#0d1f10,#0d1a2e);border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;" class="fadeup">';
+  h += '<div style="font-family:var(--fd);font-size:64px;font-weight:900;color:var(--green);line-height:1;">' + (en.pts||0) + ' <span style="font-size:22px;color:var(--muted);">PTS</span></div>';
+  h += '<div style="font-family:var(--fd);font-size:18px;font-weight:700;margin-top:6px;">' + (en.tname||"Tournoi") + '</div>';
+  h += '<div style="font-size:13px;color:var(--muted);margin-top:2px;">' + (en.date||"") + '</div></div>';
+
+  // Top 3
+  if (en.top3 && en.top3.length) {
+    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
+    h += '<div class="slbl">TON TOP 3</div>';
+    en.top3.forEach(function(pid, i) {
+      var nm      = (en.pnames && en.pnames[pid]) || pid;
+      var fl      = (en.pflags && en.pflags[pid]) || "🌍";
+      var correct = en.results && en.results.top3 && en.results.top3.indexOf(pid) !== -1;
+      var exact   = en.results && en.results.top3 && en.results.top3[i] === pid;
+      h += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
+      h += '<div style="font-family:var(--fd);font-size:18px;font-weight:900;color:' + posC[i] + ';width:26px;text-align:center;">' + posL[i] + '</div>';
+      h += '<div style="font-size:18px;">' + fl + '</div>';
+      h += '<div style="font-family:var(--fd);font-size:15px;font-weight:700;flex:1;">' + nm + '</div>';
+      h += '<div style="font-size:11px;font-family:var(--fd);font-weight:700;color:' + (en.results ? (correct ? 'var(--green)' : 'var(--muted2)') : 'var(--muted)') + ';">';
+      h += en.results ? (exact ? "✓ Exact" : correct ? "✓ Top 3" : "✗ Absent") : "En attente";
+      h += '</div></div>';
     });
-
-    if(en.results?.top3){
-      h+=`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
-        <div style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;margin-bottom:8px;">RÉSULTAT RÉEL</div>`;
-      en.results.top3.forEach((pid,i)=>{
-        h+=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
-          <span style="font-family:var(--fd);font-size:16px;font-weight:900;color:${posC[i]};width:24px;">${i+1}</span>
-          <span style="font-size:17px;">${en.pflags?.[pid]||"🌍"}</span>
-          <span style="font-family:var(--fd);font-size:14px;font-weight:700;">${en.pnames?.[pid]||pid}</span>
-        </div>`;
-      });
-      h+=`</div>`;
-    }
-    h+=`</div>`;
+    h += '</div>';
   }
 
-  // 10 JOUEURS
-  if(en.tenPlayers&&en.tenPlayers.length){
-    h+=`<div class="ds"><div class="dst">TES 10 JOUEURS</div>`;
-    en.tenPlayers.forEach(pid=>{
-      const nm=en.pnames?.[pid]||pid;
-      const fl=en.pflags?.[pid]||"🌍";
-      const cat=en.tenPicks?.[pid]||"—";
-      const real=en.results?.positions?.[pid];
-      const ok=real&&real===cat;
-      h+=`<div class="tdr">
-        <span style="font-size:16px;">${fl}</span>
-        <div class="tdn">${nm}</div>
-        <div class="tdc ${en.results?(ok?"ok":"ko"):""}">${cat}</div>
-        ${en.results?`<div class="tdp ${ok?"pos":"z"}">${ok?"+50":"—"}</div>`:""}
-      </div>`;
+  // 10 joueurs
+  if (en.tenPlayers && en.tenPlayers.length) {
+    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
+    h += '<div class="slbl">TES 10 JOUEURS</div>';
+    en.tenPlayers.forEach(function(pid) {
+      var nm  = (en.pnames && en.pnames[pid]) || pid;
+      var fl  = (en.pflags && en.pflags[pid]) || "🌍";
+      var cat = (en.tenPicks && en.tenPicks[pid]) || "—";
+      var real = en.results && en.results.positions && en.results.positions[pid];
+      var ok  = real && real === cat;
+      h += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">';
+      h += '<span style="font-size:16px;">' + fl + '</span>';
+      h += '<span style="font-family:var(--fd);font-size:14px;font-weight:700;flex:1;">' + nm + '</span>';
+      h += '<span style="font-size:11px;font-family:var(--fd);font-weight:700;padding:3px 8px;border-radius:6px;background:' + (en.results ? (ok ? 'rgba(34,197,94,0.12)' : 'rgba(255,255,255,0.05)') : 'rgba(255,255,255,0.05)') + ';color:' + (en.results ? (ok ? 'var(--green)' : 'var(--muted)') : 'var(--muted)') + ';">' + cat + '</span>';
+      if (en.results) h += '<span style="font-family:var(--fd);font-size:15px;font-weight:900;color:' + (ok ? 'var(--green)' : 'var(--muted2)') + ';">' + (ok ? "+50" : "—") + '</span>';
+      h += '</div>';
     });
-    h+=`</div>`;
+    h += '</div>';
   }
 
-  if(!en.results) h+=`<div class="ainfo">⏳ Les résultats seront disponibles après le tournoi.</div>`;
+  if (!en.results) h += '<div class="box-info">⏳ Resultats disponibles apres le tournoi.</div>';
 
-  c.innerHTML=h;
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("active"));
-  document.getElementById("sc-hdet").classList.add("active");
-  document.getElementById("nb-class").classList.add("active");
+  if (el) el.innerHTML = h;
+
+  // Navigate
+  document.querySelectorAll(".scr").forEach(function(s) { s.classList.remove("on"); });
+  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
+  document.getElementById("sc-hdet").classList.add("on");
+  document.getElementById("nb-class").classList.add("on");
 }
 
 // ============================================================
 // PROFIL
 // ============================================================
-function renderProfil(){
-  const badge=getBadge(S.totalPoints);
-  const nxt=getNext(S.totalPoints);
-  const prog=getProgress(S.totalPoints);
-  const c=document.getElementById("prfc");
-  const ini=(S.pseudo||"?").substring(0,2).toUpperCase();
-  const pct=getPercentile(S.totalPoints);
+function renderProfil() {
+  var el    = document.getElementById("pr-content");
+  if (!el) return;
+  var badge = getBadge(S.pts);
+  var nxt   = getNextBadge(S.pts);
+  var prog  = getProgress(S.pts);
+  var ini   = (S.pseudo || "?").substring(0, 2).toUpperCase();
+  var pct   = getPercentile(S.pts);
 
-  let h="";
+  var h = "";
 
-  // AVATAR + NOM
-  h+='<div style="text-align:center;padding:28px 20px 20px;">';
-  h+='<div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#E8233A,#c01830);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:34px;font-weight:900;color:#fff;margin:0 auto 14px;border:3px solid rgba(232,35,58,0.3);">'+ini+'</div>';
-  h+='<div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">'+( S.pseudo||"Joueur")+' <span style="font-size:18px;cursor:pointer;" onclick="openEP()">✏️</span></div>';
-  h+='<div style="font-family:var(--fd);font-size:32px;font-weight:900;color:#fff;margin-top:4px;">'+S.totalPoints.toLocaleString("fr")+' <span style="font-size:16px;color:#6B7F9E;font-weight:600;">PTS</span></div>';
-  h+='<div style="font-size:13px;color:#6B7F9E;margin-top:2px;">Top '+pct+'% des joueurs</div>';
-  h+='</div>';
+  // AVATAR + NOM + PTS
+  h += '<div style="text-align:center;padding:28px 20px 20px;">';
+  h += '<div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#E8233A,#c01830);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:34px;font-weight:900;color:#fff;margin:0 auto 14px;border:3px solid rgba(232,35,58,0.3);">' + ini + '</div>';
+  h += '<div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">' + (S.pseudo || "Joueur") + ' <span style="font-size:18px;cursor:pointer;" onclick="openPseudo()">✏️</span></div>';
+  h += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;color:#fff;margin-top:4px;">' + S.pts.toLocaleString("fr") + ' <span style="font-size:16px;color:var(--muted);font-weight:600;">PTS</span></div>';
+  h += '<div style="font-size:13px;color:var(--muted);margin-top:2px;">Top ' + pct + '% des joueurs</div>';
+  h += '</div>';
 
   // BADGE HERO
-  h+='<div style="margin:0 18px 20px;background:linear-gradient(135deg,#1a1228,#0d1a2e);border:1.5px solid rgba(232,35,58,0.3);border-radius:20px;padding:24px;text-align:center;">';
-  h+='<div style="font-size:64px;line-height:1;margin-bottom:10px;">'+badge.emoji+'</div>';
-  h+='<div style="font-family:var(--fd);font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">'+badge.name+'</div>';
-  h+='<div style="font-size:12px;color:#6B7F9E;margin-top:4px;">'+badge.min.toLocaleString("fr")+' – '+( badge.max===Infinity ? "∞" : badge.max.toLocaleString("fr"))+' pts</div>';
-  h+='<div style="margin-top:16px;">';
-  h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:#6B7F9E;font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span><span style="font-size:11px;color:#E8233A;font-family:var(--fd);font-weight:700;">'+prog+'%</span></div>';
-  h+='<div style="height:6px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;"><div style="height:100%;width:'+prog+'%;background:linear-gradient(90deg,#E8233A,#FF6B35);border-radius:99px;"></div></div>';
-  if(nxt) h+='<div style="font-size:12px;color:#6B7F9E;margin-top:8px;">Prochain : <span style="color:#fff;font-weight:700;">'+nxt.name+' '+nxt.emoji+'</span> — '+( nxt.min-S.totalPoints).toLocaleString("fr")+' pts</div>';
-  else h+='<div style="font-size:12px;color:#F5A623;margin-top:8px;font-weight:700;">🏆 Badge maximum atteint !</div>';
-  h+='</div></div>';
-
-  // BADGES DÉBLOQUÉS (scroll horizontal)
-  const unlocked=BADGES.filter(b=>S.totalPoints>=b.min);
-  h+='<div style="padding:0 18px;">';
-  h+='<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:#6B7F9E;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">MES BADGES ('+unlocked.length+'/'+BADGES.length+')</div>';
-  if(unlocked.length===0){
-    h+='<div style="color:#6B7F9E;font-size:13px;padding:16px 0;">Joue ton premier tournoi pour débloquer des badges !</div>';
+  h += '<div style="margin:0 18px 20px;background:linear-gradient(135deg,#1a1228,#0d1a2e);border:1.5px solid rgba(232,35,58,0.3);border-radius:20px;padding:24px;text-align:center;">';
+  h += '<div style="font-size:64px;line-height:1;margin-bottom:10px;">' + badge.emoji + '</div>';
+  h += '<div style="font-family:var(--fd);font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">' + badge.name + '</div>';
+  h += '<div style="font-size:12px;color:var(--muted);margin-top:4px;">' + badge.min.toLocaleString("fr") + ' – ' + (badge.max === Infinity ? "∞" : badge.max.toLocaleString("fr")) + ' pts</div>';
+  h += '<div style="margin-top:16px;">';
+  h += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span><span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">' + prog + '%</span></div>';
+  h += '<div class="pbar"><div class="pfill" style="width:' + prog + '%;"></div></div>';
+  if (nxt) {
+    h += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">Prochain : <span style="color:#fff;font-weight:700;">' + nxt.name + ' ' + nxt.emoji + '</span> — ' + (nxt.min - S.pts).toLocaleString("fr") + ' pts</div>';
   } else {
-    h+='<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:12px;-webkit-overflow-scrolling:touch;">';
-    unlocked.forEach(function(b){
-      h+='<div style="flex-shrink:0;background:rgba(232,35,58,0.1);border:1.5px solid rgba(232,35,58,0.3);border-radius:14px;padding:14px;text-align:center;width:96px;">';
-      h+='<div style="font-size:36px;line-height:1;margin-bottom:6px;">'+b.emoji+'</div>';
-      h+='<div style="font-family:var(--fd);font-size:10px;font-weight:700;color:#fff;letter-spacing:0.5px;line-height:1.3;">'+b.name+'</div>';
-      h+='</div>';
-    });
-    h+='</div>';
+    h += '<div style="font-size:12px;color:var(--gold);margin-top:8px;font-weight:700;">🏆 Badge maximum atteint !</div>';
   }
-  h+='</div>';
+  h += '</div></div>';
 
-  // LISTE COMPLÈTE
-  h+='<div style="padding:0 18px;margin-top:16px;">';
-  h+='<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:#6B7F9E;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">TOUS LES BADGES</div>';
-  BADGES.forEach(function(b){
-    const ul=S.totalPoints>=b.min;
-    const isCur=badge.name===b.name;
-    h+='<div style="background:'+( ul ? "rgba(232,35,58,0.06)" : "var(--card)")+';border:1.5px solid '+( isCur ? "var(--red)" : ul ? "rgba(232,35,58,0.2)" : "var(--border)")+';border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;opacity:'+( ul?1:0.45)+';margin-bottom:8px;">';
-    h+='<div style="font-size:34px;flex-shrink:0;">'+b.emoji+'</div>';
-    h+='<div style="flex:1;">';
-    h+='<div style="font-family:var(--fd);font-size:16px;font-weight:800;color:'+( isCur?"var(--red)":"#fff")+';">'+b.name;
-    if(isCur) h+=' <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 6px;border-radius:99px;letter-spacing:1px;vertical-align:middle;">ACTUEL</span>';
-    h+='</div>';
-    h+='<div style="font-size:12px;color:#6B7F9E;margin-top:2px;">'+b.min.toLocaleString("fr")+( b.max===Infinity?"+":"–"+b.max.toLocaleString("fr"))+' pts</div>';
-    h+='</div>';
-    h+='<div style="font-size:20px;">'+( ul?"✅":"🔒")+'</div>';
-    h+='</div>';
+  // BADGES DEBLOQUÉS (scroll horizontal)
+  var unlocked = BADGES.filter(function(b) { return S.pts >= b.min; });
+  h += '<div style="padding:0 18px;">';
+  h += '<div class="slbl">MES BADGES (' + unlocked.length + '/' + BADGES.length + ')</div>';
+  if (!unlocked.length) {
+    h += '<div style="color:var(--muted);font-size:13px;padding:12px 0 16px;">Joue ton premier tournoi !</div>';
+  } else {
+    h += '<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;-webkit-overflow-scrolling:touch;">';
+    unlocked.forEach(function(b) {
+      h += '<div style="flex-shrink:0;background:rgba(232,35,58,0.1);border:1.5px solid rgba(232,35,58,0.3);border-radius:14px;padding:14px 10px;text-align:center;width:92px;">';
+      h += '<div style="font-size:34px;line-height:1;margin-bottom:6px;">' + b.emoji + '</div>';
+      h += '<div style="font-family:var(--fd);font-size:10px;font-weight:700;color:#fff;line-height:1.3;">' + b.name + '</div>';
+      h += '</div>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+
+  // TOUS LES BADGES
+  h += '<div style="padding:0 18px;margin-top:8px;">';
+  h += '<div class="slbl">TOUS LES BADGES</div>';
+  BADGES.forEach(function(b) {
+    var ul    = S.pts >= b.min;
+    var isCur = badge.name === b.name;
+    h += '<div style="background:' + (ul ? 'rgba(232,35,58,0.06)' : 'var(--card)') + ';border:1.5px solid ' + (isCur ? 'var(--red)' : (ul ? 'rgba(232,35,58,0.2)' : 'var(--border)')) + ';border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;opacity:' + (ul ? '1' : '0.45') + ';margin-bottom:8px;">';
+    h += '<div style="font-size:34px;flex-shrink:0;">' + b.emoji + '</div>';
+    h += '<div style="flex:1;">';
+    h += '<div style="font-family:var(--fd);font-size:16px;font-weight:800;color:' + (isCur ? 'var(--red)' : '#fff') + ';">' + b.name;
+    if (isCur) h += ' <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 6px;border-radius:99px;letter-spacing:1px;vertical-align:middle;">ACTUEL</span>';
+    h += '</div>';
+    h += '<div style="font-size:12px;color:var(--muted);margin-top:2px;">' + b.min.toLocaleString("fr") + (b.max === Infinity ? "+" : "–" + b.max.toLocaleString("fr")) + ' pts</div>';
+    h += '</div>';
+    h += '<div style="font-size:20px;">' + (ul ? "✅" : "🔒") + '</div>';
+    h += '</div>';
   });
-  h+='<button class="logb" onclick="resetApp()" style="margin-bottom:20px;">Réinitialiser l\'application</button>';
-  h+='</div>';
 
-  c.innerHTML=h;
-}
+  h += '<button class="btn-outline" onclick="resetApp()" style="margin-bottom:20px;">Reinitialiser</button>';
+  h += '</div>';
 
-function getPercentile(pts){
-  if(pts>=25000) return "0.1";
-  if(pts>=15000) return "0.5";
-  if(pts>=10000) return "1";
-  if(pts>=7500)  return "2";
-  if(pts>=5000)  return "5";
-  if(pts>=2500)  return "10";
-  if(pts>=1000)  return "25";
-  return "50";
+  el.innerHTML = h;
 }
 
 // ============================================================
-// EDIT PSEUDO
+// PSEUDO MODAL
 // ============================================================
-function openEP(){document.getElementById("epi").value=S.pseudo;document.getElementById("modal-ps").classList.add("open");}
-function closeEP(){document.getElementById("modal-ps").classList.remove("open");}
-function saveEP(){
-  const v=document.getElementById("epi").value.trim();
-  if(v.length<2) return;
-  S.pseudo=v; saveS(); closeEP(); renderProfil(); renderHome();
-  showToast("✓ Pseudo mis à jour !");
+function openPseudo() {
+  var inp = document.getElementById("ps-input");
+  if (inp) inp.value = S.pseudo;
+  document.getElementById("modal-ps").classList.add("open");
+}
+function closePseudo() { document.getElementById("modal-ps").classList.remove("open"); }
+function savePseudo() {
+  var v = document.getElementById("ps-input").value.trim();
+  if (v.length < 2) return;
+  S.pseudo = v;
+  saveS();
+  closePseudo();
+  renderProfil();
+  renderHome();
+  toast("✓ Pseudo mis a jour !");
 }
 
 // ============================================================
 // RESET
 // ============================================================
-function resetApp(){
-  if(!confirm("Effacer toutes tes données ?")) return;
-  localStorage.removeItem("sp_v2"); location.reload();
+function resetApp() {
+  if (!confirm("Effacer toutes tes donnees ?")) return;
+  localStorage.removeItem("sp_v3");
+  location.reload();
 }
 
 // ============================================================
 // TOAST
 // ============================================================
-function showToast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg; t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2500);
+function toast(msg) {
+  var t = document.getElementById("toast");
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function() { t.classList.remove("show"); }, 2500);
 }
 
 // ============================================================
 // INIT
 // ============================================================
-function init(){
+function init() {
   loadS();
-  if(S.pseudo){
-    document.getElementById("sc-ob").classList.remove("active");
-    document.getElementById("bnav").classList.add("v");
-    navTo("home");
-    loadFixtures();
+  var ob = document.getElementById("ob-pseudo");
+  if (ob) {
+    ob.addEventListener("keydown", function(e) { if (e.key === "Enter") startApp(); });
   }
-  document.getElementById("pseudo-input").addEventListener("keydown",e=>{if(e.key==="Enter")startApp();});
+  if (S.pseudo) {
+    document.getElementById("sc-ob").classList.remove("on");
+    document.getElementById("bnav").classList.add("show");
+    navTo("home");
+    loadFixtures(false);
+  }
 }
 
 init();
