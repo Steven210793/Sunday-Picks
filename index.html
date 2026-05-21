@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Sunday Picks"/>
 <link rel="apple-touch-icon" href="https://i.imgur.com/qaj1nmJ.png"/>
 <link rel="icon" href="https://i.imgur.com/qaj1nmJ.png"/>
-<title>Sunday Picks</title>
+<title>Sunday Picks v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -324,7 +324,7 @@ var S = {
 
 function loadS() {
   try {
-    var d = JSON.parse(localStorage.getItem("sp_v3") || "{}");
+    var d = JSON.parse(localStorage.getItem("sp_v4") || "{}");
     S.pseudo  = d.pseudo  || "";
     S.pts     = d.pts     || 0;
     S.history = d.history || [];
@@ -335,7 +335,7 @@ function loadS() {
 }
 
 function saveS() {
-  localStorage.setItem("sp_v3", JSON.stringify({
+  localStorage.setItem("sp_v4", JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
     tid: S.tid, picks: S.picks, saved: S.saved
   }));
@@ -400,25 +400,36 @@ function loadFixtures(force) {
   var el = document.getElementById("h-prochains");
   if (el) el.innerHTML = '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>';
 
-  apiCall("/fixtures/2/2026").then(function(data) {
+  // Charger PGA Tour (2) + DP World Tour (1) en parallele
+  Promise.all([
+    apiCall("/fixtures/2/2026"),
+    apiCall('/fixtures/1/2025').catch(function(){return{results:[]};})
+  ]).then(function(responses) {
     var now = new Date();
-    S.fixtures = (data.results || [])
-      .filter(function(f) { return f.start_date; })
-      .map(function(f) {
-        return {
-          id: String(f.id),
-          name: f.name,
-          loc: (f.course || "") + (f.country ? ", " + f.country : ""),
-          start: new Date(f.start_date),
-          end: new Date(f.end_date || f.start_date),
-          status: f.status || "pre"
-        };
-      })
-      .sort(function(a, b) { return a.start - b.start; });
+    var allResults = [];
 
+    responses.forEach(function(data, idx) {
+      var tour = idx === 0 ? "PGA" : "DP";
+      (data.results || []).forEach(function(f) {
+        if (f.start_date) {
+          allResults.push({
+            id: String(f.id),
+            name: f.name,
+            tour: tour,
+            loc: (f.course || "") + (f.country ? ", " + f.country : ""),
+            start: new Date(f.start_date),
+            end: new Date(f.end_date || f.start_date),
+            status: f.status || "pre"
+          });
+        }
+      });
+    });
+
+    // Trier par date
+    S.fixtures = allResults.sort(function(a, b) { return a.start - b.start; });
     S.fixtOk = true;
 
-    // Find current tournament
+    // Find current tournament (priorite au live, puis en cours, puis prochain)
     var live    = null;
     var ongoing = null;
     var next    = null;
@@ -467,17 +478,23 @@ function renderProchains() {
   var el = document.getElementById("h-prochains");
   if (!el) return;
   var now = new Date();
-  var list = S.fixtures.filter(function(f) { return f.id !== S.tid && f.start > now; }).slice(0, 4);
+  var list = S.fixtures.filter(function(f) { return f.id !== S.tid && f.end >= now; }).slice(0, 6);
   if (!list.length) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Aucun tournoi a venir</div>';
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Total fixtures: ' + S.fixtures.length + ' — Aucun a venir</div>';
     return;
   }
   var h = "";
   list.forEach(function(t) {
     h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;">';
-    h += '<div style="width:36px;height:36px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⛳</div>';
-    h += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + t.name + '</div>';
-    h += '<div style="font-size:12px;color:var(--muted);margin-top:1px;">' + fmtDate(t.start) + ' — ' + fmtDate(t.end) + '</div></div>';
+    var logoColor = t.tour === 'DP' ? '#4A90E2' : '#E8233A'; var logoBg = t.tour === 'DP' ? 'rgba(74,144,226,0.15)' : 'rgba(232,35,58,0.15)'; h += '<div style="width:40px;height:40px;background:' + logoBg + ';border:1.5px solid ' + logoColor + ';border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:var(--fd);font-size:10px;font-weight:900;color:' + logoColor + ';letter-spacing:0.5px;">' + (t.tour || 'PGA') + '</span></div>';
+    var tourColor = t.tour === 'DP' ? '#4A90E2' : '#E8233A';
+    var tourBg    = t.tour === 'DP' ? 'rgba(74,144,226,0.15)' : 'rgba(232,35,58,0.15)';
+    h += '<div style="flex:1;">';
+    h += '<div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + t.name + '</div>';
+    h += '<div style="display:flex;align-items:center;gap:6px;margin-top:3px;">';
+    h += '<span style="font-size:10px;background:' + tourBg + ';color:' + tourColor + ';padding:2px 7px;border-radius:6px;font-family:var(--fd);font-weight:800;letter-spacing:1px;">' + (t.tour || 'PGA') + '</span>';
+    h += '<span style="font-size:12px;color:var(--muted);">' + fmtDate(t.start) + ' — ' + fmtDate(t.end) + '</span>';
+    h += '</div></div>';
     h += '</div>';
   });
   el.innerHTML = h;
@@ -1096,7 +1113,7 @@ function savePseudo() {
 // ============================================================
 function resetApp() {
   if (!confirm("Effacer toutes tes donnees ?")) return;
-  localStorage.removeItem("sp_v3");
+  localStorage.removeItem("sp_v4");
   location.reload();
 }
 
