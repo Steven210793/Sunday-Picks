@@ -468,7 +468,7 @@ function loadFixtures(force) {
       var fStartStr = fStart.toISOString().substring(0,10);
       var fEndStr2  = (f.end instanceof Date ? f.end : new Date(f.end)).toISOString().substring(0,10);
       if (fEndStr2 === "2026-05-24") {
-        f.deadline = new Date("2026-05-25T01:59:00Z"); // 23h59 heure Paris
+        f.deadline = new Date("2026-05-24T22:00:00Z"); // minuit heure Paris
       }
     });
 
