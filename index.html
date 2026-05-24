@@ -428,17 +428,17 @@ function loadFixtures(force) {
       });
     });
 
-    // Override deadline pour tournois en cours aujourd'hui (exception temporaire)
+    // Deadline = date de debut du tournoi (picks fermes quand le tournoi commence)
+    // Exception: tournois en cours aujourd'hui -> deadline ce soir 23h59
     var today = new Date();
     var todayStr = today.toISOString().substring(0, 10);
     allResults.forEach(function(f) {
-      var fStart = f.start instanceof Date ? f.start.toISOString().substring(0,10) : "";
-      // Si le tournoi a commencé aujourd'hui ou avant, et se termine aujourd'hui ou apres
-      if (f.end >= today && f.start <= today) {
-        // Deadline = ce soir 23h59
+      var fEnd   = f.end instanceof Date ? f.end : new Date(f.end);
+      var fStart = f.start instanceof Date ? f.start : new Date(f.start);
+      if (fEnd >= today && fStart <= today) {
         f.deadline = new Date(todayStr + "T23:59:00");
       } else {
-        f.deadline = f.start;
+        f.deadline = fStart;
       }
     });
 
@@ -717,7 +717,8 @@ function renderHome() {
   }
 
   var done = picksDone();
-  var locked = isDeadlinePassed ? isDeadlinePassed() : false;
+  var dl = cur ? (cur.deadline || cur.start) : null;
+  var locked = dl ? (new Date() > new Date(dl)) : false;
   var btn  = document.getElementById("h-picksbtn");
   if (btn) {
     if (locked && !done) {
@@ -759,6 +760,13 @@ function renderHome() {
 // PICKS
 // ============================================================
 var selSlot = null;
+
+function isDeadlinePassed() {
+  var cur = getCur();
+  if (!cur) return false;
+  var dl = cur.deadline || cur.start;
+  return new Date() > new Date(dl);
+}
 
 function renderPicks() {
   var cur = getCur();
