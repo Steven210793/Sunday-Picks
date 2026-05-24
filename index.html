@@ -411,18 +411,35 @@ function loadFixtures(force) {
     responses.forEach(function(data, idx) {
       var tour = idx === 0 ? "PGA" : "DP";
       (data.results || []).forEach(function(f) {
-        if (f.start_date) {
+        // Support both API format (start_date) and manual format (start)
+        var startStr = f.start_date || f.start;
+        var endStr   = f.end_date   || f.end;
+        if (startStr) {
           allResults.push({
-            id: String(f.id),
-            name: f.name,
-            tour: tour,
-            loc: (f.course || "") + (f.country ? ", " + f.country : ""),
-            start: new Date(f.start_date),
-            end: new Date(f.end_date || f.start_date),
+            id:     String(f.id),
+            name:   f.name,
+            tour:   f.tour || tour,
+            loc:    f.loc || ((f.course || "") + (f.country ? ", " + f.country : "")),
+            start:  new Date(startStr),
+            end:    new Date(endStr || startStr),
             status: f.status || "pre"
           });
         }
       });
+    });
+
+    // Override deadline pour tournois en cours aujourd'hui (exception temporaire)
+    var today = new Date();
+    var todayStr = today.toISOString().substring(0, 10);
+    allResults.forEach(function(f) {
+      var fStart = f.start instanceof Date ? f.start.toISOString().substring(0,10) : "";
+      // Si le tournoi a commencé aujourd'hui ou avant, et se termine aujourd'hui ou apres
+      if (f.end >= today && f.start <= today) {
+        // Deadline = ce soir 23h59
+        f.deadline = new Date(todayStr + "T23:59:00");
+      } else {
+        f.deadline = f.start;
+      }
     });
 
     // Trier par date
@@ -509,13 +526,15 @@ function loadPlayers(tid) {
 
   Promise.all([
     apiCall("/entry-list/" + tid),
-    apiCall("/world-rankings/2/2026").catch(function() { return { results: [] }; })
+    apiCall("/tour-rankings/2/2026").catch(function() { return { results: {} }; })
   ]).then(function(results) {
     var entData = results[0];
     var rkData  = results[1];
 
     var ranks = {};
-    (rkData.results || []).forEach(function(p) { ranks[p.player_id] = p.position; });
+    // Tour Rankings: structure results.rankings
+    var rankList = (rkData.results && rkData.results.rankings) ? rkData.results.rankings : (rkData.results || []);
+    (Array.isArray(rankList) ? rankList : []).forEach(function(p) { ranks[p.player_id] = p.position; });
 
     var list = (entData.results && entData.results.entry_list)
       ? entData.results.entry_list
@@ -602,7 +621,8 @@ function startTimer() {
   function tick() {
     var cur = getCur();
     if (!cur) return;
-    var diff = cur.start - new Date();
+    var dl = cur.deadline || cur.start;
+    var diff = new Date(dl) - new Date();
     if (diff <= 0) {
       ["t-j","t-h","t-m","t-s"].forEach(function(id) {
         var el = document.getElementById(id);
@@ -697,13 +717,23 @@ function renderHome() {
   }
 
   var done = picksDone();
+  var locked = isDeadlinePassed ? isDeadlinePassed() : false;
   var btn  = document.getElementById("h-picksbtn");
   if (btn) {
-    if (done) {
+    if (locked && !done) {
+      btn.className = "btn-red";
+      btn.style.background = "var(--muted2)";
+      btn.innerHTML = "🔒 PICKS FERMES";
+      btn.onclick = null;
+    } else if (done) {
       btn.className = "btn-red btn-green";
+      btn.style.background = "";
+      btn.onclick = goToPicks;
       btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PICKS ENREGISTRES';
     } else {
       btn.className = "btn-red";
+      btn.style.background = "";
+      btn.onclick = goToPicks;
       btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>FAIRE MES PICKS';
     }
   }
