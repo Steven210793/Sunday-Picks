@@ -428,17 +428,25 @@ function loadFixtures(force) {
       });
     });
 
-    // Deadline = date de debut du tournoi (picks fermes quand le tournoi commence)
-    // Exception: tournois en cours aujourd'hui -> deadline ce soir 23h59
+    // Deadline = date de debut du tournoi
+    // Exception: tournois en cours -> deadline fin de journee du dernier jour
     var today = new Date();
     var todayStr = today.toISOString().substring(0, 10);
     allResults.forEach(function(f) {
       var fEnd   = f.end instanceof Date ? f.end : new Date(f.end);
       var fStart = f.start instanceof Date ? f.start : new Date(f.start);
-      if (fEnd >= today && fStart <= today) {
-        f.deadline = new Date(todayStr + "T23:59:00");
+      // Fin de journee du dernier jour du tournoi
+      var fEndDay = new Date(fEnd.toISOString().substring(0,10) + "T23:59:59");
+      if (fEndDay >= today && fStart <= today) {
+        // Tournoi en cours: picks fermes apres le debut
+        f.deadline = fStart; // picks fermes des le debut du tournoi
       } else {
         f.deadline = fStart;
+      }
+      // EXCEPTION temporaire: tournois cette semaine (21-24 mai 2026) -> deadline ce soir
+      var fStartStr = fStart.toISOString().substring(0,10);
+      if (fStartStr >= "2026-05-21" && fStartStr <= "2026-05-24") {
+        f.deadline = new Date("2026-05-24T23:59:00");
       }
     });
 
@@ -455,7 +463,10 @@ function loadFixtures(force) {
     for (var i = 0; i < S.fixtures.length; i++) {
       var f = S.fixtures[i];
       if (!live && (f.status === "inprogress" || f.status === "live")) live = f;
-      if (!ongoing && f.start <= now && f.end >= now) ongoing = f;
+      // Use end of day for end date comparison
+      var fEndDay = new Date(f.end);
+      fEndDay.setHours(23,59,59,999);
+      if (!ongoing && f.start <= now && fEndDay >= now) ongoing = f;
       if (!next && f.start > now) next = f;
     }
     for (var j = S.fixtures.length - 1; j >= 0; j--) {
@@ -495,7 +506,11 @@ function renderProchains() {
   var el = document.getElementById("h-prochains");
   if (!el) return;
   var now = new Date();
-  var list = S.fixtures.filter(function(f) { return f.id !== S.tid && f.end >= now; }).slice(0, 6);
+  var list = S.fixtures.filter(function(f) {
+    var fEndDay = new Date(f.end);
+    fEndDay.setHours(23,59,59,999);
+    return f.id !== S.tid && fEndDay >= now;
+  }).slice(0, 8);
   if (!list.length) {
     el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Total fixtures: ' + S.fixtures.length + ' — Aucun a venir</div>';
     return;
