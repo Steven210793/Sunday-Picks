@@ -540,8 +540,8 @@ function renderSecondTournoi(now) {
 
   var others = S.fixtures.filter(function(f) {
     if (f.id === S.tid) return false;
-    var fStartStr = (f.start instanceof Date ? f.start : new Date(f.start)).toISOString().substring(0,10);
-    var fEndStr   = (f.end   instanceof Date ? f.end   : new Date(f.end)  ).toISOString().substring(0,10);
+    var fStartStr = new Date(f.start).toISOString().substring(0,10);
+    var fEndStr   = new Date(f.end).toISOString().substring(0,10);
     return fStartStr <= today && fEndStr >= today;
   });
 
