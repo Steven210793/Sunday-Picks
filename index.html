@@ -531,11 +531,10 @@ function renderSecondTournoi(now) {
   var now2 = now || new Date();
   // Trouver tous les tournois en cours
   var ongoing = S.fixtures.filter(function(f) {
-    var fEnd = f.end instanceof Date ? f.end : new Date(f.end);
-    var fEndDay = new Date(fEnd);
-    fEndDay.setHours(23,59,59,999);
-    var fStart = f.start instanceof Date ? f.start : new Date(f.start);
-    return fStart <= now2 && fEndDay >= now2;
+    var fEnd = new Date(f.end);
+    fEnd.setHours(23,59,59,999);
+    var fStart = new Date(f.start);
+    return fStart <= now2 && fEnd >= now2;
   });
 
   var el = document.getElementById("h-second-tournoi");
@@ -543,7 +542,7 @@ function renderSecondTournoi(now) {
 
   // Afficher les tournois en cours autres que le principal
   var others = ongoing.filter(function(f) { return f.id !== S.tid; });
-  if (!others.length) { el.innerHTML = '<div style="color:orange;font-size:11px;padding:4px;">DEBUG: ongoing=' + ongoing.length + ' tid=' + S.tid + ' fixtures=' + S.fixtures.length + '</div>'; return; }
+  if (!others.length) { el.innerHTML = ""; return; }
 
   var h = "";
   others.forEach(function(t) {
