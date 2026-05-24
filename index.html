@@ -324,7 +324,7 @@ var S = {
 
 function loadS() {
   try {
-    var d = JSON.parse(localStorage.getItem("sp_v7") || "{}");
+    var d = JSON.parse(localStorage.getItem("sp_v8") || "{}");
     S.pseudo  = d.pseudo  || "";
     S.pts     = d.pts     || 0;
     S.history = d.history || [];
@@ -335,7 +335,7 @@ function loadS() {
 }
 
 function saveS() {
-  localStorage.setItem("sp_v7", JSON.stringify({
+  localStorage.setItem("sp_v8", JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
     tid: S.tid, picks: S.picks, saved: S.saved
   }));
@@ -485,7 +485,19 @@ function loadFixtures(force) {
       if (S.fixtures[j].end < now) { past = S.fixtures[j]; break; }
     }
 
-    var cur = live || ongoing || next || past;
+    // Priorite PGA sur DP pour tournoi principal
+    var ongoingPGA = null;
+    var ongoingDP  = null;
+    for (var k = 0; k < S.fixtures.length; k++) {
+      var fk = S.fixtures[k];
+      var fkEnd = new Date(fk.end); fkEnd.setHours(23,59,59,999);
+      var fkStart = new Date(fk.start);
+      if (fkStart <= now && fkEnd >= now) {
+        if (!ongoingPGA && fk.tour !== 'DP') ongoingPGA = fk;
+        if (!ongoingDP  && fk.tour === 'DP') ongoingDP  = fk;
+      }
+    }
+    var cur = live || ongoingPGA || ongoingDP || next || past;
 
     if (cur && cur.id !== S.tid) {
       S.tid = cur.id;
@@ -1215,7 +1227,7 @@ function savePseudo() {
 // ============================================================
 function resetApp() {
   if (!confirm("Effacer toutes tes donnees ?")) return;
-  localStorage.removeItem("sp_v7");
+  localStorage.removeItem("sp_v8");
   location.reload();
 }
 
