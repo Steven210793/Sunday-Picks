@@ -324,7 +324,7 @@ var S = {
 
 function loadS() {
   try {
-    var d = JSON.parse(localStorage.getItem("sp_v6") || "{}");
+    var d = JSON.parse(localStorage.getItem("sp_v7") || "{}");
     S.pseudo  = d.pseudo  || "";
     S.pts     = d.pts     || 0;
     S.history = d.history || [];
@@ -335,7 +335,7 @@ function loadS() {
 }
 
 function saveS() {
-  localStorage.setItem("sp_v6", JSON.stringify({
+  localStorage.setItem("sp_v7", JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
     tid: S.tid, picks: S.picks, saved: S.saved
   }));
@@ -449,26 +449,16 @@ function loadFixtures(force) {
       });
     });
 
-    // Deadline = date de debut du tournoi
-    // Exception: tournois en cours -> deadline fin de journee du dernier jour
-    var today = new Date();
-    var todayStr = today.toISOString().substring(0, 10);
+    // Deadline = picks ouverts jusqu'au debut du tournoi
+    // EXCEPTION: tournois de cette semaine -> picks ouverts jusqu'au 26 mai
     allResults.forEach(function(f) {
-      var fEnd   = f.end instanceof Date ? f.end : new Date(f.end);
       var fStart = f.start instanceof Date ? f.start : new Date(f.start);
-      // Fin de journee du dernier jour du tournoi
-      var fEndDay = new Date(fEnd.toISOString().substring(0,10) + "T23:59:59");
-      if (fEndDay >= today && fStart <= today) {
-        // Tournoi en cours: picks fermes apres le debut
-        f.deadline = fStart; // picks fermes des le debut du tournoi
+      var fEnd   = f.end   instanceof Date ? f.end   : new Date(f.end);
+      var fEndStr = fEnd.toISOString().substring(0,10);
+      if (fEndStr <= "2026-05-26") {
+        f.deadline = new Date("2026-05-26T22:00:00Z");
       } else {
-        f.deadline = fStart;
-      }
-      // EXCEPTION: tournois du weekend 21-24 mai 2026 -> picks ouverts jusqu'a ce soir
-      var fStartStr = fStart.toISOString().substring(0,10);
-      var fEndStr2  = (f.end instanceof Date ? f.end : new Date(f.end)).toISOString().substring(0,10);
-      if (fEndStr2 === "2026-05-24") {
-        f.deadline = new Date("2026-05-25T22:00:00Z"); // minuit heure Paris
+        f.deadline = new Date(fStart);
       }
     });
 
@@ -1189,7 +1179,7 @@ function savePseudo() {
 // ============================================================
 function resetApp() {
   if (!confirm("Effacer toutes tes donnees ?")) return;
-  localStorage.removeItem("sp_v6");
+  localStorage.removeItem("sp_v7");
   location.reload();
 }
 
