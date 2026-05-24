@@ -447,7 +447,7 @@ function loadFixtures(force) {
       var fStartStr = fStart.toISOString().substring(0,10);
       var fEndStr2  = (f.end instanceof Date ? f.end : new Date(f.end)).toISOString().substring(0,10);
       if (fEndStr2 === "2026-05-24") {
-        f.deadline = new Date("2026-05-24T23:59:00");
+        f.deadline = new Date("2026-05-24T23:59:00+02:00");
       }
     });
 
@@ -508,10 +508,11 @@ function renderProchains() {
   if (!el) return;
   var now = new Date();
   var list = S.fixtures.filter(function(f) {
-    var fEndDay = new Date(f.end);
+    var fEnd = f.end instanceof Date ? f.end : new Date(f.end);
+    var fEndDay = new Date(fEnd);
     fEndDay.setHours(23,59,59,999);
     return f.id !== S.tid && fEndDay >= now;
-  }).slice(0, 8);
+  }).slice(0, 10);
   if (!list.length) {
     el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Total fixtures: ' + S.fixtures.length + ' — Aucun a venir</div>';
     return;
