@@ -324,7 +324,7 @@ var S = {
 
 function loadS() {
   try {
-    var d = JSON.parse(localStorage.getItem("sp_v5") || "{}");
+    var d = JSON.parse(localStorage.getItem("sp_v6") || "{}");
     S.pseudo  = d.pseudo  || "";
     S.pts     = d.pts     || 0;
     S.history = d.history || [];
@@ -335,7 +335,7 @@ function loadS() {
 }
 
 function saveS() {
-  localStorage.setItem("sp_v5", JSON.stringify({
+  localStorage.setItem("sp_v6", JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
     tid: S.tid, picks: S.picks, saved: S.saved
   }));
@@ -468,7 +468,7 @@ function loadFixtures(force) {
       var fStartStr = fStart.toISOString().substring(0,10);
       var fEndStr2  = (f.end instanceof Date ? f.end : new Date(f.end)).toISOString().substring(0,10);
       if (fEndStr2 === "2026-05-24") {
-        f.deadline = new Date("2026-05-24T22:00:00Z"); // minuit heure Paris
+        f.deadline = new Date("2026-05-25T22:00:00Z"); // minuit heure Paris
       }
     });
 
@@ -1189,7 +1189,7 @@ function savePseudo() {
 // ============================================================
 function resetApp() {
   if (!confirm("Effacer toutes tes donnees ?")) return;
-  localStorage.removeItem("sp_v5");
+  localStorage.removeItem("sp_v6");
   location.reload();
 }
 
