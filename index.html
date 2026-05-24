@@ -499,6 +499,7 @@ function loadFixtures(force) {
 
     renderHome();
     renderProchains();
+    renderSecondTournoi(now);
     if (cur) loadPlayers(cur.id);
 
   }).catch(function(e) {
@@ -817,7 +818,6 @@ function renderHome() {
 
   startTimer();
   renderProchains();
-  renderSecondTournoi(new Date());
 }
 
 // ============================================================
