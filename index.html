@@ -443,9 +443,10 @@ function loadFixtures(force) {
       } else {
         f.deadline = fStart;
       }
-      // EXCEPTION temporaire: tournois cette semaine (21-24 mai 2026) -> deadline ce soir
+      // EXCEPTION: tournois du weekend 21-24 mai 2026 -> picks ouverts jusqu'a ce soir
       var fStartStr = fStart.toISOString().substring(0,10);
-      if (fStartStr >= "2026-05-21" && fStartStr <= "2026-05-24") {
+      var fEndStr2  = (f.end instanceof Date ? f.end : new Date(f.end)).toISOString().substring(0,10);
+      if (fEndStr2 === "2026-05-24") {
         f.deadline = new Date("2026-05-24T23:59:00");
       }
     });
