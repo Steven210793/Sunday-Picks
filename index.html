@@ -543,7 +543,7 @@ function renderSecondTournoi(now) {
 
   // Afficher les tournois en cours autres que le principal
   var others = ongoing.filter(function(f) { return f.id !== S.tid; });
-  if (!others.length) { el.innerHTML = ""; return; }
+  if (!others.length) { el.innerHTML = '<div style="color:orange;font-size:11px;padding:4px;">DEBUG: ongoing=' + ongoing.length + ' tid=' + S.tid + ' fixtures=' + S.fixtures.length + '</div>'; return; }
 
   var h = "";
   others.forEach(function(t) {
