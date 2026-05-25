@@ -345,8 +345,8 @@ function loadFixtures(force) {
   if (el) el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Chargement...</div>';
 
   Promise.all([
-    apiCall("/fixtures/2/2026").catch(function() { return { results: [] }; }),
-    apiCall("/tour-rankings/2/2026").catch(function() { return { results: {} }; })
+    apiCall("/fixtures/2/2026").catch(function(e) { console.error("fixtures error:",e); return { results: [] }; }),
+    apiCall("/tour-rankings/2/2026").catch(function(e) { console.error("rankings error:",e); return { results: {} }; })
   ]).then(function(res) {
     var fixtData = res[0];
     var rankData = res[1];
@@ -420,7 +420,8 @@ function loadFixtures(force) {
     if (cur) loadPlayers(cur.id);
 
   }).catch(function(e) {
-    if (el) el.innerHTML = '<div class="box-err">Erreur chargement: ' + e.message + '</div>';
+    console.error("loadFixtures catch:", e);
+    if (el) el.innerHTML = '<div class="box-err">Erreur: ' + e.message + '</div>';
   });
 }
 
@@ -597,7 +598,8 @@ function renderProchains() {
   }).slice(0, 8);
 
   if (!list.length) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Aucun tournoi à venir (total: ' + S.fixtures.length + ', tid: ' + S.tid + ')</div>';
+    var msg = S.fixtOk ? 'Aucun tournoi à venir (fixtures:' + S.fixtures.length + ')' : 'Chargement...';
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">' + msg + '</div>';
     return;
   }
 
