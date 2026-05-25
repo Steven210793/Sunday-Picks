@@ -597,7 +597,7 @@ function renderProchains() {
   }).slice(0, 8);
 
   if (!list.length) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Aucun tournoi à venir</div>';
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Aucun tournoi à venir (total: ' + S.fixtures.length + ', tid: ' + S.tid + ')</div>';
     return;
   }
 
