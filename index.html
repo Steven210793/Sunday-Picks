@@ -892,9 +892,13 @@ function startApp() {
 }
 
 function launchApp() {
-  document.getElementById("sc-onboard").classList.remove("on");
-  document.getElementById("sc-home").classList.add("on");
-  document.getElementById("bnav").classList.add("show");
+  // Hide onboarding
+  var ob = document.getElementById("sc-onboard");
+  if (ob) { ob.style.display = "none"; ob.classList.remove("on"); }
+  // Show nav
+  var bnav = document.getElementById("bnav");
+  if (bnav) bnav.classList.add("show");
+  // Go home
   navTo("home");
   loadFixtures(false);
 }
