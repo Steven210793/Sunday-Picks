@@ -130,45 +130,63 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
   </div>
   <div style="padding:0 18px 100px;flex:1;">
 
-    <!-- TOURNOI CARD -->
-    <div style="background:linear-gradient(135deg,#162847,#0F1E36 60%,#1a0a0a);border:1px solid var(--border2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
+    <!-- TOURNOI PGA -->
+    <div id="h-card-pga" style="display:none;background:linear-gradient(135deg,#1a0a0a,#0F1E36 60%,#162847);border:1px solid var(--border2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
       <div style="padding:18px;">
-        <div id="h-livebadge"></div>
-        <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-tname">Chargement...</div>
+        <div id="h-live-pga"></div>
+        <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-name-pga">Chargement...</div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span id="h-tloc">—</span>
+          <span id="h-loc-pga">—</span>
         </div>
-        <div class="timer-box">
-          <div style="font-family:var(--fd);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">FIN DES PICKS DANS</div>
-          <div class="timer-row">
-            <div><div class="tnum" id="t-j">00</div><div class="tlbl">JOURS</div></div>
-            <div class="tsep">:</div>
-            <div><div class="tnum" id="t-h">00</div><div class="tlbl">HRS</div></div>
-            <div class="tsep">:</div>
-            <div><div class="tnum" id="t-m">00</div><div class="tlbl">MIN</div></div>
-            <div class="tsep">:</div>
-            <div><div class="tnum" id="t-s">00</div><div class="tlbl">SEC</div></div>
+        <div id="h-timer-pga" style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">FIN DES PICKS DANS</div>
+          <div style="display:flex;gap:8px;justify-content:center;" id="h-countdown-pga">
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-d-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">JOURS</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-h-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">HRS</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-m-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">MIN</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-s-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">SEC</div></div>
           </div>
         </div>
-        <button class="btn-red" id="h-picksbtn" onclick="goToPicks()">
+        <button id="h-btn-pga" onclick="goToPicksTour('PGA')" style="width:100%;padding:14px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          FAIRE MES PICKS
+          FAIRE MES PICKS PGA
         </button>
       </div>
     </div>
 
-    <!-- Tournoi DP en cours - hardcode -->
-    <div id="h-second-tournoi" style="background:linear-gradient(135deg,#0d1e36,#0F1E36);border:1px solid rgba(74,144,226,0.3);border-radius:16px;margin-bottom:16px;overflow:hidden;">
-      <div style="padding:16px 18px;">
-        <div style="display:inline-flex;align-items:center;gap:5px;background:#4A90E2;color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE — DP</div>
-        <div style="font-family:var(--fd);font-size:22px;font-weight:900;margin-bottom:4px;">Soudal Open</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Rinkven International GC, Belgique</div>
-        <button onclick="goToPicks()" style="width:100%;padding:13px;background:#4A90E2;border:none;border-radius:10px;color:#fff;font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:2px;cursor:pointer;">VOIR LES PICKS</button>
+    <!-- TOURNOI DP -->
+    <div id="h-card-dp" style="display:none;background:linear-gradient(135deg,#0d1e36,#0F1E36 60%,#0a1529);border:1px solid rgba(74,144,226,0.3);border-radius:16px;margin-bottom:16px;overflow:hidden;">
+      <div style="padding:18px;">
+        <div id="h-live-dp"></div>
+        <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-name-dp">Chargement...</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="h-loc-dp">—</span>
+        </div>
+        <div id="h-timer-dp" style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">FIN DES PICKS DANS</div>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-d-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">JOURS</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-h-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">HRS</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-m-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">MIN</div></div>
+            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
+            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-s-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">SEC</div></div>
+          </div>
+        </div>
+        <button id="h-btn-dp" onclick="goToPicksTour('DP')" style="width:100%;padding:14px;background:#4A90E2;border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          FAIRE MES PICKS DP
+        </button>
       </div>
     </div>
 
-    <!-- SCORE -->
+        <!-- SCORE -->
     <div class="card" style="padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
       <div style="flex:1;">
         <div style="font-family:var(--fd);font-size:44px;font-weight:900;line-height:1;"><span id="h-score">0</span> <span style="font-size:18px;color:var(--muted);">PTS</span></div>
@@ -288,7 +306,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 <script>
 "use strict";
 
-var SOUDAL_PLAYERS = [
+var DP_PLAYERS = [
   {id:"dp-001",name:"Patrick Reed",flag:"🇺🇸",wr:1,coeff:1.5},
   {id:"dp-002",name:"Rory McIlroy",flag:"🇬🇧",wr:2,coeff:1.5},
   {id:"dp-003",name:"Jayden Schaper",flag:"🇿🇦",wr:3,coeff:1.5},
@@ -530,20 +548,24 @@ var S = {
 
 function loadS() {
   try {
-    var d = JSON.parse(localStorage.getItem("sp_v8") || "{}");
+    var d = JSON.parse(localStorage.getItem("sp_v9") || "{}");
     S.pseudo  = d.pseudo  || "";
     S.pts     = d.pts     || 0;
     S.history = d.history || [];
     S.tid     = d.tid     || null;
+    S.tidPGA  = d.tidPGA  || null;
+    S.tidDP   = d.tidDP   || null;
+    S.activeTour = d.activeTour || "PGA";
     S.picks   = d.picks   || { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
     S.saved   = d.saved   || false;
   } catch(e) {}
 }
 
 function saveS() {
-  localStorage.setItem("sp_v8", JSON.stringify({
+  localStorage.setItem("sp_v9", JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
-    tid: S.tid, picks: S.picks, saved: S.saved
+    tid: S.tid, tidPGA: S.tidPGA, tidDP: S.tidDP, activeTour: S.activeTour,
+    picks: S.picks, saved: S.saved
   }));
 }
 
@@ -696,7 +718,7 @@ function loadFixtures(force) {
       if (S.fixtures[j].end < now) { past = S.fixtures[j]; break; }
     }
 
-    // Priorite PGA sur DP pour tournoi principal
+    // Detecter PGA et DP separement
     var ongoingPGA = null;
     var ongoingDP  = null;
     for (var k = 0; k < S.fixtures.length; k++) {
@@ -704,16 +726,31 @@ function loadFixtures(force) {
       var fkEnd = new Date(fk.end); fkEnd.setHours(23,59,59,999);
       var fkStart = new Date(fk.start);
       if (fkStart <= now && fkEnd >= now) {
-        if (!ongoingPGA && fk.tour !== 'DP') ongoingPGA = fk;
-        if (!ongoingDP  && fk.tour === 'DP') ongoingDP  = fk;
+        if (!ongoingPGA && fk.tour !== "DP") ongoingPGA = fk;
+        if (!ongoingDP  && fk.tour === "DP") ongoingDP  = fk;
       }
     }
+
+    // Tournoi principal = PGA si dispo, sinon DP
     var cur = live || ongoingPGA || ongoingDP || next || past;
 
+    // Sauvegarder les IDs PGA et DP separement
+    if (ongoingPGA && ongoingPGA.id !== S.tidPGA) {
+      S.tidPGA = ongoingPGA.id;
+      if (S.activeTour === "PGA") {
+        S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
+        S.saved = false;
+      }
+    }
+    if (ongoingDP && ongoingDP.id !== S.tidDP) {
+      S.tidDP = ongoingDP.id;
+      if (S.activeTour === "DP") {
+        S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
+        S.saved = false;
+      }
+    }
     if (cur && cur.id !== S.tid) {
       S.tid = cur.id;
-      S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
-      S.saved = false;
       saveS();
     } else if (cur && !S.tid) {
       S.tid = cur.id;
@@ -729,6 +766,17 @@ function loadFixtures(force) {
     console.error(e);
     if (el) el.innerHTML = '<div class="box-err">Impossible de charger les tournois (' + e.message + ')</div>';
   });
+}
+
+function getCurByTour(tour) {
+  var today = new Date().toISOString().substring(0,10);
+  for (var i = 0; i < S.fixtures.length; i++) {
+    var f = S.fixtures[i];
+    var fStart = new Date(f.start).toISOString().substring(0,10);
+    var fEnd   = new Date(f.end).toISOString().substring(0,10);
+    if (f.tour === tour && fStart <= today && fEnd >= today) return f;
+  }
+  return null;
 }
 
 function getCur() {
@@ -810,9 +858,13 @@ function loadPlayers(tid) {
   S.playOk = false;
 
   // Tournois DP avec donnees manuelles
-  var DP_MANUAL = {"788": SOUDAL_PLAYERS};
-  if (DP_MANUAL[tid]) {
-    S.players = DP_MANUAL[tid].slice().sort(function(a,b){return a.wr-b.wr;});
+  // Tous les tournois DP utilisent DP_PLAYERS
+  var curTournoi = null;
+  for (var i = 0; i < S.fixtures.length; i++) {
+    if (S.fixtures[i].id === tid) { curTournoi = S.fixtures[i]; break; }
+  }
+  if (curTournoi && curTournoi.tour === "DP") {
+    S.players = DP_PLAYERS.slice().sort(function(a,b){return a.wr-b.wr;});
     S.playOk = true;
     if (!S.picks.tenPlayers || S.picks.tenPlayers.length===0) {
       S.picks.tenPlayers = genTen(); saveS();
@@ -916,6 +968,28 @@ var tmrId = null;
 
 function startTimer() {
   if (tmrId) clearInterval(tmrId);
+  function tickTour(tour) {
+    var t = getCurByTour(tour);
+    if (!t) return;
+    var dl = t.deadline || t.start;
+    var diff = new Date(dl) - new Date();
+    var sfx = tour.toLowerCase();
+    var dEl = document.getElementById("h-d-" + sfx);
+    var hEl = document.getElementById("h-h-" + sfx);
+    var mEl = document.getElementById("h-m-" + sfx);
+    var sEl = document.getElementById("h-s-" + sfx);
+    if (!dEl) return;
+    if (diff <= 0) {
+      dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
+      return;
+    }
+    var tot = Math.floor(diff/1000);
+    dEl.textContent = String(Math.floor(tot/86400)).padStart(2,"0");
+    hEl.textContent = String(Math.floor((tot%86400)/3600)).padStart(2,"0");
+    mEl.textContent = String(Math.floor((tot%3600)/60)).padStart(2,"0");
+    sEl.textContent = String(tot%60).padStart(2,"0");
+  }
+
   function tick() {
     var cur = getCur();
     if (!cur) return;
@@ -939,8 +1013,8 @@ function startTimer() {
       if (el) el.textContent = String(vals[i]).padStart(2, "0");
     });
   }
-  tick();
-  tmrId = setInterval(tick, 1000);
+  tick(); tickTour("PGA"); tickTour("DP");
+  tmrId = setInterval(function(){ tick(); tickTour("PGA"); tickTour("DP"); }, 1000);
 }
 
 // ============================================================
@@ -964,6 +1038,102 @@ function navTo(tab) {
   if (tab === "class")  renderClass();
   if (tab === "picks")  renderPicks();
   if (tab === "profil") renderProfil();
+}
+
+
+function isDeadlinePassed() {
+  var tour = S.activeTour || "PGA";
+  var t = getCurByTour(tour);
+  if (!t) return false;
+  var dl = t.deadline || t.start;
+  return new Date() > new Date(dl);
+}
+
+function renderPicks() {
+  var el = document.getElementById("pk-content");
+  if (!el) return;
+
+  // Update title with tour badge
+  var title = document.getElementById("pk-title");
+  var activeTournoi = getCurByTour(S.activeTour) || getCur();
+  if (title) {
+    var color = S.activeTour === "DP" ? "#4A90E2" : "var(--red)";
+    var tname = activeTournoi ? (activeTournoi.name.length > 16 ? activeTournoi.name.substring(0,16)+"..." : activeTournoi.name) : "PICKS";
+    title.innerHTML = tname.toUpperCase() + ' <span style="background:' + color + ';color:#fff;font-family:var(--fd);font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;vertical-align:middle;">' + S.activeTour + '</span>';
+  }
+
+  // Lock if deadline passed
+  if (isDeadlinePassed()) {
+    var vbar = document.getElementById("vbar");
+    if (vbar) vbar.style.display = "none";
+    var color2 = S.activeTour === "DP" ? "#4A90E2" : "var(--red)";
+    el.innerHTML = '<div style="text-align:center;padding:60px 24px;">' +
+      '<div style="font-size:64px;margin-bottom:16px;">🔒</div>' +
+      '<div style="font-family:var(--fd);font-size:24px;font-weight:900;letter-spacing:1px;margin-bottom:8px;">PICKS FERMÉS</div>' +
+      '<div style="font-size:14px;color:var(--muted);line-height:1.5;">Le tournoi est en cours.<br/>Les picks sont verrouillés.</div>' +
+      (S.saved ? '<div style="margin-top:24px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:16px;"><div style="font-family:var(--fd);font-size:14px;font-weight:700;color:var(--green);margin-bottom:8px;">TES PICKS ENREGISTRÉS</div><div style="font-size:13px;color:var(--muted);">Attends les résultats !</div></div>' : '') +
+      '</div>';
+    return;
+  }
+
+  var vbar2 = document.getElementById("vbar");
+  var vbtn  = document.getElementById("vbtn");
+  if (vbar2) vbar2.style.display = "block";
+  if (vbtn)  vbtn.disabled = !picksDone();
+
+  if (!S.playOk && !S.players.length) {
+    el.innerHTML = '<div style="text-align:center;padding:40px 24px;color:var(--muted);">Chargement des joueurs...</div>';
+    return;
+  }
+
+  var p = S.picks;
+  var html = "";
+
+  // TOP 3
+  html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">TON TOP 3</div>';
+  var top3labels = ["🥇 1ER", "🥈 2ÈME", "🥉 3ÈME"];
+  for (var i = 0; i < 3; i++) {
+    var pid = p.top3[i];
+    var pl  = pid ? getP(pid) : null;
+    html += '<div onclick="openModal(\'top3\',' + i + ')" style="background:var(--card);border:1px solid ' + (pl?"var(--border2)":"rgba(232,35,58,0.3)") + ';border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
+    html += '<div style="display:flex;align-items:center;gap:10px;">';
+    html += '<span style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);">' + top3labels[i] + '</span>';
+    if (pl) {
+      html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">' + pl.name + '</div>';
+      html += '<div style="font-size:11px;color:var(--muted);">×' + pl.coeff + ' · #' + pl.wr + '</div></div>';
+    } else {
+      html += '<span style="color:var(--muted);font-size:14px;">Choisir un joueur</span>';
+    }
+    html += '</div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>';
+  }
+
+  // 10 PICKS
+  html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--muted);margin:20px 0 12px;">TES 10 PICKS</div>';
+  var ten = p.tenPlayers || [];
+  if (!ten.length) ten = genTen();
+  var cats = ["Top 5","Top 10","Top 20","Top 30","Make Cut"];
+  for (var j = 0; j < ten.length && j < 10; j++) {
+    var tp = getP(ten[j]);
+    if (!tp) continue;
+    var cat = p.tenPicks[ten[j]] || "";
+    html += '<div onclick="openModal(\'ten\',\'' + ten[j] + '\')" style="background:var(--card);border:1px solid ' + (cat?"var(--border2)":"rgba(232,35,58,0.3)") + ';border-radius:12px;padding:12px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
+    html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">' + tp.name + '</div>';
+    html += '<div style="font-size:11px;color:var(--muted);">×' + tp.coeff + ' · #' + tp.wr + '</div></div>';
+    html += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:' + (cat?"var(--green)":"var(--red)") + '">' + (cat||"CHOISIR") + '</div></div>';
+  }
+
+  el.innerHTML = html;
+}
+
+function goToPicksTour(tour) {
+  S.activeTour = tour;
+  var t = getCurByTour(tour);
+  if (t) {
+    S.tid = t.id;
+    loadPlayers(t.id);
+  }
+  saveS();
+  goToPicks();
 }
 
 function goToPicks() {
@@ -990,8 +1160,53 @@ function startApp() {
 // ============================================================
 // HOME
 // ============================================================
+function renderTourCard(tour) {
+  var t = getCurByTour(tour);
+  var cardId = tour === "PGA" ? "h-card-pga" : "h-card-dp";
+  var card = document.getElementById(cardId);
+  if (!card) return;
+
+  if (!t) { card.style.display = "none"; return; }
+  card.style.display = "block";
+
+  var nameEl = document.getElementById("h-name-" + tour.toLowerCase());
+  var locEl  = document.getElementById("h-loc-"  + tour.toLowerCase());
+  var liveEl = document.getElementById("h-live-" + tour.toLowerCase());
+  var btnEl  = document.getElementById("h-btn-"  + tour.toLowerCase());
+
+  if (nameEl) nameEl.textContent = t.name;
+  if (locEl)  locEl.textContent  = t.loc || "—";
+
+  var isLive = t.status === "inprogress" || t.status === "live";
+  var color  = tour === "DP" ? "#4A90E2" : "var(--red)";
+  if (liveEl) liveEl.innerHTML = isLive
+    ? '<div style="display:inline-flex;align-items:center;gap:5px;background:' + color + ';color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE — ' + tour + '</div>'
+    : '<div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);color:var(--muted);font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;">' + tour + '</div>';
+
+  // Check if picks done for this tour
+  var tid = tour === "PGA" ? S.tidPGA : S.tidDP;
+  var dl  = t.deadline || new Date(t.start);
+  var locked = new Date() > new Date(dl);
+  var picksDoneForTour = S.activeTour === tour && S.saved;
+
+  if (btnEl) {
+    if (locked && !picksDoneForTour) {
+      btnEl.style.background = "var(--muted2)";
+      btnEl.innerHTML = "🔒 PICKS FERMÉS";
+      btnEl.onclick = null;
+    } else if (picksDoneForTour) {
+      btnEl.style.background = tour === "DP" ? "#2a6faa" : "#1a8a3a";
+      btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> PICKS ENREGISTRÉS — ' + tour;
+      btnEl.onclick = function() { goToPicksTour(tour); };
+    } else {
+      btnEl.style.background = tour === "DP" ? "#4A90E2" : "var(--red)";
+      btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS ' + tour;
+      btnEl.onclick = function() { goToPicksTour(tour); };
+    }
+  }
+}
+
 function renderHome() {
-  var cur   = getCur();
   var badge = getBadge(S.pts);
   var nxt   = getNextBadge(S.pts);
   var prog  = getProgress(S.pts);
@@ -1000,488 +1215,5 @@ function renderHome() {
   var greet = document.getElementById("h-greet");
   if (greet) greet.textContent = (h < 18 ? "BONJOUR " : "BONSOIR ") + S.pseudo.toUpperCase();
 
-  if (cur) {
-    var tn = document.getElementById("h-tname");
-    var tl = document.getElementById("h-tloc");
-    var lb = document.getElementById("h-livebadge");
-    if (tn) tn.textContent = cur.name;
-    if (tl) tl.textContent = cur.loc || "—";
-    if (lb) {
-      var isLive = cur.status === "inprogress" || cur.status === "live";
-      lb.innerHTML = isLive
-        ? '<div style="display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE</div>'
-        : "";
-    }
-  }
-
-  var done = picksDone();
-  var dl = cur ? (cur.deadline || cur.start) : null;
-  var locked = dl ? (new Date() > new Date(dl)) : false;
-  var btn  = document.getElementById("h-picksbtn");
-  if (btn) {
-    if (locked && !done) {
-      btn.className = "btn-red";
-      btn.style.background = "var(--muted2)";
-      btn.innerHTML = "🔒 PICKS FERMES";
-      btn.onclick = null;
-    } else if (done) {
-      btn.className = "btn-red btn-green";
-      btn.style.background = "";
-      btn.onclick = goToPicks;
-      btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>PICKS ENREGISTRES';
-    } else {
-      btn.className = "btn-red";
-      btn.style.background = "";
-      btn.onclick = goToPicks;
-      btn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>FAIRE MES PICKS';
-    }
-  }
-
-  var sc = document.getElementById("h-score");
-  var bd = document.getElementById("h-badge");
-  var bi = document.getElementById("h-bicon");
-  var pf = document.getElementById("h-prog");
-  var pn = document.getElementById("h-next");
-  if (sc) sc.textContent = S.pts.toLocaleString("fr");
-  if (bd) bd.textContent = badge.name.toUpperCase();
-  if (bi) bi.textContent = badge.emoji;
-  if (pf) pf.style.width = prog + "%";
-  if (pn) pn.textContent = nxt
-    ? (nxt.min - S.pts).toLocaleString("fr") + " pts → " + nxt.name
-    : "Badge max atteint 🏆";
-
-  startTimer();
-  renderProchains();
-}
-
-// ============================================================
-// PICKS
-// ============================================================
-var selSlot = null;
-
-function isDeadlinePassed() {
-  var cur = getCur();
-  if (!cur) return false;
-  var dl = cur.deadline || cur.start;
-  return new Date() > new Date(dl);
-}
-
-function renderPicks() {
-  var cur = getCur();
-  var el  = document.getElementById("pk-content");
-  if (!el) return;
-
-  var title = document.getElementById("pk-title");
-  if (title && cur) {
-    var t = cur.name.length > 22 ? cur.name.substring(0, 22) + "…" : cur.name;
-    title.textContent = t.toUpperCase();
-  }
-
-  var vbtn = document.getElementById("vbtn");
-  var vbar = document.getElementById("vbar");
-  if (vbar) vbar.style.display = "block";
-  if (vbtn) vbtn.disabled = !picksDone();
-
-  var h = "";
-
-  // Saved banner
-  if (S.saved) {
-    h += '<div class="box-ok"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
-    h += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--green);">PICKS ENREGISTRES — Modifiable jusqu\'a la deadline</div></div>';
-  }
-
-  // Loading
-  if (!S.playOk && !S.players.length) {
-    h += '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement des joueurs...</div></div>';
-    el.innerHTML = h;
-    return;
-  }
-
-  // TOP 3
-  h += '<div class="slbl">TON TOP 3 PREVISIONNEL</div>';
-  var posL = ["1er", "2e", "3e"];
-  var posC = ["#FFD700", "#C0C0C0", "#CD7F32"];
-
-  for (var i = 0; i < 3; i++) {
-    var pid = S.picks.top3[i];
-    var pl  = pid ? getP(pid) : null;
-    h += '<div style="background:var(--card);border:1.5px solid ' + (pl ? "rgba(232,35,58,0.3)" : "var(--border)") + ';border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;min-height:60px;" onclick="openModal(' + i + ')">';
-    h += '<div style="font-family:var(--fd);font-size:22px;font-weight:900;color:' + posC[i] + ';width:28px;text-align:center;flex-shrink:0;">' + posL[i] + '</div>';
-    h += '<div style="flex:1;">';
-    if (pl) {
-      h += '<div style="font-family:var(--fd);font-size:17px;font-weight:700;">' + pl.flag + ' ' + pl.name + '</div>';
-      h += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--red);margin-top:1px;">x' + pl.coeff + (pl.wr < 999 ? ' — #' + pl.wr + ' mondial' : '') + '</div>';
-    } else {
-      h += '<div style="font-family:var(--fd);font-size:15px;font-weight:600;color:var(--muted2);">Selectionner...</div>';
-    }
-    h += '</div>';
-    if (pl) {
-      h += '<button style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px;" onclick="event.stopPropagation();rmTop3(' + i + ')">✕</button>';
-    } else {
-      h += '<span style="color:var(--muted2);font-size:20px;">+</span>';
-    }
-    h += '</div>';
-  }
-
-  // 10 JOUEURS
-  var ten = S.picks.tenPlayers || [];
-  if (ten.length > 0) {
-    h += '<div style="height:1px;background:var(--border);margin:16px 0;"></div>';
-    h += '<div class="slbl" style="margin-bottom:4px;">ANALYSE DES 10 JOUEURS</div>';
-    h += '<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">Attribue une categorie a chaque joueur</div>';
-
-    ten.forEach(function(pid) {
-      var p = getP(pid);
-      if (!p) return;
-      var sel = S.picks.tenPicks[pid] || null;
-      h += '<div style="background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;">';
-      h += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">';
-      h += '<span style="font-size:20px;">' + p.flag + '</span>';
-      h += '<span style="font-family:var(--fd);font-size:17px;font-weight:800;flex:1;">' + p.name + '</span>';
-      h += '<span style="font-family:var(--fd);font-size:15px;font-weight:800;color:var(--red);">x' + p.coeff + '</span>';
-      h += '</div><div class="cats">';
-      CATS.forEach(function(c) {
-        var isSel = sel === c;
-        var isMC  = c === "Missed Cut";
-        h += '<button class="cat' + (isSel ? (' on' + (isMC ? ' mc' : '')) : '') + '" onclick="setCat(\'' + pid + '\',\'' + c + '\')">' + c + '</button>';
-      });
-      h += '</div></div>';
-    });
-  } else if (S.playOk) {
-    h += '<div class="box-info">Les 10 joueurs seront disponibles prochainement.</div>';
-  }
-
-  el.innerHTML = h;
-}
-
-function rmTop3(i) { S.picks.top3[i] = null; saveS(); renderPicks(); }
-
-function setCat(pid, cat) { S.picks.tenPicks[pid] = cat; saveS(); renderPicks(); }
-
-function savePicks() {
-  if (S.picks.top3.filter(Boolean).length < 3) { toast("Complete ton Top 3 !"); return; }
-  var ten = S.picks.tenPlayers || [];
-  if (ten.length > 0) {
-    for (var i = 0; i < ten.length; i++) {
-      if (!S.picks.tenPicks[ten[i]]) { toast("Analyse tous les joueurs !"); return; }
-    }
-  }
-  S.saved = true;
-  saveS();
-  navTo("home");
-  toast("✓ Picks enregistres !");
-}
-
-// ============================================================
-// MODAL JOUEUR
-// ============================================================
-function openModal(slot) {
-  selSlot = slot;
-  var t = document.getElementById("modal-ptitle");
-  var s = document.getElementById("modal-search");
-  if (t) t.textContent = "Choisir — " + ["1er","2e","3e"][slot];
-  if (s) s.value = "";
-  renderModalList("");
-  document.getElementById("modal-p").classList.add("open");
-}
-
-function closeModal() {
-  document.getElementById("modal-p").classList.remove("open");
-  selSlot = null;
-}
-
-function renderModalList(q) {
-  var el = document.getElementById("modal-plist");
-  if (!el) return;
-  if (!S.players.length) {
-    el.innerHTML = '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>';
-    return;
-  }
-  var q2  = q.toLowerCase();
-  var fil = S.players.filter(function(p) { return p.name.toLowerCase().indexOf(q2) !== -1; }).slice(0, 60);
-  var h   = "";
-  fil.forEach(function(p) {
-    var in3  = S.picks.top3.indexOf(p.id) !== -1;
-    var isSel = S.picks.top3[selSlot] === p.id;
-    h += '<div style="background:var(--card);border:1px solid ' + (isSel ? "var(--red)" : "var(--border)") + ';border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:6px;cursor:pointer;opacity:' + (in3 && !isSel ? '0.4' : '1') + ';" onclick="' + (in3 && !isSel ? '' : 'pickPlayer(\'' + p.id + '\')') + '">';
-    h += '<span style="font-size:20px;width:26px;text-align:center;">' + p.flag + '</span>';
-    h += '<span style="font-family:var(--fd);font-size:16px;font-weight:700;flex:1;">' + p.name + '</span>';
-    h += (p.wr < 999 ? '<span style="font-size:12px;color:var(--muted);">#' + p.wr + '</span>' : '');
-    h += '<span style="font-family:var(--fd);font-size:14px;font-weight:800;color:var(--red);">x' + p.coeff + '</span>';
-    h += '</div>';
-  });
-  el.innerHTML = h || '<div style="text-align:center;padding:20px;color:var(--muted);">Aucun resultat</div>';
-}
-
-function filterPlayers(q) { renderModalList(q); }
-
-function pickPlayer(id) {
-  if (selSlot === null) return;
-  S.picks.top3[selSlot] = id;
-  saveS();
-  closeModal();
-  renderPicks();
-}
-
-// ============================================================
-// CLASSEMENT
-// ============================================================
-function renderClass() {
-  var el    = document.getElementById("cl-content");
-  if (!el) return;
-  var badge = getBadge(S.pts);
-  var nxt   = getNextBadge(S.pts);
-  var prog  = getProgress(S.pts);
-  var nb    = S.history.length;
-  var best  = 0, total = 0, scored = 0;
-  S.history.forEach(function(h) { if (h.pts > best) best = h.pts; total += h.pts; if (h.pts > 0) scored++; });
-  var avg = nb ? Math.round(total / nb) : 0;
-
-  var h = "";
-
-  // Score card
-  h += '<div style="background:linear-gradient(135deg,#1a0d14,#1a1228);border:1.5px solid rgba(232,35,58,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;" class="fadeup">';
-  h += '<div style="font-size:40px;">' + badge.emoji + '</div>';
-  h += '<div style="font-family:var(--fd);font-size:60px;font-weight:900;line-height:1;">' + S.pts.toLocaleString("fr") + ' <span style="font-size:22px;color:var(--muted);">PTS</span></div>';
-  h += '<div style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:4px;">' + badge.name + '</div>';
-  h += '<div style="margin-top:14px;">';
-  h += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span><span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">' + prog + '%</span></div>';
-  h += '<div class="pbar"><div class="pfill" style="width:' + prog + '%;"></div></div>';
-  if (nxt) h += '<div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">' + (nxt.min - S.pts).toLocaleString("fr") + ' pts → ' + nxt.name + '</div>';
-  h += '</div></div>';
-
-  // Stats
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
-  [["Tournois joues",nb],["Meilleur score",best],["Score moyen",avg],["Scores >0",scored]].forEach(function(s) {
-    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:36px;font-weight:900;">' + s[1] + '</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">' + s[0] + '</div></div>';
-  });
-  h += '</div>';
-
-  // History
-  h += '<div class="slbl">HISTORIQUE</div>';
-  if (!nb) {
-    h += '<div style="text-align:center;padding:40px 20px;color:var(--muted);"><div style="font-size:48px;margin-bottom:12px;">📋</div><div style="font-family:var(--fd);font-size:16px;font-weight:700;">Aucun historique</div><div style="font-size:13px;margin-top:6px;">Joue ton premier tournoi !</div></div>';
-  } else {
-    S.history.slice().reverse().forEach(function(en, ri) {
-      var idx = S.history.length - 1 - ri;
-      h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;" onclick="openHD(' + idx + ')">';
-      h += '<div style="font-size:24px;">⛳</div>';
-      h += '<div style="flex:1;"><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + (en.tname || "Tournoi") + '</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">' + (en.date || "") + '</div></div>';
-      h += '<div style="text-align:right;"><div style="font-family:var(--fd);font-size:22px;font-weight:900;color:' + (en.pts ? 'var(--green)' : 'var(--muted2)') + ';">+' + en.pts + '</div><div style="font-size:10px;color:var(--muted);font-family:var(--fd);font-weight:700;">DETAIL →</div></div>';
-      h += '</div>';
-    });
-  }
-
-  el.innerHTML = h;
-}
-
-// ============================================================
-// HISTORIQUE DETAIL
-// ============================================================
-function openHD(idx) {
-  var en = S.history[idx];
-  if (!en) return;
-  var el = document.getElementById("hd-content");
-  var tt = document.getElementById("hd-title");
-  if (tt) tt.textContent = en.tname || "Tournoi";
-
-  var posC = ["#FFD700","#C0C0C0","#CD7F32"];
-  var posL = ["1er","2e","3e"];
-  var h = "";
-
-  h += '<div style="background:linear-gradient(135deg,#0d1f10,#0d1a2e);border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;" class="fadeup">';
-  h += '<div style="font-family:var(--fd);font-size:64px;font-weight:900;color:var(--green);line-height:1;">' + (en.pts||0) + ' <span style="font-size:22px;color:var(--muted);">PTS</span></div>';
-  h += '<div style="font-family:var(--fd);font-size:18px;font-weight:700;margin-top:6px;">' + (en.tname||"Tournoi") + '</div>';
-  h += '<div style="font-size:13px;color:var(--muted);margin-top:2px;">' + (en.date||"") + '</div></div>';
-
-  // Top 3
-  if (en.top3 && en.top3.length) {
-    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
-    h += '<div class="slbl">TON TOP 3</div>';
-    en.top3.forEach(function(pid, i) {
-      var nm      = (en.pnames && en.pnames[pid]) || pid;
-      var fl      = (en.pflags && en.pflags[pid]) || "🌍";
-      var correct = en.results && en.results.top3 && en.results.top3.indexOf(pid) !== -1;
-      var exact   = en.results && en.results.top3 && en.results.top3[i] === pid;
-      h += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
-      h += '<div style="font-family:var(--fd);font-size:18px;font-weight:900;color:' + posC[i] + ';width:26px;text-align:center;">' + posL[i] + '</div>';
-      h += '<div style="font-size:18px;">' + fl + '</div>';
-      h += '<div style="font-family:var(--fd);font-size:15px;font-weight:700;flex:1;">' + nm + '</div>';
-      h += '<div style="font-size:11px;font-family:var(--fd);font-weight:700;color:' + (en.results ? (correct ? 'var(--green)' : 'var(--muted2)') : 'var(--muted)') + ';">';
-      h += en.results ? (exact ? "✓ Exact" : correct ? "✓ Top 3" : "✗ Absent") : "En attente";
-      h += '</div></div>';
-    });
-    h += '</div>';
-  }
-
-  // 10 joueurs
-  if (en.tenPlayers && en.tenPlayers.length) {
-    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
-    h += '<div class="slbl">TES 10 JOUEURS</div>';
-    en.tenPlayers.forEach(function(pid) {
-      var nm  = (en.pnames && en.pnames[pid]) || pid;
-      var fl  = (en.pflags && en.pflags[pid]) || "🌍";
-      var cat = (en.tenPicks && en.tenPicks[pid]) || "—";
-      var real = en.results && en.results.positions && en.results.positions[pid];
-      var ok  = real && real === cat;
-      h += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">';
-      h += '<span style="font-size:16px;">' + fl + '</span>';
-      h += '<span style="font-family:var(--fd);font-size:14px;font-weight:700;flex:1;">' + nm + '</span>';
-      h += '<span style="font-size:11px;font-family:var(--fd);font-weight:700;padding:3px 8px;border-radius:6px;background:' + (en.results ? (ok ? 'rgba(34,197,94,0.12)' : 'rgba(255,255,255,0.05)') : 'rgba(255,255,255,0.05)') + ';color:' + (en.results ? (ok ? 'var(--green)' : 'var(--muted)') : 'var(--muted)') + ';">' + cat + '</span>';
-      if (en.results) h += '<span style="font-family:var(--fd);font-size:15px;font-weight:900;color:' + (ok ? 'var(--green)' : 'var(--muted2)') + ';">' + (ok ? "+50" : "—") + '</span>';
-      h += '</div>';
-    });
-    h += '</div>';
-  }
-
-  if (!en.results) h += '<div class="box-info">⏳ Resultats disponibles apres le tournoi.</div>';
-
-  if (el) el.innerHTML = h;
-
-  // Navigate
-  document.querySelectorAll(".scr").forEach(function(s) { s.classList.remove("on"); });
-  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
-  document.getElementById("sc-hdet").classList.add("on");
-  document.getElementById("nb-class").classList.add("on");
-}
-
-// ============================================================
-// PROFIL
-// ============================================================
-function renderProfil() {
-  var el    = document.getElementById("pr-content");
-  if (!el) return;
-  var badge = getBadge(S.pts);
-  var nxt   = getNextBadge(S.pts);
-  var prog  = getProgress(S.pts);
-  var ini   = (S.pseudo || "?").substring(0, 2).toUpperCase();
-  var pct   = getPercentile(S.pts);
-
-  var h = "";
-
-  // AVATAR + NOM + PTS
-  h += '<div style="text-align:center;padding:28px 20px 20px;">';
-  h += '<div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#E8233A,#c01830);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:34px;font-weight:900;color:#fff;margin:0 auto 14px;border:3px solid rgba(232,35,58,0.3);">' + ini + '</div>';
-  h += '<div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">' + (S.pseudo || "Joueur") + ' <span style="font-size:18px;cursor:pointer;" onclick="openPseudo()">✏️</span></div>';
-  h += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;color:#fff;margin-top:4px;">' + S.pts.toLocaleString("fr") + ' <span style="font-size:16px;color:var(--muted);font-weight:600;">PTS</span></div>';
-  h += '<div style="font-size:13px;color:var(--muted);margin-top:2px;">Top ' + pct + '% des joueurs</div>';
-  h += '</div>';
-
-  // BADGE HERO
-  h += '<div style="margin:0 18px 20px;background:linear-gradient(135deg,#1a1228,#0d1a2e);border:1.5px solid rgba(232,35,58,0.3);border-radius:20px;padding:24px;text-align:center;">';
-  h += '<div style="font-size:64px;line-height:1;margin-bottom:10px;">' + badge.emoji + '</div>';
-  h += '<div style="font-family:var(--fd);font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;">' + badge.name + '</div>';
-  h += '<div style="font-size:12px;color:var(--muted);margin-top:4px;">' + badge.min.toLocaleString("fr") + ' – ' + (badge.max === Infinity ? "∞" : badge.max.toLocaleString("fr")) + ' pts</div>';
-  h += '<div style="margin-top:16px;">';
-  h += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span><span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">' + prog + '%</span></div>';
-  h += '<div class="pbar"><div class="pfill" style="width:' + prog + '%;"></div></div>';
-  if (nxt) {
-    h += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">Prochain : <span style="color:#fff;font-weight:700;">' + nxt.name + ' ' + nxt.emoji + '</span> — ' + (nxt.min - S.pts).toLocaleString("fr") + ' pts</div>';
-  } else {
-    h += '<div style="font-size:12px;color:var(--gold);margin-top:8px;font-weight:700;">🏆 Badge maximum atteint !</div>';
-  }
-  h += '</div></div>';
-
-  // BADGES DEBLOQUÉS (scroll horizontal)
-  var unlocked = BADGES.filter(function(b) { return S.pts >= b.min; });
-  h += '<div style="padding:0 18px;">';
-  h += '<div class="slbl">MES BADGES (' + unlocked.length + '/' + BADGES.length + ')</div>';
-  if (!unlocked.length) {
-    h += '<div style="color:var(--muted);font-size:13px;padding:12px 0 16px;">Joue ton premier tournoi !</div>';
-  } else {
-    h += '<div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:14px;-webkit-overflow-scrolling:touch;">';
-    unlocked.forEach(function(b) {
-      h += '<div style="flex-shrink:0;background:rgba(232,35,58,0.1);border:1.5px solid rgba(232,35,58,0.3);border-radius:14px;padding:14px 10px;text-align:center;width:92px;">';
-      h += '<div style="font-size:34px;line-height:1;margin-bottom:6px;">' + b.emoji + '</div>';
-      h += '<div style="font-family:var(--fd);font-size:10px;font-weight:700;color:#fff;line-height:1.3;">' + b.name + '</div>';
-      h += '</div>';
-    });
-    h += '</div>';
-  }
-  h += '</div>';
-
-  // TOUS LES BADGES
-  h += '<div style="padding:0 18px;margin-top:8px;">';
-  h += '<div class="slbl">TOUS LES BADGES</div>';
-  BADGES.forEach(function(b) {
-    var ul    = S.pts >= b.min;
-    var isCur = badge.name === b.name;
-    h += '<div style="background:' + (ul ? 'rgba(232,35,58,0.06)' : 'var(--card)') + ';border:1.5px solid ' + (isCur ? 'var(--red)' : (ul ? 'rgba(232,35,58,0.2)' : 'var(--border)')) + ';border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;opacity:' + (ul ? '1' : '0.45') + ';margin-bottom:8px;">';
-    h += '<div style="font-size:34px;flex-shrink:0;">' + b.emoji + '</div>';
-    h += '<div style="flex:1;">';
-    h += '<div style="font-family:var(--fd);font-size:16px;font-weight:800;color:' + (isCur ? 'var(--red)' : '#fff') + ';">' + b.name;
-    if (isCur) h += ' <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 6px;border-radius:99px;letter-spacing:1px;vertical-align:middle;">ACTUEL</span>';
-    h += '</div>';
-    h += '<div style="font-size:12px;color:var(--muted);margin-top:2px;">' + b.min.toLocaleString("fr") + (b.max === Infinity ? "+" : "–" + b.max.toLocaleString("fr")) + ' pts</div>';
-    h += '</div>';
-    h += '<div style="font-size:20px;">' + (ul ? "✅" : "🔒") + '</div>';
-    h += '</div>';
-  });
-
-  h += '<button class="btn-outline" onclick="resetApp()" style="margin-bottom:20px;">Reinitialiser</button>';
-  h += '</div>';
-
-  el.innerHTML = h;
-}
-
-// ============================================================
-// PSEUDO MODAL
-// ============================================================
-function openPseudo() {
-  var inp = document.getElementById("ps-input");
-  if (inp) inp.value = S.pseudo;
-  document.getElementById("modal-ps").classList.add("open");
-}
-function closePseudo() { document.getElementById("modal-ps").classList.remove("open"); }
-function savePseudo() {
-  var v = document.getElementById("ps-input").value.trim();
-  if (v.length < 2) return;
-  S.pseudo = v;
-  saveS();
-  closePseudo();
-  renderProfil();
-  renderHome();
-  toast("✓ Pseudo mis a jour !");
-}
-
-// ============================================================
-// RESET
-// ============================================================
-function resetApp() {
-  if (!confirm("Effacer toutes tes donnees ?")) return;
-  localStorage.removeItem("sp_v8");
-  location.reload();
-}
-
-// ============================================================
-// TOAST
-// ============================================================
-function toast(msg) {
-  var t = document.getElementById("toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(function() { t.classList.remove("show"); }, 2500);
-}
-
-// ============================================================
-// INIT
-// ============================================================
-function init() {
-  loadS();
-  var ob = document.getElementById("ob-pseudo");
-  if (ob) {
-    ob.addEventListener("keydown", function(e) { if (e.key === "Enter") startApp(); });
-  }
-  if (S.pseudo) {
-    document.getElementById("sc-ob").classList.remove("on");
-    document.getElementById("bnav").classList.add("show");
-    navTo("home");
-    loadFixtures(false);
-  }
-}
-
-init();
-</script>
-</body>
-</html>
+  renderTourCard("PGA");
+  renderTourCard("DP");
