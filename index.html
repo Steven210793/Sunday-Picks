@@ -22,126 +22,123 @@
   --fd: 'Barlow Condensed', sans-serif; --fb: 'Barlow', sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--fb); overflow: hidden; }
-.app { max-width: 430px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-
-/* SCREENS */
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--fb); }
+.app { max-width: 430px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; }
 .scr { display: none; flex: 1; overflow-y: auto; flex-direction: column; -webkit-overflow-scrolling: touch; }
 .scr.on { display: flex; }
 .scr::-webkit-scrollbar { display: none; }
-
-/* BOTTOM NAV */
 .bnav { display: none; background: var(--bg2); border-top: 1px solid var(--border); flex-shrink: 0; }
 .bnav.show { display: flex; }
-.nb { flex: 1; padding: 10px 0 14px; background: transparent; border: none; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: color 0.2s; font-family: var(--fd); font-weight: 700; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
-.nb.on { color: var(--red); }
-.nb svg { width: 22px; height: 22px; }
+.bnav button { flex: 1; background: none; border: none; padding: 10px 0 8px; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: var(--fb); font-size: 10px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.2s; }
+.bnav button.act { color: var(--red); }
+.bnav button svg { width: 22px; height: 22px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; }
+.btn-red { width: 100%; padding: 15px; background: var(--red); border: none; border-radius: 12px; color: #fff; font-family: var(--fd); font-size: 17px; font-weight: 800; letter-spacing: 2px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-red.btn-green { background: #16A34A; }
+@keyframes sp { 0%,100%{opacity:1}50%{opacity:0.3} }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+.fade { animation: fadeIn 0.3s ease; }
 
-/* BUTTONS */
-.btn-red { width: 100%; padding: 15px; background: var(--red); border: none; border-radius: 12px; color: #fff; font-family: var(--fd); font-size: 17px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.btn-red:active { opacity: 0.85; }
-.btn-red:disabled { opacity: 0.3; cursor: not-allowed; }
-.btn-green { background: var(--green); }
-.btn-outline { width: 100%; padding: 13px; background: transparent; border: 1.5px solid var(--border2); border-radius: 12px; color: var(--muted); font-family: var(--fd); font-size: 15px; font-weight: 700; letter-spacing: 1px; cursor: pointer; margin-top: 8px; }
+/* ONBOARDING */
+#sc-onboard { background: var(--bg); align-items: center; justify-content: center; padding: 40px 32px; }
+.ob-logo { width: 100px; height: 100px; margin-bottom: 32px; }
+.ob-title { font-family: var(--fd); font-size: 52px; font-weight: 900; letter-spacing: 2px; text-align: center; line-height: 1; margin-bottom: 8px; }
+.ob-title span { color: var(--red); }
+.ob-sub { font-size: 15px; color: var(--muted); text-align: center; margin-bottom: 48px; letter-spacing: 1px; }
+.ob-label { font-family: var(--fd); font-size: 12px; font-weight: 700; letter-spacing: 3px; color: var(--muted); margin-bottom: 10px; }
+.ob-input { width: 100%; padding: 14px 18px; background: var(--card2); border: 1.5px solid var(--border2); border-radius: 12px; color: var(--text); font-family: var(--fb); font-size: 16px; outline: none; margin-bottom: 24px; }
+.ob-input:focus { border-color: var(--red); }
 
-/* INPUTS */
-.inp { width: 100%; background: var(--card); border: 1.5px solid var(--border2); border-radius: 12px; padding: 15px 16px; color: #fff; font-size: 17px; font-family: var(--fd); font-weight: 700; letter-spacing: 1px; outline: none; }
-.inp:focus { border-color: var(--red); }
-.inp::placeholder { color: var(--muted2); }
+/* HOME */
+#sc-home { padding: 0; }
+.h-header { padding: 16px 18px 12px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.h-greet { font-family: var(--fd); font-size: 14px; font-weight: 700; letter-spacing: 2px; color: var(--muted); }
+.h-body { padding: 0 18px 100px; flex: 1; }
 
-/* SECTION LABEL */
-.slbl { font-family: var(--fd); font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+/* TOURNOI CARD */
+.t-card { background: linear-gradient(135deg,#162847,#0F1E36 60%,#1a0a0a); border: 1px solid var(--border2); border-radius: 16px; margin-bottom: 16px; overflow: hidden; }
+.t-card-body { padding: 18px; }
 
-/* CARDS */
-.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
+/* SCORE */
+.score-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.score-num { font-family: var(--fd); font-size: 44px; font-weight: 900; line-height: 1; }
+.score-badge-name { font-family: var(--fd); font-size: 13px; font-weight: 800; letter-spacing: 2px; color: var(--red); margin-top: 2px; }
+.score-emoji { font-size: 52px; margin-left: auto; }
+.prog-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.prog-label { font-family: var(--fd); font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--muted); }
+.prog-bar-bg { background: var(--card2); border-radius: 4px; height: 6px; margin-bottom: 16px; }
+.prog-bar { background: linear-gradient(90deg,var(--red),#ff6b35); height: 6px; border-radius: 4px; transition: width 0.6s ease; }
 
-/* LOADING */
-.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; gap: 12px; }
-.spin { width: 28px; height: 28px; border: 3px solid var(--border2); border-top-color: var(--red); border-radius: 50%; animation: sp 0.8s linear infinite; }
-@keyframes sp { to { transform: rotate(360deg); } }
-.ltxt { font-family: var(--fd); font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 1px; }
+/* PROCHAINS */
+.proch-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.proch-title { font-family: var(--fd); font-size: 12px; font-weight: 700; letter-spacing: 3px; color: var(--muted); }
+.refresh-btn { background: var(--card); border: 1px solid var(--border2); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); }
 
-/* MODAL */
-.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: flex-end; justify-content: center; }
-.modal-bg.open { display: flex; }
-.modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 20px 20px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 430px; max-height: 85vh; overflow-y: auto; }
-.modal::-webkit-scrollbar { display: none; }
-.modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 99px; margin: 0 auto 16px; }
+/* PICKS */
+#sc-picks { padding: 0; }
+.pk-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--bg2); }
+#pk-content { padding: 16px 18px 160px; flex: 1; overflow-y: auto; }
+#pk-content::-webkit-scrollbar { display: none; }
+#vbar { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; padding: 12px 18px; background: var(--bg2); border-top: 1px solid var(--border); }
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: flex-end; }
+.modal-box { background: var(--bg2); border-radius: 20px 20px 0 0; width: 100%; max-height: 80vh; display: flex; flex-direction: column; }
+.modal-header { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.modal-list { overflow-y: auto; flex: 1; padding: 8px 0; }
+.modal-list::-webkit-scrollbar { display: none; }
+.modal-item { padding: 13px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); cursor: pointer; }
+.modal-item:active { background: var(--card); }
+.search-box { padding: 10px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.search-input { width: 100%; padding: 10px 14px; background: var(--card); border: 1px solid var(--border2); border-radius: 10px; color: var(--text); font-family: var(--fb); font-size: 14px; outline: none; }
 
-/* TOAST */
-.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: #fff; color: #000; font-family: var(--fd); font-weight: 800; padding: 12px 24px; border-radius: 99px; font-size: 14px; letter-spacing: 1px; z-index: 999; opacity: 0; transition: all 0.3s; white-space: nowrap; pointer-events: none; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* CLASSEMENT */
+#sc-class { padding: 0; }
+.cl-header { padding: 14px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--bg2); }
 
-/* PROGRESS BAR */
-.pbar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
-.pfill { height: 100%; background: linear-gradient(90deg, var(--red), #FF6B35); border-radius: 99px; transition: width 0.5s ease; }
+/* PROFIL */
+#sc-profil { padding: 16px 18px 100px; }
 
-/* ANIM */
-@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-.fadeup { animation: fadeUp 0.3s ease forwards; }
+/* HISTORIQUE */
+#sc-hdet { padding: 0; }
+.hdet-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; background: var(--bg2); }
 
-/* TIMER */
-.timer-box { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
-.timer-row { display: flex; gap: 6px; align-items: baseline; }
-.tnum { font-family: var(--fd); font-size: 30px; font-weight: 900; color: var(--gold); line-height: 1; }
-.tsep { font-family: var(--fd); font-size: 26px; font-weight: 900; color: var(--gold); opacity: 0.5; margin-bottom: 2px; }
-.tlbl { font-size: 8px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; text-align: center; }
-
-/* CAT BUTTONS */
-.cats { display: flex; gap: 5px; flex-wrap: wrap; }
-.cat { flex: 1; min-width: 54px; padding: 8px 4px; background: transparent; border: 1.5px solid var(--border2); border-radius: 8px; color: var(--muted); font-family: var(--fd); font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; }
-.cat.on { background: var(--red); border-color: var(--red); color: #fff; }
-.cat.mc.on { background: var(--muted2); border-color: var(--muted2); }
-
-/* VALIDATE BAR */
-.vbar { position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%); width: calc(min(430px,100%) - 36px); z-index: 100; }
-
-/* ERROR / INFO BOXES */
-.box-err { background: rgba(232,35,58,0.08); border: 1px solid rgba(232,35,58,0.3); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--red); font-family: var(--fd); font-weight: 700; margin-bottom: 12px; }
-.box-ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.box-info { background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.3); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--gold); font-family: var(--fd); font-weight: 700; margin-bottom: 12px; }
+.box-err { background: rgba(232,35,58,0.1); border: 1px solid rgba(232,35,58,0.3); border-radius: 10px; padding: 12px 16px; color: var(--red); font-size: 13px; margin-bottom: 12px; }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ===================== ONBOARDING ===================== -->
-<div class="scr on" id="sc-ob">
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;gap:28px;">
-    <img src="https://i.imgur.com/qaj1nmJ.png" style="width:100px;height:100px;border-radius:20px;"/>
-    <div style="text-align:center;">
-      <div style="font-family:var(--fd);font-size:52px;font-weight:900;line-height:1;letter-spacing:2px;">SUNDAY<br/><span style="color:var(--red);">PICKS</span></div>
-      <div style="font-size:15px;color:var(--muted);margin-top:10px;">Pronos. Analyse. Performance.</div>
-    </div>
-    <div style="width:100%;">
-      <div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">TON PSEUDO</div>
-      <input class="inp" type="text" id="ob-pseudo" placeholder="GolfAddict" maxlength="20"
-        oninput="document.getElementById('ob-btn').disabled=this.value.trim().length<2"/>
-    </div>
-    <button class="btn-red" id="ob-btn" onclick="startApp()" disabled style="box-shadow:0 8px 24px rgba(232,35,58,0.4);">COMMENCER →</button>
+<!-- ONBOARDING -->
+<div class="scr on" id="sc-onboard" style="flex-direction:column;">
+  <img class="ob-logo" src="https://i.imgur.com/qaj1nmJ.png" alt="logo"/>
+  <div class="ob-title">SUNDAY<br/><span>PICKS</span></div>
+  <div class="ob-sub">Pronos. Analyse. Performance.</div>
+  <div style="width:100%;">
+    <div class="ob-label">TON PSEUDO</div>
+    <input class="ob-input" id="ob-pseudo" type="text" placeholder="GolfAddict" maxlength="20" autocomplete="off"/>
+    <button class="btn-red" onclick="startApp()">COMMENCER →</button>
   </div>
 </div>
 
-<!-- ===================== HOME ===================== -->
+<!-- HOME -->
 <div class="scr" id="sc-home">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;flex-shrink:0;">
-    <img src="https://i.imgur.com/qaj1nmJ.png" style="height:36px;border-radius:8px;"/>
-    <div style="font-family:var(--fd);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;" id="h-greet">BONJOUR</div>
+  <div class="h-header">
+    <img src="https://i.imgur.com/qaj1nmJ.png" style="width:40px;height:40px;border-radius:50%;"/>
+    <div class="h-greet" id="h-greet">BONJOUR</div>
   </div>
-  <div style="padding:0 18px 100px;flex:1;">
+  <div class="h-body">
 
     <!-- TOURNOI PGA -->
-    <div id="h-card-pga" style="display:none;background:linear-gradient(135deg,#1a0a0a,#0F1E36 60%,#162847);border:1px solid var(--border2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
-      <div style="padding:18px;">
-        <div id="h-live-pga"></div>
+    <div class="t-card" id="h-card-pga">
+      <div class="t-card-body">
+        <div id="h-live-pga" style="margin-bottom:8px;"></div>
         <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-name-pga">Chargement...</div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <span id="h-loc-pga">—</span>
         </div>
-        <div id="h-timer-pga" style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
+        <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
           <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">FIN DES PICKS DANS</div>
-          <div style="display:flex;gap:8px;justify-content:center;" id="h-countdown-pga">
+          <div style="display:flex;gap:8px;justify-content:center;">
             <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-d-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">JOURS</div></div>
             <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
             <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-h-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">HRS</div></div>
@@ -151,786 +148,319 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
             <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-s-pga">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">SEC</div></div>
           </div>
         </div>
-        <button id="h-btn-pga" onclick="goToPicksTour('PGA')" style="width:100%;padding:14px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <button class="btn-red" id="h-btn-pga" onclick="goToPicks()">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          FAIRE MES PICKS PGA
+          FAIRE MES PICKS
         </button>
       </div>
     </div>
 
-    <!-- TOURNOI DP -->
-    <div id="h-card-dp" style="display:none;background:linear-gradient(135deg,#0d1e36,#0F1E36 60%,#0a1529);border:1px solid rgba(74,144,226,0.3);border-radius:16px;margin-bottom:16px;overflow:hidden;">
-      <div style="padding:18px;">
-        <div id="h-live-dp"></div>
-        <div style="font-family:var(--fd);font-size:26px;font-weight:900;line-height:1.1;letter-spacing:1px;margin-bottom:4px;" id="h-name-dp">Chargement...</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:6px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span id="h-loc-dp">—</span>
-        </div>
-        <div id="h-timer-dp" style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:16px;">
-          <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">FIN DES PICKS DANS</div>
-          <div style="display:flex;gap:8px;justify-content:center;">
-            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-d-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">JOURS</div></div>
-            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
-            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-h-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">HRS</div></div>
-            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
-            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-m-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">MIN</div></div>
-            <div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);padding-top:4px;">:</div>
-            <div style="text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--gold);" id="h-s-dp">00</div><div style="font-size:9px;color:var(--muted);letter-spacing:1px;">SEC</div></div>
-          </div>
-        </div>
-        <button id="h-btn-dp" onclick="goToPicksTour('DP')" style="width:100%;padding:14px;background:#4A90E2;border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          FAIRE MES PICKS DP
-        </button>
-      </div>
-    </div>
-
-        <!-- SCORE -->
-    <div class="card" style="padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
+    <!-- SCORE -->
+    <div class="score-box">
       <div style="flex:1;">
-        <div style="font-family:var(--fd);font-size:44px;font-weight:900;line-height:1;"><span id="h-score">0</span> <span style="font-size:18px;color:var(--muted);">PTS</span></div>
-        <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-top:2px;" id="h-badge">MONSIEUR PROVISOIRE</div>
+        <div class="score-num"><span id="h-score">0</span> <span style="font-size:18px;color:var(--muted);">PTS</span></div>
+        <div class="score-badge-name" id="h-badge-name">MONSIEUR PROVISOIRE</div>
       </div>
-      <div style="font-size:44px;" id="h-bicon">🏌️</div>
+      <div class="score-emoji" id="h-badge-img">🏌️</div>
     </div>
 
     <!-- PROGRESSION -->
-    <div style="margin-bottom:16px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <div style="font-family:var(--fd);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;">PROGRESSION</div>
-        <div style="font-family:var(--fd);font-size:11px;font-weight:700;color:var(--red);" id="h-next">Prochain badge</div>
-      </div>
-      <div class="pbar"><div class="pfill" id="h-prog" style="width:0%"></div></div>
+    <div class="prog-row">
+      <div class="prog-label">PROGRESSION</div>
+      <div style="font-size:12px;" id="h-prog-txt"></div>
     </div>
+    <div class="prog-bar-bg"><div class="prog-bar" id="h-prog-bar" style="width:0%;"></div></div>
 
     <!-- PROCHAINS -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div class="slbl" style="margin:0;">PROCHAINS TOURNOIS</div>
-      <button onclick="loadFixtures(true)" style="background:var(--card);border:1px solid var(--border2);color:var(--green);border-radius:8px;padding:5px 10px;font-size:12px;font-family:var(--fd);font-weight:700;cursor:pointer;">↻</button>
+    <div class="proch-header">
+      <div class="proch-title">PROCHAINS TOURNOIS</div>
+      <button class="refresh-btn" onclick="loadFixtures(true)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      </button>
     </div>
-    <div id="h-prochains"></div>
+    <div id="h-prochains"><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Chargement...</div></div>
   </div>
 </div>
 
-<!-- ===================== PICKS ===================== -->
+<!-- PICKS -->
 <div class="scr" id="sc-picks">
-  <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;">
+  <div class="pk-header">
     <button onclick="navTo('home')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
     <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="pk-title">MES PICKS</div>
     <button onclick="savePicks()" style="background:none;border:none;color:var(--red);font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;cursor:pointer;">Valider</button>
   </div>
-  <div style="padding:16px 18px 140px;flex:1;overflow-y:auto;" id="pk-content"></div>
-  <div class="vbar" id="vbar">
-    <button class="btn-red" id="vbtn" onclick="savePicks()" style="box-shadow:0 8px 28px rgba(232,35,58,0.4);">
+  <div id="pk-content" style="padding:16px 18px 160px;flex:1;overflow-y:auto;"></div>
+  <div id="vbar" style="position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding:12px 18px;background:var(--bg2);border-top:1px solid var(--border);">
+    <button class="btn-red" id="vbtn" onclick="savePicks()">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      ENREGISTRER MES PICKS
+      VALIDER MES PICKS
     </button>
   </div>
 </div>
 
-<!-- ===================== CLASSEMENT ===================== -->
+<!-- CLASSEMENT -->
 <div class="scr" id="sc-class">
-  <div style="padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;">
-    <div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">CLASSEMENT</div>
-    <div style="font-size:13px;color:var(--muted);margin-top:2px;">Ton historique personnel</div>
+  <div class="cl-header">
+    <div style="font-family:var(--fd);font-size:20px;font-weight:900;letter-spacing:2px;">CLASSEMENT</div>
   </div>
-  <div style="padding:16px 18px 100px;flex:1;overflow-y:auto;" id="cl-content"></div>
+  <div id="cl-content" style="padding:16px 18px 100px;flex:1;overflow-y:auto;"></div>
 </div>
 
-<!-- ===================== HIST DETAIL ===================== -->
-<div class="scr" id="sc-hdet">
-  <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;">
-    <button onclick="navTo('class')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
-    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="hd-title">Tournoi</div>
-    <div style="width:50px;"></div>
-  </div>
-  <div style="padding:16px 18px 100px;flex:1;overflow-y:auto;" id="hd-content"></div>
-</div>
-
-<!-- ===================== PROFIL ===================== -->
+<!-- PROFIL -->
 <div class="scr" id="sc-profil">
-  <div style="padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-    <div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:1px;">MON PROFIL</div>
-  </div>
-  <div style="padding:0 0 100px;flex:1;overflow-y:scroll;-webkit-overflow-scrolling:touch;" id="pr-content"></div>
+  <div style="font-family:var(--fd);font-size:20px;font-weight:900;letter-spacing:2px;margin-bottom:20px;">MON PROFIL</div>
+  <div id="profil-content"></div>
 </div>
 
-<!-- ===================== BOTTOM NAV ===================== -->
+<!-- HISTORIQUE DETAIL -->
+<div class="scr" id="sc-hdet">
+  <div class="hdet-header">
+    <button onclick="navTo('profil')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="hdet-title">DÉTAIL</div>
+  </div>
+  <div id="hdet-content" style="padding:16px 18px 100px;flex:1;overflow-y:auto;"></div>
+</div>
+
+<!-- BOTTOM NAV -->
 <nav class="bnav" id="bnav">
-  <button class="nb on" id="nb-home" onclick="navTo('home')">
+  <button onclick="navTo('home')" id="nav-home" class="act">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Accueil
   </button>
-  <button class="nb" id="nb-class" onclick="navTo('class')">
+  <button onclick="navTo('class')" id="nav-class">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     Classement
   </button>
-  <button class="nb" id="nb-picks" onclick="navTo('picks')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+  <button onclick="goToPicks()" id="nav-picks">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     Picks
   </button>
-  <button class="nb" id="nb-profil" onclick="navTo('profil')">
+  <button onclick="navTo('profil')" id="nav-profil">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     Profil
   </button>
 </nav>
-
-<!-- ===================== MODAL JOUEUR ===================== -->
-<div class="modal-bg" id="modal-p">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;margin-bottom:14px;" id="modal-ptitle">Choisir</div>
-    <div style="position:relative;margin-bottom:12px;">
-      <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);width:15px;height:15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input class="inp" type="text" id="modal-search" placeholder="Rechercher..." style="padding-left:36px;" oninput="filterPlayers(this.value)"/>
-    </div>
-    <div id="modal-plist" style="max-height:55vh;overflow-y:auto;"></div>
-    <button class="btn-outline" onclick="closeModal()">Annuler</button>
-  </div>
 </div>
-
-<!-- ===================== MODAL PSEUDO ===================== -->
-<div class="modal-bg" id="modal-ps">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div style="font-family:var(--fd);font-size:18px;font-weight:800;margin-bottom:14px;">Modifier ton pseudo</div>
-    <input class="inp" type="text" id="ps-input" maxlength="20" style="margin-bottom:12px;"/>
-    <button class="btn-red" onclick="savePseudo()">SAUVEGARDER</button>
-    <button class="btn-outline" onclick="closePseudo()">Annuler</button>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-"use strict";
-
-var DP_PLAYERS = [
-  {id:"dp-001",name:"Patrick Reed",flag:"🇺🇸",wr:1,coeff:1.5},
-  {id:"dp-002",name:"Rory McIlroy",flag:"🇬🇧",wr:2,coeff:1.5},
-  {id:"dp-003",name:"Jayden Schaper",flag:"🇿🇦",wr:3,coeff:1.5},
-  {id:"dp-004",name:"Casey Jarvis",flag:"🇿🇦",wr:4,coeff:1.5},
-  {id:"dp-005",name:"Aaron Rai",flag:"🇬🇧",wr:5,coeff:1.5},
-  {id:"dp-006",name:"Andy Sullivan",flag:"🇬🇧",wr:6,coeff:2.0},
-  {id:"dp-007",name:"Dan Bradbury",flag:"🇬🇧",wr:7,coeff:2.0},
-  {id:"dp-008",name:"Shaun Norris",flag:"🇿🇦",wr:8,coeff:2.0},
-  {id:"dp-009",name:"Mikael Lindberg",flag:"🇸🇪",wr:9,coeff:2.0},
-  {id:"dp-010",name:"David Puig",flag:"🇪🇸",wr:10,coeff:2.0},
-  {id:"dp-011",name:"Daniel Hillier",flag:"🇳🇿",wr:11,coeff:2.5},
-  {id:"dp-012",name:"Alex Fitzpatrick",flag:"🇬🇧",wr:12,coeff:2.5},
-  {id:"dp-013",name:"Julien Guerrier",flag:"🇫🇷",wr:13,coeff:2.5},
-  {id:"dp-014",name:"Jorge Campillo",flag:"🇪🇸",wr:14,coeff:2.5},
-  {id:"dp-015",name:"Calum Hill",flag:"🇬🇧",wr:15,coeff:2.5},
-  {id:"dp-016",name:"Marcus Armitage",flag:"🇬🇧",wr:16,coeff:2.5},
-  {id:"dp-017",name:"Bernd Wiesberger",flag:"🇦🇹",wr:17,coeff:2.5},
-  {id:"dp-018",name:"Eugenio Chacarra",flag:"🇪🇸",wr:18,coeff:2.5},
-  {id:"dp-019",name:"Jon Rahm",flag:"🇪🇸",wr:19,coeff:2.5},
-  {id:"dp-020",name:"Freddy Schott",flag:"🇩🇪",wr:20,coeff:2.5},
-  {id:"dp-021",name:"Nacho Elvira",flag:"🇪🇸",wr:21,coeff:3.0},
-  {id:"dp-022",name:"Jacob Skov Olesen",flag:"🇩🇰",wr:22,coeff:3.0},
-  {id:"dp-023",name:"Adrian Otaegui",flag:"🇪🇸",wr:23,coeff:3.0},
-  {id:"dp-024",name:"Hennie Du Plessis",flag:"🇿🇦",wr:24,coeff:3.0},
-  {id:"dp-025",name:"Kristoffer Reitan",flag:"🇳🇴",wr:25,coeff:3.0},
-  {id:"dp-026",name:"Angel Ayora",flag:"🇪🇸",wr:26,coeff:3.0},
-  {id:"dp-027",name:"Wenyi Ding",flag:"🇨🇳",wr:27,coeff:3.0},
-  {id:"dp-028",name:"Jordan Gumberg",flag:"🇸🇪",wr:28,coeff:3.0},
-  {id:"dp-029",name:"Yurav Premlall",flag:"🇿🇦",wr:29,coeff:3.0},
-  {id:"dp-030",name:"Richard Sterne",flag:"🇿🇦",wr:30,coeff:3.0},
-  {id:"dp-031",name:"Justin Rose",flag:"🇬🇧",wr:31,coeff:4.0},
-  {id:"dp-032",name:"Davis Bryant",flag:"🇬🇧",wr:32,coeff:4.0},
-  {id:"dp-033",name:"Oliver Lindell",flag:"🇸🇪",wr:33,coeff:4.0},
-  {id:"dp-034",name:"Daniel Rodrigues",flag:"🇵🇹",wr:34,coeff:4.0},
-  {id:"dp-035",name:"Nathan Kimsey",flag:"🇬🇧",wr:35,coeff:4.0},
-  {id:"dp-036",name:"Rasmus Neergaard-Petersen",flag:"🇩🇰",wr:36,coeff:4.0},
-  {id:"dp-037",name:"Martin Couvra",flag:"🇫🇷",wr:37,coeff:4.0},
-  {id:"dp-038",name:"Darius Van Driel",flag:"🇳🇱",wr:38,coeff:4.0},
-  {id:"dp-039",name:"Ewen Ferguson",flag:"🇬🇧",wr:39,coeff:4.0},
-  {id:"dp-040",name:"Francesco Molinari",flag:"🇮🇹",wr:40,coeff:4.0},
-  {id:"dp-041",name:"Ludvig Aberg",flag:"🇸🇪",wr:41,coeff:4.0},
-  {id:"dp-042",name:"Tyrrell Hatton",flag:"🇬🇧",wr:42,coeff:4.0},
-  {id:"dp-043",name:"Francesco Laporta",flag:"🇮🇹",wr:43,coeff:4.0},
-  {id:"dp-044",name:"Ricardo Gouveia",flag:"🇵🇹",wr:44,coeff:4.0},
-  {id:"dp-045",name:"Alejandro Del Rey",flag:"🇪🇸",wr:45,coeff:4.0},
-  {id:"dp-046",name:"Ugo Coussaud",flag:"🇫🇷",wr:46,coeff:4.0},
-  {id:"dp-047",name:"Justin Thomas",flag:"🇺🇸",wr:47,coeff:4.0},
-  {id:"dp-048",name:"Kota Kaneko",flag:"🇯🇵",wr:48,coeff:4.0},
-  {id:"dp-049",name:"Frederic Lacroix",flag:"🇫🇷",wr:49,coeff:4.0},
-  {id:"dp-050",name:"Guido Migliozzi",flag:"🇮🇹",wr:50,coeff:4.0},
-  {id:"dp-051",name:"Gregoire De Leo",flag:"🇫🇷",wr:51,coeff:5.0},
-  {id:"dp-052",name:"Ryan Gerard",flag:"🇺🇸",wr:52,coeff:5.0},
-  {id:"dp-053",name:"JC Ritchie",flag:"🇿🇦",wr:53,coeff:5.0},
-  {id:"dp-054",name:"Rafa Cabrera Bello",flag:"🇪🇸",wr:54,coeff:5.0},
-  {id:"dp-055",name:"Antoine Rozner",flag:"🇫🇷",wr:55,coeff:5.0},
-  {id:"dp-056",name:"Nicolai Hojgaard",flag:"🇩🇰",wr:56,coeff:5.0},
-  {id:"dp-057",name:"Eddie Pepperell",flag:"🇬🇧",wr:57,coeff:5.0},
-  {id:"dp-058",name:"Johannes Veerman",flag:"🇳🇱",wr:58,coeff:5.0},
-  {id:"dp-059",name:"Shane Lowry",flag:"🇮🇪",wr:59,coeff:5.0},
-  {id:"dp-060",name:"Oihan Guillamoundeguy",flag:"🇫🇷",wr:60,coeff:5.0},
-  {id:"dp-061",name:"Brandon Robinson Thompson",flag:"🇬🇧",wr:61,coeff:5.0},
-  {id:"dp-062",name:"Tom Vaillant",flag:"🇫🇷",wr:62,coeff:5.0},
-  {id:"dp-063",name:"Daniel Van Tonder",flag:"🇿🇦",wr:63,coeff:5.0},
-  {id:"dp-064",name:"Zander Lombard",flag:"🇿🇦",wr:64,coeff:5.0},
-  {id:"dp-065",name:"Marcus Kinhult",flag:"🇸🇪",wr:65,coeff:5.0},
-  {id:"dp-066",name:"Michael Hollick",flag:"🇿🇦",wr:66,coeff:5.0},
-  {id:"dp-067",name:"Christiaan Bezuidenhout",flag:"🇿🇦",wr:67,coeff:5.0},
-  {id:"dp-068",name:"Adam Scott",flag:"🇦🇺",wr:68,coeff:5.0},
-  {id:"dp-069",name:"Grant Forrest",flag:"🇬🇧",wr:69,coeff:5.0},
-  {id:"dp-070",name:"David Ravette",flag:"🇫🇷",wr:70,coeff:5.0},
-  {id:"dp-071",name:"Dylan Frittelli",flag:"🇿🇦",wr:71,coeff:5.0},
-  {id:"dp-072",name:"Si Woo Kim",flag:"🇰🇷",wr:72,coeff:5.0},
-  {id:"dp-073",name:"Thriston Lawrence",flag:"🇿🇦",wr:73,coeff:5.0},
-  {id:"dp-074",name:"Kazuma Kobori",flag:"🇯🇵",wr:74,coeff:5.0},
-  {id:"dp-075",name:"Chris Rappelle",flag:"🇧🇪",wr:75,coeff:5.0},
-  {id:"dp-076",name:"Viktor Hovland",flag:"🇳🇴",wr:76,coeff:6.0},
-  {id:"dp-077",name:"Jacques Kruyswijk",flag:"🇿🇦",wr:77,coeff:6.0},
-  {id:"dp-078",name:"Jason Scrivener",flag:"🇦🇺",wr:78,coeff:6.0},
-  {id:"dp-079",name:"Min Woo Lee",flag:"🇦🇺",wr:79,coeff:6.0},
-  {id:"dp-080",name:"Thorbjorn Olesen",flag:"🇩🇰",wr:80,coeff:6.0},
-  {id:"dp-081",name:"Matt Fitzpatrick",flag:"🇬🇧",wr:81,coeff:6.0},
-  {id:"dp-082",name:"John Parry",flag:"🇬🇧",wr:82,coeff:6.0},
-  {id:"dp-083",name:"Joakim Lagergren",flag:"🇸🇪",wr:83,coeff:6.0},
-  {id:"dp-084",name:"Manuel Elvira",flag:"🇪🇸",wr:84,coeff:6.0},
-  {id:"dp-085",name:"Thomas Detry",flag:"🇧🇪",wr:85,coeff:6.0},
-  {id:"dp-086",name:"Matthieu Jordan",flag:"🇫🇷",wr:86,coeff:6.0},
-  {id:"dp-087",name:"Andreas Halvorsen",flag:"🇳🇴",wr:87,coeff:6.0},
-  {id:"dp-088",name:"Romain Langasque",flag:"🇫🇷",wr:88,coeff:6.0},
-  {id:"dp-089",name:"Kiradech Aphibarnrat",flag:"🇹🇭",wr:89,coeff:6.0},
-  {id:"dp-090",name:"Matteo Manassero",flag:"🇮🇹",wr:90,coeff:6.0},
-  {id:"dp-091",name:"Hugo Townsend",flag:"🇿🇦",wr:91,coeff:6.0},
-  {id:"dp-092",name:"Euan Walker",flag:"🇬🇧",wr:92,coeff:6.0},
-  {id:"dp-093",name:"Anthony Quayle",flag:"🇬🇧",wr:93,coeff:6.0},
-  {id:"dp-094",name:"David Droit",flag:"🇫🇷",wr:94,coeff:6.0},
-  {id:"dp-095",name:"Yanhan Zhou",flag:"🇨🇳",wr:95,coeff:6.0},
-  {id:"dp-096",name:"Rikuya Hoshino",flag:"🇯🇵",wr:96,coeff:6.0},
-  {id:"dp-097",name:"Marcel Schneider",flag:"🇩🇪",wr:97,coeff:6.0},
-  {id:"dp-098",name:"Victor Perez",flag:"🇫🇷",wr:98,coeff:6.0},
-  {id:"dp-099",name:"Ryan Fox",flag:"🇳🇿",wr:99,coeff:6.0},
-  {id:"dp-100",name:"Brandon Stone",flag:"🇿🇦",wr:100,coeff:6.0},
-  {id:"dp-101",name:"Haotong Li",flag:"🇨🇳",wr:101,coeff:7.0},
-  {id:"dp-102",name:"Joost Luiten",flag:"🇳🇱",wr:102,coeff:7.0},
-  {id:"dp-103",name:"Sam Bairstow",flag:"🇬🇧",wr:103,coeff:7.0},
-  {id:"dp-104",name:"Angel Hidalgo",flag:"🇪🇸",wr:104,coeff:7.0},
-  {id:"dp-105",name:"Andrea Pavan",flag:"🇮🇹",wr:105,coeff:7.0},
-  {id:"dp-106",name:"Sebastian Soderberg",flag:"🇸🇪",wr:106,coeff:7.0},
-  {id:"dp-107",name:"Yuto Katsuragawa",flag:"🇯🇵",wr:107,coeff:7.0},
-  {id:"dp-108",name:"Alexandre Levy",flag:"🇧🇷",wr:108,coeff:7.0},
-  {id:"dp-109",name:"Ben Schmidt",flag:"🇩🇪",wr:109,coeff:7.0},
-  {id:"dp-110",name:"Cameron Adam",flag:"🇬🇧",wr:110,coeff:7.0},
-  {id:"dp-111",name:"Tobias Jonsson",flag:"🇸🇪",wr:111,coeff:7.0},
-  {id:"dp-112",name:"Jeff Winther",flag:"🇩🇰",wr:112,coeff:7.0},
-  {id:"dp-113",name:"Todd Clements",flag:"🇬🇧",wr:113,coeff:7.0},
-  {id:"dp-114",name:"Matt Wallace",flag:"🇬🇧",wr:114,coeff:7.0},
-  {id:"dp-115",name:"Alex Noren",flag:"🇸🇪",wr:115,coeff:7.0},
-  {id:"dp-116",name:"Jonathan Broomhead",flag:"🇿🇦",wr:116,coeff:7.0},
-  {id:"dp-117",name:"Sebastian Garcia",flag:"🇪🇸",wr:117,coeff:7.0},
-  {id:"dp-118",name:"Sean Crocker",flag:"🇺🇸",wr:118,coeff:7.0},
-  {id:"dp-119",name:"Tom McKibbin",flag:"🇬🇧",wr:119,coeff:7.0},
-  {id:"dp-120",name:"Jack Senior",flag:"🇬🇧",wr:120,coeff:7.0},
-  {id:"dp-122",name:"Tommy Fleetwood",flag:"🇬🇧",wr:122,coeff:7.0},
-  {id:"dp-123",name:"Padraig Harrington",flag:"🇮🇪",wr:123,coeff:7.0},
-  {id:"dp-124",name:"Joe Dean",flag:"🇬🇧",wr:124,coeff:7.0},
-  {id:"dp-125",name:"Ivan Cantero",flag:"🇪🇸",wr:125,coeff:7.0},
-  {id:"dp-126",name:"Marcel Siem",flag:"🇩🇪",wr:126,coeff:7.0},
-  {id:"dp-128",name:"Jens Dantorp",flag:"🇸🇪",wr:128,coeff:7.0},
-  {id:"dp-129",name:"David Micheluzzi",flag:"🇦🇺",wr:129,coeff:7.0},
-  {id:"dp-130",name:"Quim Vidal",flag:"🇪🇸",wr:130,coeff:7.0},
-  {id:"dp-131",name:"Niklas Norgaard",flag:"🇩🇰",wr:131,coeff:7.0},
-  {id:"dp-132",name:"Junghwan Lee",flag:"🇰🇷",wr:132,coeff:7.0},
-  {id:"dp-133",name:"Maximilien Steinlechner",flag:"🇩🇪",wr:133,coeff:7.0},
-  {id:"dp-134",name:"Andrew Johnston",flag:"🇬🇧",wr:134,coeff:7.0},
-  {id:"dp-135",name:"Joel Girrbach",flag:"🇨🇭",wr:135,coeff:7.0},
-  {id:"dp-136",name:"Elvis Smylie",flag:"🇦🇺",wr:136,coeff:7.0},
-  {id:"dp-137",name:"Ashun Wu",flag:"🇨🇳",wr:137,coeff:7.0},
-  {id:"dp-139",name:"Stefano Mazzoli",flag:"🇮🇹",wr:139,coeff:7.0},
-  {id:"dp-140",name:"James Morrison",flag:"🇬🇧",wr:140,coeff:7.0},
-  {id:"dp-141",name:"Matthew Baldwin",flag:"🇬🇧",wr:141,coeff:7.0},
-  {id:"dp-142",name:"Niklas Lemke",flag:"🇸🇪",wr:142,coeff:7.0},
-  {id:"dp-143",name:"Scott Jamieson",flag:"🇬🇧",wr:143,coeff:7.0},
-  {id:"dp-144",name:"Richie Ramsay",flag:"🇬🇧",wr:144,coeff:7.0},
-  {id:"dp-145",name:"Ross Fisher",flag:"🇬🇧",wr:145,coeff:7.0},
-  {id:"dp-146",name:"Nicolai Von Dellingshausen",flag:"🇩🇪",wr:146,coeff:7.0},
-  {id:"dp-147",name:"Clement Charmasson",flag:"🇫🇷",wr:147,coeff:7.0},
-  {id:"dp-148",name:"Ryggs Johnston",flag:"🇺🇸",wr:148,coeff:7.0},
-  {id:"dp-150",name:"Aaron Cockerill",flag:"🇨🇦",wr:150,coeff:7.0},
-  {id:"dp-151",name:"Adam Blomme",flag:"🇧🇪",wr:151,coeff:8.0},
-  {id:"dp-152",name:"Tapio Pulkkanen",flag:"🇫🇮",wr:152,coeff:8.0},
-  {id:"dp-153",name:"Marco Penge",flag:"🇬🇧",wr:153,coeff:8.0},
-  {id:"dp-154",name:"Quentin Debove",flag:"🇫🇷",wr:154,coeff:8.0},
-  {id:"dp-155",name:"Ockie Strydom",flag:"🇿🇦",wr:155,coeff:8.0},
-  {id:"dp-156",name:"Benjamin Follett-Smith",flag:"🇿🇼",wr:156,coeff:8.0},
-  {id:"dp-157",name:"Jack Buchanan",flag:"🇬🇧",wr:157,coeff:8.0},
-  {id:"dp-158",name:"Dylan Naidoo",flag:"🇿🇦",wr:158,coeff:8.0},
-  {id:"dp-159",name:"Fabrizio Zanotti",flag:"🇵🇾",wr:159,coeff:8.0},
-  {id:"dp-160",name:"Sadom Kaewkanjana",flag:"🇹🇭",wr:160,coeff:8.0},
-  {id:"dp-161",name:"Shubhankar Sharma",flag:"🇮🇳",wr:161,coeff:8.0},
-  {id:"dp-162",name:"Renato Paratore",flag:"🇮🇹",wr:162,coeff:8.0},
-  {id:"dp-163",name:"Connor Syme",flag:"🇬🇧",wr:163,coeff:8.0},
-  {id:"dp-164",name:"Albin Bergstrom",flag:"🇸🇪",wr:164,coeff:8.0},
-  {id:"dp-165",name:"Joshua Berry",flag:"🇬🇧",wr:165,coeff:8.0},
-  {id:"dp-166",name:"Jesper Svensson",flag:"🇸🇪",wr:166,coeff:8.0},
-  {id:"dp-167",name:"Robin Williams",flag:"🇿🇦",wr:167,coeff:8.0},
-  {id:"dp-168",name:"Pablo Larrazabal",flag:"🇪🇸",wr:168,coeff:8.0},
-  {id:"dp-169",name:"Adri Arnaus",flag:"🇪🇸",wr:169,coeff:8.0},
-  {id:"dp-170",name:"Rasmus Hojgaard",flag:"🇩🇰",wr:170,coeff:8.0},
-  {id:"dp-172",name:"Ryan Van Velzen",flag:"🇳🇱",wr:172,coeff:8.0},
-  {id:"dp-173",name:"Sepp Straka",flag:"🇦🇹",wr:173,coeff:8.0},
-  {id:"dp-176",name:"Yuvraj Sandhu",flag:"🇮🇳",wr:176,coeff:8.0},
-  {id:"dp-177",name:"Sungjae Im",flag:"🇰🇷",wr:177,coeff:8.0},
-  {id:"dp-178",name:"Laurie Canter",flag:"🇬🇧",wr:178,coeff:8.0},
-  {id:"dp-180",name:"Lucas Bjerregaard",flag:"🇩🇰",wr:180,coeff:8.0},
-  {id:"dp-182",name:"Adrien Saddier",flag:"🇫🇷",wr:182,coeff:8.0},
-  {id:"dp-183",name:"Daniel Brown",flag:"🇬🇧",wr:183,coeff:8.0},
-  {id:"dp-184",name:"Jordan Smith",flag:"🇬🇧",wr:184,coeff:8.0},
-  {id:"dp-186",name:"Adrian Meronk",flag:"🇵🇱",wr:186,coeff:8.0},
-  {id:"dp-188",name:"Richard Mansell",flag:"🇬🇧",wr:188,coeff:8.0},
-  {id:"dp-189",name:"Jamie Rutherford",flag:"🇬🇧",wr:189,coeff:8.0},
-  {id:"dp-191",name:"Alfredo Garcia-Heredia",flag:"🇪🇸",wr:191,coeff:8.0},
-  {id:"dp-192",name:"Yannik Paul",flag:"🇩🇪",wr:192,coeff:8.0},
-  {id:"dp-195",name:"Sami Valimaki",flag:"🇫🇮",wr:195,coeff:8.0},
-  {id:"dp-196",name:"Jeong Weon Ko",flag:"🇰🇷",wr:196,coeff:8.0},
-  {id:"dp-197",name:"Clement Sordet",flag:"🇫🇷",wr:197,coeff:8.0},
-  {id:"dp-198",name:"Darren Fichardt",flag:"🇿🇦",wr:198,coeff:8.0},
-  {id:"dp-199",name:"Danny Willett",flag:"🇬🇧",wr:199,coeff:8.0},
-  {id:"dp-200",name:"Andres Gallegos",flag:"🇦🇷",wr:200,coeff:8.0},
-  {id:"dp-201",name:"Luc Donald",flag:"🇬🇧",wr:201,coeff:8.0},
-  {id:"dp-202",name:"Veer Ahlawat",flag:"🇮🇳",wr:202,coeff:8.0},
-  {id:"dp-203",name:"Edoardo Molinari",flag:"🇮🇹",wr:203,coeff:8.0},
-  {id:"dp-204",name:"Deon Germishuys",flag:"🇿🇦",wr:204,coeff:8.0},
-  {id:"dp-205",name:"Lukas Nemecz",flag:"🇦🇹",wr:205,coeff:8.0},
-  {id:"dp-207",name:"Gavin Green",flag:"🇲🇾",wr:207,coeff:8.0},
-  {id:"dp-208",name:"Callum Tarren",flag:"🇬🇧",wr:208,coeff:8.0}
-];
-
 // ============================================================
-// API
+// CONFIG
 // ============================================================
-var API_KEY  = "39c5cc9625mshc2f52e154b3255fp11e5b9jsn0f4c49435a11";
+var API_KEY = "39c5cc9625mshc2f52e154b3255fp11e5b9jsn0f4c49435a11";
 var API_HOST = "golf-leaderboard-data.p.rapidapi.com";
-var API_BASE = "https://golf-leaderboard-data.p.rapidapi.com";
-
-function apiCall(endpoint) {
-  return fetch(API_BASE + endpoint, {
-    headers: { "x-rapidapi-key": API_KEY, "x-rapidapi-host": API_HOST }
-  }).then(function(r) {
-    if (!r.ok) throw new Error("API " + r.status);
-    return r.json();
-  });
-}
+var STORE_KEY = "sp_v10";
 
 // ============================================================
-// CONSTANTS
+// BADGES
 // ============================================================
 var BADGES = [
-  { name: "Monsieur provisoire",          emoji: "🏌️", min: 0,     max: 999 },
-  { name: "Bogeyman",                     emoji: "👻", min: 1000,  max: 2499 },
-  { name: "Chasseur de birdies",          emoji: "🐦", min: 2500,  max: 4999 },
-  { name: "Trop touch",                   emoji: "🎯", min: 5000,  max: 7499 },
-  { name: "Le trackman vivant",           emoji: "📡", min: 7500,  max: 9999 },
-  { name: "Le robot du PGA Tour",         emoji: "🤖", min: 10000, max: 14999 },
-  { name: "Rory t'attend au depart du 1", emoji: "⛳", min: 15000, max: 24999 },
-  { name: "Tiger Woods connecte",         emoji: "🐯", min: 25000, max: Infinity }
+  {name:"Monsieur Provisoire", emoji:"🏌️", pts:0},
+  {name:"Bogeyman", emoji:"😤", pts:1000},
+  {name:"Par Seeker", emoji:"🎯", pts:3000},
+  {name:"Birdie Hunter", emoji:"🐦", pts:6000},
+  {name:"Eagle Eye", emoji:"🦅", pts:12000},
+  {name:"Tiger Woods connecté", emoji:"🐯", pts:25000}
 ];
-
-var CATS = ["Top 10", "11-20", "21-40", "41+", "Missed Cut"];
 
 // ============================================================
 // STATE
 // ============================================================
 var S = {
-  pseudo: "", pts: 0, history: [],
-  tid: null, // current tournament id
-  picks: { top3: [null, null, null], tenPicks: {}, tenPlayers: [] },
+  pseudo: "",
+  pts: 0,
+  history: [],
+  tid: null,
+  picks: { top3: [null,null,null], tenPicks: {}, tenPlayers: [] },
   saved: false,
-  fixtures: [], fixtOk: false,
-  players: [], playOk: false
+  fixtures: [],
+  fixtOk: false,
+  players: [],
+  playOk: false
 };
 
-function loadS() {
-  try {
-    var d = JSON.parse(localStorage.getItem("sp_v9") || "{}");
-    S.pseudo  = d.pseudo  || "";
-    S.pts     = d.pts     || 0;
-    S.history = d.history || [];
-    S.tid     = d.tid     || null;
-    S.tidPGA  = d.tidPGA  || null;
-    S.tidDP   = d.tidDP   || null;
-    S.activeTour = d.activeTour || "PGA";
-    S.picks   = d.picks   || { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
-    S.saved   = d.saved   || false;
-  } catch(e) {}
-}
-
+// ============================================================
+// PERSIST
+// ============================================================
 function saveS() {
-  localStorage.setItem("sp_v9", JSON.stringify({
+  localStorage.setItem(STORE_KEY, JSON.stringify({
     pseudo: S.pseudo, pts: S.pts, history: S.history,
-    tid: S.tid, tidPGA: S.tidPGA, tidDP: S.tidDP, activeTour: S.activeTour,
-    picks: S.picks, saved: S.saved
+    tid: S.tid, picks: S.picks, saved: S.saved
   }));
 }
 
+function loadS() {
+  try {
+    var d = JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
+    S.pseudo = d.pseudo || "";
+    S.pts    = d.pts    || 0;
+    S.history= d.history|| [];
+    S.tid    = d.tid    || null;
+    S.picks  = d.picks  || { top3:[null,null,null], tenPicks:{}, tenPlayers:[] };
+    S.saved  = d.saved  || false;
+  } catch(e) {}
+}
+
 // ============================================================
-// BADGE HELPERS
+// HELPERS
 // ============================================================
 function getBadge(pts) {
-  for (var i = BADGES.length - 1; i >= 0; i--) {
-    if (pts >= BADGES[i].min) return BADGES[i];
-  }
-  return BADGES[0];
+  var b = BADGES[0];
+  for (var i = 0; i < BADGES.length; i++) { if (pts >= BADGES[i].pts) b = BADGES[i]; }
+  return b;
 }
-
 function getNextBadge(pts) {
-  for (var i = 0; i < BADGES.length; i++) {
-    if (pts < BADGES[i].min) return BADGES[i];
-  }
+  for (var i = 0; i < BADGES.length; i++) { if (BADGES[i].pts > pts) return BADGES[i]; }
   return null;
 }
-
 function getProgress(pts) {
-  var cur = getBadge(pts);
-  var nxt = getNextBadge(pts);
+  var cur = getBadge(pts), nxt = getNextBadge(pts);
   if (!nxt) return 100;
-  return Math.min(100, Math.round(((pts - cur.min) / (nxt.min - cur.min)) * 100));
+  return Math.min(100, Math.round((pts - cur.pts) / (nxt.pts - cur.pts) * 100));
+}
+function fmtDate(d) {
+  if (!d) return "—";
+  var dt = d instanceof Date ? d : new Date(d);
+  return dt.toLocaleDateString("fr-FR", {day:"numeric", month:"short"});
+}
+function pad(n) { return String(n).padStart(2,"0"); }
+
+// ============================================================
+// API
+// ============================================================
+function apiCall(path) {
+  return fetch("https://" + API_HOST + path, {
+    headers: { "x-rapidapi-key": API_KEY, "x-rapidapi-host": API_HOST }
+  }).then(function(r) {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  });
 }
 
-function getPercentile(pts) {
-  if (pts >= 25000) return "0.1";
-  if (pts >= 15000) return "0.5";
-  if (pts >= 10000) return "1";
-  if (pts >= 7500)  return "2";
-  if (pts >= 5000)  return "5";
-  if (pts >= 2500)  return "10";
-  if (pts >= 1000)  return "25";
-  return "50";
-}
-
 // ============================================================
-// COUNTRY FLAGS
-// ============================================================
-var FLAGS = {
-  "USA":"🇺🇸","ENG":"🇬🇧","SCO":"🏴","IRL":"🇮🇪","NIR":"🇬🇧",
-  "ESP":"🇪🇸","NOR":"🇳🇴","SWE":"🇸🇪","AUS":"🇦🇺","CAN":"🇨🇦",
-  "KOR":"🇰🇷","JPN":"🇯🇵","RSA":"🇿🇦","GER":"🇩🇪","FRA":"🇫🇷",
-  "ITA":"🇮🇹","ARG":"🇦🇷","CHN":"🇨🇳","MEX":"🇲🇽","COL":"🇨🇴",
-  "FIJ":"🇫🇯","NZL":"🇳🇿","BEL":"🇧🇪","DEN":"🇩🇰","FIN":"🇫🇮",
-  "AUT":"🇦🇹","CHI":"🇨🇱","BRA":"🇧🇷","TPE":"🇹🇼","THA":"🇹🇭",
-  "WAL":"🏴","VEN":"🇻🇪","ZIM":"🇿🇼","NAM":"🇳🇦","GBR":"🇬🇧",
-  "PUR":"🇵🇷","PHI":"🇵🇭","PAR":"🇵🇾","URU":"🇺🇾","RUS":"🇷🇺"
-};
-
-function flag(c) { return FLAGS[c] || "🌍"; }
-
-// ============================================================
-// API — FIXTURES
+// FIXTURES
 // ============================================================
 function loadFixtures(force) {
-  if (S.fixtOk && !force) return;
+  if (S.fixtOk && !force) { renderHome(); renderProchains(); return; }
   var el = document.getElementById("h-prochains");
-  if (el) el.innerHTML = '<div class="loading"><div class="spin"></div><div class="ltxt">Chargement...</div></div>';
+  if (el) el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Chargement...</div>';
 
-  // Charger PGA Tour (2) + DP World Tour (1) en parallele
   Promise.all([
-    apiCall("/fixtures/2/2026"),
-    Promise.resolve({ results: [
-      {id:"788",name:"Soudal Open",tour:"DP",loc:"Rinkven International GC, Belgique",start:"2026-05-21",end:"2026-05-24"},
-      {id:"789",name:"Austrian Alpine Open",tour:"DP",loc:"Tirol Golfclub Kitzbuhel, Autriche",start:"2026-05-28",end:"2026-05-31"},
-      {id:"790",name:"KLM Open",tour:"DP",loc:"The International, Pays-Bas",start:"2026-06-04",end:"2026-06-07"},
-      {id:"791",name:"U.S. Open",tour:"DP",loc:"Shinnecock Hills GC, USA",start:"2026-06-18",end:"2026-06-21"},
-      {id:"792",name:"Open d'Italia",tour:"DP",loc:"Circolo Golf Torino, Italie",start:"2026-06-25",end:"2026-06-28"},
-      {id:"793",name:"BMW International Open",tour:"DP",loc:"Golfclub Munchen Eichenried, Allemagne",start:"2026-07-02",end:"2026-07-05"},
-      {id:"794",name:"Genesis Scottish Open",tour:"DP",loc:"The Renaissance Club, Ecosse",start:"2026-07-09",end:"2026-07-12"},
-      {id:"dp-008",name:"The 154th Open Championship",tour:"DP",loc:"Royal Birkdale GC, Angleterre",start:"2026-07-16",end:"2026-07-19"},
-      {id:"799",name:"Danish Golf Championship",tour:"DP",loc:"Great Northern, Danemark",start:"2026-08-13",end:"2026-08-16"},
-      {id:"800",name:"Husqvarna British Masters",tour:"DP",loc:"The Belfry Hotel, Angleterre",start:"2026-08-27",end:"2026-08-30"},
-      {id:"801",name:"Omega European Masters",tour:"DP",loc:"Crans-sur-Sierre GC, Suisse",start:"2026-09-03",end:"2026-09-06"},
-      {id:"812",name:"Amgen Irish Open",tour:"DP",loc:"Trump International Golf Links, Irlande",start:"2026-09-10",end:"2026-09-13"},
-      {id:"813",name:"BMW PGA Championship",tour:"DP",loc:"Wentworth Club, Angleterre",start:"2026-09-17",end:"2026-09-20"},
-      {id:"814",name:"FedEx Open de France",tour:"DP",loc:"Golf National, France",start:"2026-09-24",end:"2026-09-27"},
-      {id:"815",name:"Alfred Dunhill Links Championship",tour:"DP",loc:"St Andrews Links, Ecosse",start:"2026-10-01",end:"2026-10-04"},
-      {id:"816",name:"Open de Espana",tour:"DP",loc:"Club de Campo Villa de Madrid, Espagne",start:"2026-10-08",end:"2026-10-11"},
-      {id:"821",name:"DP World India Championship",tour:"DP",loc:"Delhi Golf Club, Inde",start:"2026-10-15",end:"2026-10-18"},
-      {id:"dp-018",name:"Genesis Championship",tour:"DP",loc:"TBA, Coree du Sud",start:"2026-10-22",end:"2026-10-25"},
-      {id:"818",name:"Abu Dhabi Championship",tour:"DP",loc:"Yas Links Golf Club, UAE",start:"2026-11-05",end:"2026-11-08"},
-      {id:"819",name:"DP World Tour Championship",tour:"DP",loc:"Jumeirah Golf Estates, UAE",start:"2026-11-12",end:"2026-11-15"}
-    ]})
-  ]).then(function(responses) {
-    var now = new Date();
-    var allResults = [];
+    apiCall("/fixtures/2/2026").catch(function() { return { results: [] }; }),
+    apiCall("/tour-rankings/2/2026").catch(function() { return { results: {} }; })
+  ]).then(function(res) {
+    var fixtData = res[0];
+    var rankData = res[1];
 
-    responses.forEach(function(data, idx) {
-      var tour = idx === 0 ? "PGA" : "DP";
-      (data.results || []).forEach(function(f) {
-        // Support both API format (start_date) and manual format (start)
-        var startStr = f.start_date || f.start;
-        var endStr   = f.end_date   || f.end;
-        if (startStr) {
-          allResults.push({
-            id:     String(f.id),
-            name:   f.name,
-            tour:   f.tour || tour,
-            loc:    f.loc || ((f.course || "") + (f.country ? ", " + f.country : "")),
-            start:  new Date(startStr),
-            end:    new Date(endStr || startStr),
-            status: f.status || "pre"
-          });
-        }
+    // Build rankings map
+    var ranks = {};
+    var rankList = (rankData.results && rankData.results.rankings) ? rankData.results.rankings : [];
+    rankList.forEach(function(p) { ranks[p.player_id] = p.position; });
+    S.rankMap = ranks;
+
+    // Process fixtures
+    var all = [];
+    (fixtData.results || []).forEach(function(f) {
+      if (!f.start_date) return;
+      var fStart = new Date(f.start_date);
+      var fEnd   = new Date(f.end_date || f.start_date);
+      // Deadline = start of tournament (picks close when tournament begins)
+      // Exception: if tournament ends this week, keep picks open until end of day
+      var today = new Date().toISOString().substring(0,10);
+      var endStr = fEnd.toISOString().substring(0,10);
+      var deadline;
+      if (endStr <= "2026-05-26") {
+        deadline = new Date("2026-05-26T22:00:00Z"); // keep open this week
+      } else {
+        deadline = new Date(fStart);
+      }
+      all.push({
+        id: String(f.id),
+        name: f.name,
+        tour: "PGA",
+        loc: (f.course || "") + (f.country ? ", " + f.country : ""),
+        start: fStart,
+        end: fEnd,
+        deadline: deadline,
+        status: f.status || "pre"
       });
     });
 
-    // Deadline = picks ouverts jusqu'au debut du tournoi
-    // EXCEPTION: tournois de cette semaine -> picks ouverts jusqu'au 26 mai
-    allResults.forEach(function(f) {
-      var fStart = f.start instanceof Date ? f.start : new Date(f.start);
-      var fEnd   = f.end   instanceof Date ? f.end   : new Date(f.end);
-      var fEndStr = fEnd.toISOString().substring(0,10);
-      if (fEndStr <= "2026-05-26") {
-        f.deadline = new Date("2026-05-26T22:00:00Z");
-      } else {
-        f.deadline = new Date(fStart);
-      }
-    });
-
-    // Trier par date
-    // Normaliser toutes les dates en objets Date
-    allResults.forEach(function(f) {
-      f.start = f.start instanceof Date ? f.start : new Date(f.start);
-      f.end   = f.end   instanceof Date ? f.end   : new Date(f.end);
-    });
-    S.fixtures = allResults.sort(function(a, b) { return a.start - b.start; });
+    S.fixtures = all.sort(function(a,b) { return a.start - b.start; });
     S.fixtOk = true;
 
-    // Find current tournament (priorite au live, puis en cours, puis prochain)
-    var live    = null;
-    var ongoing = null;
-    var next    = null;
-    var past    = null;
-
+    // Find current tournament
+    var now = new Date();
+    var live = null, ongoing = null, next = null, past = null;
     for (var i = 0; i < S.fixtures.length; i++) {
       var f = S.fixtures[i];
+      var fEnd2 = new Date(f.end); fEnd2.setHours(23,59,59,999);
       if (!live && (f.status === "inprogress" || f.status === "live")) live = f;
-      // Use end of day for end date comparison
-      var fEndDay = new Date(f.end);
-      fEndDay.setHours(23,59,59,999);
-      if (!ongoing && f.start <= now && fEndDay >= now) ongoing = f;
+      if (!ongoing && f.start <= now && fEnd2 >= now) ongoing = f;
       if (!next && f.start > now) next = f;
     }
-    for (var j = S.fixtures.length - 1; j >= 0; j--) {
-      if (S.fixtures[j].end < now) { past = S.fixtures[j]; break; }
+    for (var j = S.fixtures.length-1; j >= 0; j--) {
+      var fj = S.fixtures[j];
+      var fjEnd = new Date(fj.end); fjEnd.setHours(23,59,59,999);
+      if (fjEnd < now) { past = fj; break; }
     }
 
-    // Detecter PGA et DP separement
-    var ongoingPGA = null;
-    var ongoingDP  = null;
-    for (var k = 0; k < S.fixtures.length; k++) {
-      var fk = S.fixtures[k];
-      var fkEnd = new Date(fk.end); fkEnd.setHours(23,59,59,999);
-      var fkStart = new Date(fk.start);
-      if (fkStart <= now && fkEnd >= now) {
-        if (!ongoingPGA && fk.tour !== "DP") ongoingPGA = fk;
-        if (!ongoingDP  && fk.tour === "DP") ongoingDP  = fk;
-      }
-    }
-
-    // Tournoi principal = PGA si dispo, sinon DP
-    var cur = live || ongoingPGA || ongoingDP || next || past;
-
-    // Sauvegarder les IDs PGA et DP separement
-    if (ongoingPGA && ongoingPGA.id !== S.tidPGA) {
-      S.tidPGA = ongoingPGA.id;
-      if (S.activeTour === "PGA") {
-        S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
-        S.saved = false;
-      }
-    }
-    if (ongoingDP && ongoingDP.id !== S.tidDP) {
-      S.tidDP = ongoingDP.id;
-      if (S.activeTour === "DP") {
-        S.picks = { top3: [null,null,null], tenPicks: {}, tenPlayers: [] };
-        S.saved = false;
-      }
-    }
+    var cur = live || ongoing || next || past;
     if (cur && cur.id !== S.tid) {
       S.tid = cur.id;
+      S.picks = { top3:[null,null,null], tenPicks:{}, tenPlayers:[] };
+      S.saved = false;
       saveS();
-    } else if (cur && !S.tid) {
+    } else if (!S.tid && cur) {
       S.tid = cur.id;
       saveS();
     }
 
     renderHome();
     renderProchains();
-    renderSecondTournoi(now);
     if (cur) loadPlayers(cur.id);
 
   }).catch(function(e) {
-    console.error(e);
-    if (el) el.innerHTML = '<div class="box-err">Impossible de charger les tournois (' + e.message + ')</div>';
+    if (el) el.innerHTML = '<div class="box-err">Erreur chargement: ' + e.message + '</div>';
   });
-}
-
-function getCurByTour(tour) {
-  var today = new Date().toISOString().substring(0,10);
-  for (var i = 0; i < S.fixtures.length; i++) {
-    var f = S.fixtures[i];
-    var fStart = new Date(f.start).toISOString().substring(0,10);
-    var fEnd   = new Date(f.end).toISOString().substring(0,10);
-    if (f.tour === tour && fStart <= today && fEnd >= today) return f;
-  }
-  return null;
-}
-
-function getCur() {
-  for (var i = 0; i < S.fixtures.length; i++) {
-    if (S.fixtures[i].id === S.tid) return S.fixtures[i];
-  }
-  return null;
-}
-
-function renderSecondTournoi(now) {
-  var el = document.getElementById("h-second-tournoi");
-  if (!el || !S.fixtures.length) return;
-  var now2 = now instanceof Date ? now : new Date();
-  var today = now2.toISOString().substring(0, 10);
-
-  var others = S.fixtures.filter(function(f) {
-    if (f.id === S.tid) return false;
-    var fStartStr = new Date(f.start).toISOString().substring(0,10);
-    var fEndStr   = new Date(f.end).toISOString().substring(0,10);
-    return fStartStr <= today && fEndStr >= today;
-  });
-
-  if (!others.length) { el.innerHTML = ""; return; }
-
-  var h = "";
-  others.forEach(function(t) {
-    var isDP = t.tour === "DP";
-    var color = isDP ? "#4A90E2" : "var(--red)";
-    var border = isDP ? "rgba(74,144,226,0.3)" : "var(--border2)";
-    h += '<div style="background:linear-gradient(135deg,#0d1e36,#0F1E36 60%,#0a1529);border:1px solid ' + border + ';border-radius:16px;margin-bottom:16px;overflow:hidden;">';
-    h += '<div style="padding:16px 18px;">';
-    h += '<div style="display:inline-flex;align-items:center;gap:5px;background:' + color + ';color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;">';
-    h += '<div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE — ' + (t.tour||"DP") + '</div>';
-    h += '<div style="font-family:var(--fd);font-size:22px;font-weight:900;line-height:1.1;margin-bottom:4px;">' + t.name + '</div>';
-    h += '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;">' + (t.loc||"") + '</div>';
-    h += '<button onclick="goToPicks()" style="width:100%;padding:13px;background:' + color + ';border:none;border-radius:10px;color:#fff;font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:2px;cursor:pointer;">VOIR LES PICKS</button>';
-    h += '</div></div>';
-  });
-  el.innerHTML = h;
-}
-
-
-function renderProchains() {
-  var el = document.getElementById("h-prochains");
-  if (!el) return;
-  var now = new Date();
-  var list = S.fixtures.filter(function(f) {
-    var fEnd = f.end instanceof Date ? f.end : new Date(f.end);
-    var fEndDay = new Date(fEnd);
-    fEndDay.setHours(23,59,59,999);
-    return f.id !== S.tid && fEndDay >= now;
-  }).slice(0, 10);
-  if (!list.length) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">Total fixtures: ' + S.fixtures.length + ' — Aucun a venir</div>';
-    return;
-  }
-  var h = "";
-  list.forEach(function(t) {
-    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;">';
-    var logoColor = t.tour === 'DP' ? '#4A90E2' : '#E8233A'; var logoBg = t.tour === 'DP' ? 'rgba(74,144,226,0.15)' : 'rgba(232,35,58,0.15)'; h += '<div style="width:40px;height:40px;background:' + logoBg + ';border:1.5px solid ' + logoColor + ';border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:var(--fd);font-size:10px;font-weight:900;color:' + logoColor + ';letter-spacing:0.5px;">' + (t.tour || 'PGA') + '</span></div>';
-    var tourColor = t.tour === 'DP' ? '#4A90E2' : '#E8233A';
-    var tourBg    = t.tour === 'DP' ? 'rgba(74,144,226,0.15)' : 'rgba(232,35,58,0.15)';
-    h += '<div style="flex:1;">';
-    h += '<div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + t.name + '</div>';
-    h += '<div style="display:flex;align-items:center;gap:6px;margin-top:3px;">';
-    h += '<span style="font-size:10px;background:' + tourBg + ';color:' + tourColor + ';padding:2px 7px;border-radius:6px;font-family:var(--fd);font-weight:800;letter-spacing:1px;">' + (t.tour || 'PGA') + '</span>';
-    h += '<span style="font-size:12px;color:var(--muted);">' + fmtDate(t.start) + ' — ' + fmtDate(t.end) + '</span>';
-    h += '</div></div>';
-    h += '</div>';
-  });
-  el.innerHTML = h;
 }
 
 // ============================================================
-// API — PLAYERS
+// PLAYERS
 // ============================================================
 function loadPlayers(tid) {
   if (!tid) return;
   S.playOk = false;
 
-  // Tournois DP avec donnees manuelles
-  // Tous les tournois DP utilisent DP_PLAYERS
-  var curTournoi = null;
-  for (var i = 0; i < S.fixtures.length; i++) {
-    if (S.fixtures[i].id === tid) { curTournoi = S.fixtures[i]; break; }
-  }
-  if (curTournoi && curTournoi.tour === "DP") {
-    S.players = DP_PLAYERS.slice().sort(function(a,b){return a.wr-b.wr;});
-    S.playOk = true;
-    if (!S.picks.tenPlayers || S.picks.tenPlayers.length===0) {
-      S.picks.tenPlayers = genTen(); saveS();
-    }
-    var pkScr = document.getElementById("sc-picks");
-    if (pkScr && pkScr.classList.contains("on")) renderPicks();
-    return;
-  }
-
-  Promise.all([
-    apiCall("/entry-list/" + tid),
-    apiCall("/tour-rankings/2/2026").catch(function() { return { results: {} }; })
-  ]).then(function(results) {
-    var entData = results[0];
-    var rkData  = results[1];
-
-    var ranks = {};
-    // Tour Rankings: structure results.rankings
-    var rankList = (rkData.results && rkData.results.rankings) ? rkData.results.rankings : (rkData.results || []);
-    (Array.isArray(rankList) ? rankList : []).forEach(function(p) { ranks[p.player_id] = p.position; });
-
-    var list = (entData.results && entData.results.entry_list)
-      ? entData.results.entry_list
-      : (Array.isArray(entData.results) ? entData.results : []);
-
+  apiCall("/entry-list/" + tid).then(function(data) {
+    var list = (data.results && data.results.entry_list) ? data.results.entry_list : (data.results || []);
     S.players = list.map(function(e) {
-      var wr = ranks[e.player_id] || 999;
+      var rank = (S.rankMap && S.rankMap[e.player_id]) || 999;
+      var coeff = rank <= 5 ? 1.5 : rank <= 10 ? 2.0 : rank <= 20 ? 2.5 : rank <= 30 ? 3.0 : rank <= 50 ? 4.0 : rank <= 75 ? 5.0 : rank <= 100 ? 6.0 : rank <= 150 ? 7.0 : 8.0;
       return {
-        id:    String(e.player_id || e.id),
-        name:  ((e.first_name || "") + " " + (e.last_name || e.name || "")).trim(),
-        flag:  flag(e.country || ""),
-        wr:    wr,
-        coeff: calcCoeff(wr)
+        id: String(e.player_id),
+        name: (e.first_name || "") + " " + (e.last_name || ""),
+        wr: rank,
+        coeff: coeff
       };
-    }).sort(function(a, b) { return a.wr - b.wr; });
+    }).sort(function(a,b) { return a.wr - b.wr; });
 
     S.playOk = true;
-
-    if (!S.picks.tenPlayers || S.picks.tenPlayers.length === 0) {
+    if (!S.picks.tenPlayers || !S.picks.tenPlayers.length) {
       S.picks.tenPlayers = genTen();
       saveS();
     }
-
     var pkScr = document.getElementById("sc-picks");
     if (pkScr && pkScr.classList.contains("on")) renderPicks();
-
-  }).catch(function(e) { console.error("Players:", e); });
+  }).catch(function(e) {
+    console.error("loadPlayers error:", e);
+  });
 }
 
 function genTen() {
   if (!S.players.length) return [];
   var top  = S.players.slice(0, 5).map(function(p) { return p.id; });
-  var rest = S.players.slice(5, 50).sort(function() { return Math.random() - 0.5; }).slice(0, 5).map(function(p) { return p.id; });
+  var rest = S.players.slice(5, 50).sort(function() { return Math.random()-0.5; }).slice(0,5).map(function(p) { return p.id; });
   return top.concat(rest);
-}
-
-function calcCoeff(r) {
-  if (!r || r > 200) return 8.0;
-  if (r <= 5)   return 1.5;
-  if (r <= 10)  return 2.0;
-  if (r <= 20)  return 2.5;
-  if (r <= 30)  return 3.0;
-  if (r <= 50)  return 4.0;
-  if (r <= 75)  return 5.0;
-  if (r <= 100) return 6.0;
-  return 7.0;
 }
 
 function getP(id) {
@@ -940,23 +470,12 @@ function getP(id) {
   return null;
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
-function fmtDate(d) {
-  if (!d) return "";
-  var dt = d instanceof Date ? d : new Date(d);
-  return dt.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
-}
-
 function picksDone() {
   var p = S.picks;
   if (p.top3.filter(Boolean).length < 3) return false;
   var ten = p.tenPlayers || [];
-  if (ten.length > 0) {
-    for (var i = 0; i < ten.length; i++) {
-      if (!p.tenPicks[ten[i]]) return false;
-    }
+  for (var i = 0; i < 10 && i < ten.length; i++) {
+    if (!p.tenPicks[ten[i]]) return false;
   }
   return true;
 }
@@ -965,113 +484,162 @@ function picksDone() {
 // TIMER
 // ============================================================
 var tmrId = null;
-
 function startTimer() {
   if (tmrId) clearInterval(tmrId);
-  function tickTour(tour) {
-    var t = getCurByTour(tour);
-    if (!t) return;
-    var dl = t.deadline || t.start;
-    var diff = new Date(dl) - new Date();
-    var sfx = tour.toLowerCase();
-    var dEl = document.getElementById("h-d-" + sfx);
-    var hEl = document.getElementById("h-h-" + sfx);
-    var mEl = document.getElementById("h-m-" + sfx);
-    var sEl = document.getElementById("h-s-" + sfx);
-    if (!dEl) return;
-    if (diff <= 0) {
-      dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = "00";
-      return;
-    }
-    var tot = Math.floor(diff/1000);
-    dEl.textContent = String(Math.floor(tot/86400)).padStart(2,"0");
-    hEl.textContent = String(Math.floor((tot%86400)/3600)).padStart(2,"0");
-    mEl.textContent = String(Math.floor((tot%3600)/60)).padStart(2,"0");
-    sEl.textContent = String(tot%60).padStart(2,"0");
-  }
-
   function tick() {
     var cur = getCur();
     if (!cur) return;
-    var dl = cur.deadline || cur.start;
+    var dl   = cur.deadline || cur.start;
     var diff = new Date(dl) - new Date();
+    var ids  = ["h-d-pga","h-h-pga","h-m-pga","h-s-pga"];
     if (diff <= 0) {
-      ["t-j","t-h","t-m","t-s"].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) el.textContent = "00";
-      });
+      ids.forEach(function(id) { var el = document.getElementById(id); if(el) el.textContent = "00"; });
       return;
     }
-    var vals = [
-      Math.floor(diff / 86400000),
-      Math.floor((diff % 86400000) / 3600000),
-      Math.floor((diff % 3600000) / 60000),
-      Math.floor((diff % 60000) / 1000)
-    ];
-    ["t-j","t-h","t-m","t-s"].forEach(function(id, i) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = String(vals[i]).padStart(2, "0");
-    });
+    var tot = Math.floor(diff/1000);
+    var vals = [Math.floor(tot/86400), Math.floor((tot%86400)/3600), Math.floor((tot%3600)/60), tot%60];
+    ids.forEach(function(id,i) { var el = document.getElementById(id); if(el) el.textContent = pad(vals[i]); });
   }
-  tick(); tickTour("PGA"); tickTour("DP");
-  tmrId = setInterval(function(){ tick(); tickTour("PGA"); tickTour("DP"); }, 1000);
+  tick();
+  tmrId = setInterval(tick, 1000);
 }
 
 // ============================================================
-// NAVIGATION
+// CURRENT TOURNAMENT
 // ============================================================
-var SCREENS = { home:"sc-home", class:"sc-class", picks:"sc-picks", profil:"sc-profil", hdet:"sc-hdet" };
-
-function navTo(tab) {
-  Object.keys(SCREENS).forEach(function(k) {
-    var el = document.getElementById(SCREENS[k]);
-    if (el) el.classList.remove("on");
-  });
-  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
-
-  var scEl = document.getElementById(SCREENS[tab] || "sc-home");
-  if (scEl) scEl.classList.add("on");
-  var nbEl = document.getElementById("nb-" + tab);
-  if (nbEl) nbEl.classList.add("on");
-
-  if (tab === "home")   renderHome();
-  if (tab === "class")  renderClass();
-  if (tab === "picks")  renderPicks();
-  if (tab === "profil") renderProfil();
+function getCur() {
+  for (var i = 0; i < S.fixtures.length; i++) {
+    if (S.fixtures[i].id === S.tid) return S.fixtures[i];
+  }
+  return null;
 }
-
 
 function isDeadlinePassed() {
-  var tour = S.activeTour || "PGA";
-  var t = getCurByTour(tour);
-  if (!t) return false;
-  var dl = t.deadline || t.start;
-  return new Date() > new Date(dl);
+  var cur = getCur();
+  if (!cur) return false;
+  return new Date() > new Date(cur.deadline || cur.start);
 }
 
-function renderPicks() {
-  var el = document.getElementById("pk-content");
-  if (!el) return;
+// ============================================================
+// RENDER HOME
+// ============================================================
+function renderHome() {
+  var cur   = getCur();
+  var badge = getBadge(S.pts);
+  var nxt   = getNextBadge(S.pts);
+  var prog  = getProgress(S.pts);
+  var h     = new Date().getHours();
 
-  // Update title with tour badge
-  var title = document.getElementById("pk-title");
-  var activeTournoi = getCurByTour(S.activeTour) || getCur();
-  if (title) {
-    var color = S.activeTour === "DP" ? "#4A90E2" : "var(--red)";
-    var tname = activeTournoi ? (activeTournoi.name.length > 16 ? activeTournoi.name.substring(0,16)+"..." : activeTournoi.name) : "PICKS";
-    title.innerHTML = tname.toUpperCase() + ' <span style="background:' + color + ';color:#fff;font-family:var(--fd);font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;vertical-align:middle;">' + S.activeTour + '</span>';
+  // Greeting
+  var greetEl = document.getElementById("h-greet");
+  if (greetEl) greetEl.textContent = (h < 18 ? "BONJOUR " : "BONSOIR ") + S.pseudo.toUpperCase();
+
+  // Tournament card
+  if (cur) {
+    var nameEl = document.getElementById("h-name-pga");
+    var locEl  = document.getElementById("h-loc-pga");
+    var liveEl = document.getElementById("h-live-pga");
+    var btnEl  = document.getElementById("h-btn-pga");
+
+    if (nameEl) nameEl.textContent = cur.name;
+    if (locEl)  locEl.textContent  = cur.loc || "—";
+
+    var isLive = cur.status === "inprogress" || cur.status === "live";
+    if (liveEl) liveEl.innerHTML = isLive
+      ? '<div style="display:inline-flex;align-items:center;gap:5px;background:var(--red);color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:6px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE</div>'
+      : "";
+
+    // Button state
+    if (btnEl) {
+      if (isDeadlinePassed() && !S.saved) {
+        btnEl.style.background = "var(--muted2)";
+        btnEl.innerHTML = "🔒 PICKS FERMÉS";
+        btnEl.onclick = null;
+      } else if (S.saved) {
+        btnEl.style.background = "#16A34A";
+        btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> PICKS ENREGISTRÉS';
+        btnEl.onclick = goToPicks;
+      } else {
+        btnEl.style.background = "var(--red)";
+        btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS';
+        btnEl.onclick = goToPicks;
+      }
+    }
   }
 
-  // Lock if deadline passed
+  // Score
+  var scoreEl = document.getElementById("h-score");
+  var badgeEl = document.getElementById("h-badge-name");
+  var badgeImg= document.getElementById("h-badge-img");
+  var progBar = document.getElementById("h-prog-bar");
+  var progTxt = document.getElementById("h-prog-txt");
+
+  if (scoreEl)  scoreEl.textContent  = S.pts;
+  if (badgeEl)  badgeEl.textContent  = badge.name.toUpperCase();
+  if (badgeImg) badgeImg.textContent = badge.emoji;
+  if (progBar)  progBar.style.width  = prog + "%";
+  if (progTxt && nxt) progTxt.innerHTML = '<span style="color:var(--red);">' + nxt.pts + ' pts → ' + nxt.name + '</span>';
+
+  startTimer();
+  renderProchains();
+}
+
+// ============================================================
+// RENDER PROCHAINS
+// ============================================================
+function renderProchains() {
+  var el  = document.getElementById("h-prochains");
+  if (!el) return;
+  var now = new Date();
+  var list = S.fixtures.filter(function(f) {
+    var fEnd = new Date(f.end); fEnd.setHours(23,59,59,999);
+    return f.id !== S.tid && fEnd >= now;
+  }).slice(0, 8);
+
+  if (!list.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">Aucun tournoi à venir</div>';
+    return;
+  }
+
+  var h = "";
+  list.forEach(function(t) {
+    h += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;">';
+    h += '<div style="width:40px;height:40px;background:rgba(232,35,58,0.15);border:1.5px solid var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">';
+    h += '<span style="font-family:var(--fd);font-size:10px;font-weight:900;color:var(--red);">PGA</span></div>';
+    h += '<div style="flex:1;">';
+    h += '<div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + t.name + '</div>';
+    h += '<div style="display:flex;align-items:center;gap:6px;margin-top:3px;">';
+    h += '<span style="font-size:10px;background:rgba(232,35,58,0.15);color:var(--red);padding:2px 7px;border-radius:6px;font-family:var(--fd);font-weight:800;letter-spacing:1px;">PGA</span>';
+    h += '<span style="font-size:12px;color:var(--muted);">' + fmtDate(t.start) + ' — ' + fmtDate(t.end) + '</span>';
+    h += '</div></div></div>';
+  });
+  el.innerHTML = h;
+}
+
+// ============================================================
+// RENDER PICKS
+// ============================================================
+function renderPicks() {
+  var el  = document.getElementById("pk-content");
+  if (!el) return;
+
+  // Update title
+  var cur = getCur();
+  var title = document.getElementById("pk-title");
+  if (title && cur) {
+    var t = cur.name.length > 20 ? cur.name.substring(0,20)+"..." : cur.name;
+    title.textContent = t.toUpperCase();
+  }
+
+  // Locked?
   if (isDeadlinePassed()) {
     var vbar = document.getElementById("vbar");
     if (vbar) vbar.style.display = "none";
-    var color2 = S.activeTour === "DP" ? "#4A90E2" : "var(--red)";
     el.innerHTML = '<div style="text-align:center;padding:60px 24px;">' +
       '<div style="font-size:64px;margin-bottom:16px;">🔒</div>' +
       '<div style="font-family:var(--fd);font-size:24px;font-weight:900;letter-spacing:1px;margin-bottom:8px;">PICKS FERMÉS</div>' +
       '<div style="font-size:14px;color:var(--muted);line-height:1.5;">Le tournoi est en cours.<br/>Les picks sont verrouillés.</div>' +
-      (S.saved ? '<div style="margin-top:24px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:16px;"><div style="font-family:var(--fd);font-size:14px;font-weight:700;color:var(--green);margin-bottom:8px;">TES PICKS ENREGISTRÉS</div><div style="font-size:13px;color:var(--muted);">Attends les résultats !</div></div>' : '') +
+      (S.saved ? '<div style="margin-top:24px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:16px;"><div style="font-family:var(--fd);font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;">TES PICKS ENREGISTRÉS ✓</div><div style="font-size:13px;color:var(--muted);">Attends les résultats !</div></div>' : '') +
       '</div>';
     return;
   }
@@ -1086,21 +654,22 @@ function renderPicks() {
     return;
   }
 
-  var p = S.picks;
+  var p    = S.picks;
   var html = "";
+  var cats = ["Top 5","Top 10","Top 20","Top 30","Make Cut"];
 
   // TOP 3
   html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">TON TOP 3</div>';
-  var top3labels = ["🥇 1ER", "🥈 2ÈME", "🥉 3ÈME"];
+  var medals = ["🥇 1ER","🥈 2ÈME","🥉 3ÈME"];
   for (var i = 0; i < 3; i++) {
     var pid = p.top3[i];
     var pl  = pid ? getP(pid) : null;
-    html += '<div onclick="openModal(\'top3\',' + i + ')" style="background:var(--card);border:1px solid ' + (pl?"var(--border2)":"rgba(232,35,58,0.3)") + ';border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
+    html += '<div onclick="openModal(\'top3\',' + i + ')" style="background:var(--card);border:1px solid ' + (pl ? 'var(--border2)' : 'rgba(232,35,58,0.4)') + ';border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
     html += '<div style="display:flex;align-items:center;gap:10px;">';
-    html += '<span style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);">' + top3labels[i] + '</span>';
+    html += '<span style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--muted);">' + medals[i] + '</span>';
     if (pl) {
       html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">' + pl.name + '</div>';
-      html += '<div style="font-size:11px;color:var(--muted);">×' + pl.coeff + ' · #' + pl.wr + '</div></div>';
+      html += '<div style="font-size:11px;color:var(--muted);">×' + pl.coeff + ' · Rang #' + pl.wr + '</div></div>';
     } else {
       html += '<span style="color:var(--muted);font-size:14px;">Choisir un joueur</span>';
     }
@@ -1109,111 +678,236 @@ function renderPicks() {
 
   // 10 PICKS
   html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--muted);margin:20px 0 12px;">TES 10 PICKS</div>';
-  var ten = p.tenPlayers || [];
-  if (!ten.length) ten = genTen();
-  var cats = ["Top 5","Top 10","Top 20","Top 30","Make Cut"];
-  for (var j = 0; j < ten.length && j < 10; j++) {
-    var tp = getP(ten[j]);
+  var ten = p.tenPlayers && p.tenPlayers.length ? p.tenPlayers : genTen();
+  for (var j = 0; j < 10 && j < ten.length; j++) {
+    var tp  = getP(ten[j]);
     if (!tp) continue;
     var cat = p.tenPicks[ten[j]] || "";
-    html += '<div onclick="openModal(\'ten\',\'' + ten[j] + '\')" style="background:var(--card);border:1px solid ' + (cat?"var(--border2)":"rgba(232,35,58,0.3)") + ';border-radius:12px;padding:12px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
+    html += '<div onclick="openModal(\'ten\',\'' + ten[j] + '\')" style="background:var(--card);border:1px solid ' + (cat ? 'var(--border2)' : 'rgba(232,35,58,0.4)') + ';border-radius:12px;padding:12px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
     html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">' + tp.name + '</div>';
-    html += '<div style="font-size:11px;color:var(--muted);">×' + tp.coeff + ' · #' + tp.wr + '</div></div>';
-    html += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:' + (cat?"var(--green)":"var(--red)") + '">' + (cat||"CHOISIR") + '</div></div>';
+    html += '<div style="font-size:11px;color:var(--muted);">×' + tp.coeff + ' · Rang #' + tp.wr + '</div></div>';
+    html += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:' + (cat ? 'var(--green)' : 'var(--red)') + ';">' + (cat || "CHOISIR") + '</div></div>';
   }
 
   el.innerHTML = html;
 }
 
-function goToPicksTour(tour) {
-  S.activeTour = tour;
-  var t = getCurByTour(tour);
-  if (t) {
-    S.tid = t.id;
-    loadPlayers(t.id);
+// ============================================================
+// MODAL
+// ============================================================
+var modalType = null, modalIdx = null;
+
+function openModal(type, idx) {
+  modalType = type; modalIdx = idx;
+  var bg = document.getElementById("modal-bg");
+  if (bg) { bg.style.display = "flex"; renderModal(); return; }
+
+  var div = document.createElement("div");
+  div.id = "modal-bg";
+  div.className = "modal-bg";
+  div.innerHTML = '<div class="modal-box"><div class="modal-header">' +
+    '<div style="font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:1px;" id="modal-title">CHOISIR</div>' +
+    '<button onclick="closeModal()" style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;">×</button></div>' +
+    '<div class="search-box"><input class="search-input" id="modal-search" placeholder="Rechercher..." oninput="filterModal(this.value)" autocomplete="off"/></div>' +
+    '<div class="modal-list" id="modal-list"></div></div>';
+  document.querySelector(".app").appendChild(div);
+  renderModal();
+}
+
+function renderModal() {
+  var title = document.getElementById("modal-title");
+  var listEl = document.getElementById("modal-list");
+  var search = document.getElementById("modal-search");
+  if (search) { search.value = ""; }
+
+  if (modalType === "top3") {
+    if (title) title.textContent = "CHOISIR — " + ["1ER","2ÈME","3ÈME"][modalIdx];
+    filterModal("");
+  } else if (modalType === "ten") {
+    if (title) title.textContent = "PRONOSTIC";
+    var cats = ["Top 5","Top 10","Top 20","Top 30","Make Cut"];
+    var tp = getP(modalIdx);
+    var html = tp ? '<div style="padding:14px 18px;border-bottom:1px solid var(--border);"><div style="font-family:var(--fd);font-size:16px;font-weight:800;">' + tp.name + '</div><div style="font-size:12px;color:var(--muted);">×' + tp.coeff + ' · Rang #' + tp.wr + '</div></div>' : "";
+    cats.forEach(function(c) {
+      html += '<div class="modal-item" onclick="selectCat(\'' + modalIdx + '\',\'' + c + '\')">' +
+        '<span>' + c + '</span>' +
+        '<span style="font-size:13px;color:var(--muted);">×' + (getP(modalIdx) ? getP(modalIdx).coeff : "?") + '</span></div>';
+    });
+    if (listEl) listEl.innerHTML = html;
   }
+}
+
+function filterModal(q) {
+  var listEl = document.getElementById("modal-list");
+  if (!listEl) return;
+  var q2 = q.toLowerCase().trim();
+  var fil = S.players.filter(function(p) {
+    return p.name.toLowerCase().indexOf(q2) !== -1;
+  }).slice(0, 60);
+  var html = "";
+  fil.forEach(function(p) {
+    var sel = S.picks.top3.indexOf(p.id) !== -1;
+    html += '<div class="modal-item" onclick="selectPlayer(\'' + p.id + '\')" style="' + (sel ? 'opacity:0.4;pointer-events:none;' : '') + '">';
+    html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + p.name + '</div>';
+    html += '<div style="font-size:11px;color:var(--muted);">×' + p.coeff + ' · Rang #' + p.wr + '</div></div>';
+    html += '<span style="font-family:var(--fd);font-size:13px;color:var(--muted);">×' + p.coeff + '</span></div>';
+  });
+  listEl.innerHTML = html || '<div style="text-align:center;padding:20px;color:var(--muted);">Aucun résultat</div>';
+}
+
+function selectPlayer(id) {
+  S.picks.top3[modalIdx] = id;
   saveS();
-  goToPicks();
+  closeModal();
+  renderPicks();
+}
+
+function selectCat(pid, cat) {
+  S.picks.tenPicks[pid] = cat;
+  saveS();
+  closeModal();
+  renderPicks();
+}
+
+function closeModal() {
+  var bg = document.getElementById("modal-bg");
+  if (bg) bg.style.display = "none";
+}
+
+// ============================================================
+// SAVE PICKS
+// ============================================================
+function savePicks() {
+  if (!picksDone()) {
+    alert("Complete tes 3 tops et tes 10 picks d'abord !");
+    return;
+  }
+  S.saved = true;
+  saveS();
+  renderHome();
+  renderPicks();
+  navTo("home");
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+var SCREENS = { home:"sc-home", class:"sc-class", picks:"sc-picks", profil:"sc-profil", hdet:"sc-hdet" };
+
+function navTo(tab) {
+  Object.keys(SCREENS).forEach(function(k) {
+    var el = document.getElementById(SCREENS[k]);
+    if (el) el.classList.toggle("on", k === tab);
+  });
+  document.querySelectorAll(".bnav button").forEach(function(b) { b.classList.remove("act"); });
+  var nb = document.getElementById("nav-" + tab);
+  if (nb) nb.classList.add("act");
+
+  if (tab === "picks")  renderPicks();
+  if (tab === "class")  renderClassement();
+  if (tab === "profil") renderProfil();
 }
 
 function goToPicks() {
   navTo("picks");
-  document.querySelectorAll(".nb").forEach(function(b) { b.classList.remove("on"); });
-  var nb = document.getElementById("nb-picks");
-  if (nb) nb.classList.add("on");
 }
 
 // ============================================================
-// ONBOARDING
+// CLASSEMENT
+// ============================================================
+function renderClassement() {
+  var el = document.getElementById("cl-content");
+  if (!el) return;
+  var all = [{ pseudo: S.pseudo, pts: S.pts, badge: getBadge(S.pts) }];
+  var html = '';
+  all.sort(function(a,b) { return b.pts - a.pts; });
+  all.forEach(function(u, i) {
+    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;">';
+    html += '<div style="font-family:var(--fd);font-size:24px;font-weight:900;color:var(--muted);width:30px;">' + (i+1) + '</div>';
+    html += '<div style="font-size:28px;">' + u.badge.emoji + '</div>';
+    html += '<div style="flex:1;"><div style="font-family:var(--fd);font-size:16px;font-weight:800;">' + u.pseudo + '</div>';
+    html += '<div style="font-size:12px;color:var(--muted);">' + u.badge.name + '</div></div>';
+    html += '<div style="font-family:var(--fd);font-size:20px;font-weight:900;">' + u.pts + '<span style="font-size:12px;color:var(--muted);"> pts</span></div></div>';
+  });
+  el.innerHTML = html || '<div style="text-align:center;padding:40px;color:var(--muted);">Aucun joueur</div>';
+}
+
+// ============================================================
+// PROFIL
+// ============================================================
+function renderProfil() {
+  var el = document.getElementById("profil-content");
+  if (!el) return;
+  var badge = getBadge(S.pts);
+  var nxt   = getNextBadge(S.pts);
+  var prog  = getProgress(S.pts);
+
+  var html = '<div style="text-align:center;padding:20px 0 32px;">';
+  html += '<div style="font-size:72px;margin-bottom:8px;">' + badge.emoji + '</div>';
+  html += '<div style="font-family:var(--fd);font-size:28px;font-weight:900;">' + S.pseudo.toUpperCase() + '</div>';
+  html += '<div style="font-family:var(--fd);font-size:16px;color:var(--red);font-weight:700;letter-spacing:1px;margin-top:4px;">' + badge.name.toUpperCase() + '</div>';
+  html += '<div style="font-family:var(--fd);font-size:40px;font-weight:900;margin-top:16px;">' + S.pts + ' <span style="font-size:18px;color:var(--muted);">pts</span></div>';
+  html += '</div>';
+
+  if (nxt) {
+    html += '<div style="margin-bottom:24px;">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--muted);">';
+    html += '<span>Vers ' + nxt.name + '</span><span>' + prog + '%</span></div>';
+    html += '<div class="prog-bar-bg"><div class="prog-bar" style="width:' + prog + '%;"></div></div></div>';
+  }
+
+  // History
+  if (S.history.length) {
+    html += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:12px;">HISTORIQUE</div>';
+    S.history.slice().reverse().forEach(function(h) {
+      html += '<div onclick="showHdet(\'' + h.tid + '\')" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">';
+      html += '<div><div style="font-family:var(--fd);font-size:15px;font-weight:700;">' + h.name + '</div>';
+      html += '<div style="font-size:12px;color:var(--muted);">' + fmtDate(h.date) + '</div></div>';
+      html += '<div style="font-family:var(--fd);font-size:18px;font-weight:900;color:var(--gold);">+' + h.pts + ' pts</div></div>';
+    });
+  }
+
+  el.innerHTML = html;
+}
+
+function showHdet(tid) {
+  var h = S.history.find(function(x) { return x.tid === tid; });
+  if (!h) return;
+  var title = document.getElementById("hdet-title");
+  var content = document.getElementById("hdet-content");
+  if (title) title.textContent = h.name.toUpperCase();
+  if (content) content.innerHTML = '<div style="padding:20px 0;text-align:center;"><div style="font-family:var(--fd);font-size:48px;font-weight:900;color:var(--gold);">+' + h.pts + '</div><div style="color:var(--muted);font-size:14px;">points gagnés</div></div>';
+  navTo("hdet");
+}
+
+// ============================================================
+// START APP
 // ============================================================
 function startApp() {
-  var p = document.getElementById("ob-pseudo").value.trim();
-  if (p.length < 2) return;
-  S.pseudo = p;
+  var pseudo = document.getElementById("ob-pseudo").value.trim();
+  if (!pseudo) { alert("Entre ton pseudo !"); return; }
+  S.pseudo = pseudo;
   saveS();
-  document.getElementById("sc-ob").classList.remove("on");
+  launchApp();
+}
+
+function launchApp() {
+  document.getElementById("sc-onboard").classList.remove("on");
+  document.getElementById("sc-home").classList.add("on");
   document.getElementById("bnav").classList.add("show");
   navTo("home");
   loadFixtures(false);
 }
 
 // ============================================================
-// HOME
+// INIT
 // ============================================================
-function renderTourCard(tour) {
-  var t = getCurByTour(tour);
-  var cardId = tour === "PGA" ? "h-card-pga" : "h-card-dp";
-  var card = document.getElementById(cardId);
-  if (!card) return;
-
-  if (!t) { card.style.display = "none"; return; }
-  card.style.display = "block";
-
-  var nameEl = document.getElementById("h-name-" + tour.toLowerCase());
-  var locEl  = document.getElementById("h-loc-"  + tour.toLowerCase());
-  var liveEl = document.getElementById("h-live-" + tour.toLowerCase());
-  var btnEl  = document.getElementById("h-btn-"  + tour.toLowerCase());
-
-  if (nameEl) nameEl.textContent = t.name;
-  if (locEl)  locEl.textContent  = t.loc || "—";
-
-  var isLive = t.status === "inprogress" || t.status === "live";
-  var color  = tour === "DP" ? "#4A90E2" : "var(--red)";
-  if (liveEl) liveEl.innerHTML = isLive
-    ? '<div style="display:inline-flex;align-items:center;gap:5px;background:' + color + ';color:#fff;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;"><div style="width:6px;height:6px;border-radius:50%;background:#fff;animation:sp 1.2s infinite;"></div>LIVE — ' + tour + '</div>'
-    : '<div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.08);color:var(--muted);font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;padding:4px 10px;border-radius:6px;margin-bottom:10px;">' + tour + '</div>';
-
-  // Check if picks done for this tour
-  var tid = tour === "PGA" ? S.tidPGA : S.tidDP;
-  var dl  = t.deadline || new Date(t.start);
-  var locked = new Date() > new Date(dl);
-  var picksDoneForTour = S.activeTour === tour && S.saved;
-
-  if (btnEl) {
-    if (locked && !picksDoneForTour) {
-      btnEl.style.background = "var(--muted2)";
-      btnEl.innerHTML = "🔒 PICKS FERMÉS";
-      btnEl.onclick = null;
-    } else if (picksDoneForTour) {
-      btnEl.style.background = tour === "DP" ? "#2a6faa" : "#1a8a3a";
-      btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> PICKS ENREGISTRÉS — ' + tour;
-      btnEl.onclick = function() { goToPicksTour(tour); };
-    } else {
-      btnEl.style.background = tour === "DP" ? "#4A90E2" : "var(--red)";
-      btnEl.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS ' + tour;
-      btnEl.onclick = function() { goToPicksTour(tour); };
-    }
+window.addEventListener("DOMContentLoaded", function() {
+  loadS();
+  if (S.pseudo) {
+    launchApp();
   }
-}
-
-function renderHome() {
-  var badge = getBadge(S.pts);
-  var nxt   = getNextBadge(S.pts);
-  var prog  = getProgress(S.pts);
-  var h     = new Date().getHours();
-
-  var greet = document.getElementById("h-greet");
-  if (greet) greet.textContent = (h < 18 ? "BONJOUR " : "BONSOIR ") + S.pseudo.toUpperCase();
-
-  renderTourCard("PGA");
-  renderTourCard("DP");
+});
+</script>
+</body>
+</html>
