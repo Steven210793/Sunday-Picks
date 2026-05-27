@@ -44,6 +44,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .search-box{padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0;}
 .search-input{width:100%;padding:10px 14px;background:var(--card);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;}
 .prog-bar-bg{background:var(--card2);border-radius:4px;height:6px;margin-bottom:16px;}
+.result-ok{color:var(--green);}
+.result-ko{color:var(--muted2);}
+.result-wait{color:var(--gold);}
 .prog-bar{background:linear-gradient(90deg,var(--red),#ff6b35);height:6px;border-radius:4px;transition:width 0.6s ease;}
 @keyframes sp{0%,100%{opacity:1}50%{opacity:0.3}}
 </style>
@@ -140,6 +143,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   </div>
 </div>
 
+<!-- HISTORIQUE DETAIL -->
+<div class="scr" id="sc-hdet">
+  <div style="padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg2);">
+    <button onclick="navTo('class')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
+    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="hdet-title">Détail tournoi</div>
+    <div style="width:50px;"></div>
+  </div>
+  <div id="hdet-content" style="padding:16px 18px 100px;flex:1;overflow-y:auto;"></div>
+</div>
+
 <!-- CLASSEMENT -->
 <div class="scr" id="sc-class">
   <div style="padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg2);">
@@ -179,7 +192,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 // ============================================================
 // STORAGE
 // ============================================================
-var STORE_KEY = "sp_v11";
+var STORE_KEY = "sp_v12";
 
 // ============================================================
 // BADGES
@@ -220,8 +233,8 @@ var PGA_FIXTURES = [
   {id:"f021",name:"PGA Championship",loc:"Quail Hollow Club, Caroline du Nord",start:"2026-05-14",end:"2026-05-17",major:true},
   {id:"f022",name:"CJ Cup Byron Nelson",loc:"TPC Craig Ranch, Texas",start:"2026-05-21",end:"2026-05-24",major:false},
   {id:"f023",name:"Charles Schwab Challenge",loc:"Colonial CC, Texas",start:"2026-05-28",end:"2026-05-31",major:false},
-  {id:"f024",name:"Memorial Tournament",loc:"Muirfield Village GC, Ohio",start:"2026-06-04",end:"2026-06-07",major:false},
-  {id:"f025",name:"RBC Canadian Open",loc:"TBA, Canada",start:"2026-06-11",end:"2026-06-14",major:false},
+  {id:"f024",name:"Memorial Tournament",loc:"Muirfield Village GC, Ohio",start:"2026-06-04",end:"2026-06-07",major:false,apiId:null},
+  {id:"f025",name:"RBC Canadian Open",loc:"TBA, Canada",start:"2026-06-11",end:"2026-06-14",major:false,apiId:null},
   {id:"f026",name:"U.S. Open",loc:"Shinnecock Hills GC, New York",start:"2026-06-18",end:"2026-06-21",major:true},
   {id:"f027",name:"Travelers Championship",loc:"TPC River Highlands, Connecticut",start:"2026-06-25",end:"2026-06-28",major:false},
   {id:"f028",name:"John Deere Classic",loc:"TPC Deere Run, Illinois",start:"2026-07-02",end:"2026-07-05",major:false},
@@ -435,17 +448,32 @@ var PGA_PLAYERS = [
 // ============================================================
 // STATE
 // ============================================================
+// API RapidAPI
+var API_KEY  = "39c5cc9625mshc2f52e154b3255fp11e5b9jsn0f4c49435a11";
+var API_HOST = "golf-leaderboard-data.p.rapidapi.com";
+var API_BASE = "https://golf-leaderboard-data.p.rapidapi.com";
+
+function apiCall(endpoint) {
+  return fetch(API_BASE + endpoint, {
+    headers: {"x-rapidapi-key": API_KEY, "x-rapidapi-host": API_HOST}
+  }).then(function(r){
+    if(!r.ok) throw new Error(r.status);
+    return r.json();
+  });
+}
+
 var S = {
   pseudo:"", pts:0, history:[],
   tid:null,
   picks:{top3:[null,null,null],tenPicks:{},tenPlayers:[]},
-  saved:false
+  saved:false,
+  resultsChecked:false
 };
 
 function saveS() {
   localStorage.setItem(STORE_KEY, JSON.stringify({
     pseudo:S.pseudo, pts:S.pts, history:S.history,
-    tid:S.tid, picks:S.picks, saved:S.saved
+    tid:S.tid, picks:S.picks, saved:S.saved, resultsChecked:S.resultsChecked
   }));
 }
 function loadS() {
@@ -456,7 +484,8 @@ function loadS() {
     S.history = d.history || [];
     S.tid     = d.tid     || null;
     S.picks   = d.picks   || {top3:[null,null,null],tenPicks:{},tenPlayers:[]};
-    S.saved   = d.saved   || false;
+    S.saved          = d.saved          || false;
+    S.resultsChecked = d.resultsChecked || false;
   } catch(e){}
 }
 
@@ -496,8 +525,8 @@ function initFixtures() {
     if (f.end <= "2026-05-26") {
       deadline = new Date("2026-05-26T22:00:00Z");
     } else {
-      // Deadline = start of tournament day at midnight UTC
-      deadline = new Date(f.start + "T00:00:00Z");
+      // Deadline = Thursday 18:00 UTC (noon EST, when first round starts)
+      deadline = new Date(f.start + "T18:00:00Z");
     }
     return {
       id: f.id, name: f.name, loc: f.loc,
@@ -531,6 +560,9 @@ function initFixtures() {
       saveS();
     }
   }
+
+  // Check results for completed tournaments (quota renews June 1)
+  setTimeout(function(){ checkResults(); }, 2000);
 
   // Players are always PGA_PLAYERS
   S.players = PGA_PLAYERS.slice();
@@ -577,6 +609,8 @@ function startTimer() {
   }
   tick();
   tmrId=setInterval(tick,1000);
+  // Re-check deadline every minute to auto-lock
+  setInterval(function(){renderHome();},60000);
 }
 
 // ============================================================
@@ -801,6 +835,221 @@ function selectPlayer(id){S.picks.top3[modalIdx]=id;saveS();closeModal();renderP
 function selectCat(pid,cat){S.picks.tenPicks[pid]=cat;saveS();closeModal();renderPicks();}
 function closeModal(){var bg=document.getElementById("modal-bg");if(bg)bg.style.display="none";}
 
+
+// ============================================================
+// SCORING & RESULTATS AUTO
+// ============================================================
+function calcCoeff(wr) {
+  if (!wr || wr>150) return 8.0;
+  if (wr<=5)   return 1.5;
+  if (wr<=10)  return 2.0;
+  if (wr<=20)  return 2.5;
+  if (wr<=30)  return 3.0;
+  if (wr<=50)  return 4.0;
+  if (wr<=75)  return 5.0;
+  if (wr<=100) return 6.0;
+  return 7.0;
+}
+
+function getCoeffForPlayer(playerName) {
+  // Chercher dans PGA_PLAYERS par nom
+  for(var i=0;i<PGA_PLAYERS.length;i++){
+    if(PGA_PLAYERS[i].name.toLowerCase()===playerName.toLowerCase())
+      return PGA_PLAYERS[i].coeff;
+  }
+  return 8.0;
+}
+
+function posToCategory(pos, status) {
+  if(status==="cut"||status==="mc")  return "Missed Cut";
+  if(status==="wd"||status==="dsq")  return "Missed Cut";
+  if(!pos||pos===0)                   return null;
+  if(pos<=10)  return "Top 10";
+  if(pos<=20)  return "11-20";
+  if(pos<=40)  return "21-40";
+  return "41+";
+}
+
+function calculateScore(picks, results) {
+  // results = {top3:["Nom1","Nom2","Nom3"], positions:{"Nom": "Top 10", ...}}
+  if(!results || !picks) return 0;
+  var pts = 0;
+  var top3 = picks.top3 || [];
+  var tenPicks = picks.tenPicks || {};
+  var tenPlayers = picks.tenPlayers || [];
+
+  // --- TOP 3 ---
+  // Mapper les player_id picks vers noms
+  var pickedNames = top3.map(function(pid){
+    var p = getP(pid);
+    return p ? p.name : null;
+  });
+
+  var correctInTop3 = 0;
+  pickedNames.forEach(function(name){
+    if(name && results.top3.indexOf(name) !== -1) correctInTop3++;
+  });
+
+  var baseTop3 = 0;
+  if(correctInTop3===1) baseTop3 = 50;
+  else if(correctInTop3===2) baseTop3 = 75;
+  else if(correctInTop3===3) baseTop3 = 100;
+  pts += baseTop3;
+
+  // Bonus position exacte
+  pickedNames.forEach(function(name, idx){
+    if(name && results.top3[idx]===name){
+      var p = getP(top3[idx]);
+      var coeff = p ? p.coeff : 8.0;
+      pts += Math.round(50 * coeff);
+    }
+  });
+
+  // --- 10 JOUEURS ---
+  tenPlayers.forEach(function(pid){
+    var cat = tenPicks[pid];
+    if(!cat) return;
+    var p = getP(pid);
+    if(!p) return;
+    var realCat = results.positions[p.name];
+    if(realCat && realCat===cat){
+      pts += Math.round(50 * p.coeff);
+    }
+  });
+
+  return pts;
+}
+
+// Appel API leaderboard après tournoi terminé
+function checkResults() {
+  var cur = getCur();
+  if(!cur) return;
+  // Ne checker que si picks enregistrés et pas encore checké
+  if(!S.saved || S.resultsChecked) return;
+  // Ne checker que si tournoi terminé (date de fin passée)
+  var now = new Date();
+  var endDate = cur.end instanceof Date ? cur.end : new Date(cur.end);
+  // Ajouter 12h pour être sûr que le tournoi est vraiment fini
+  endDate.setHours(endDate.getHours()+12);
+  if(now < endDate) return;
+
+  // Trouver l'id API du tournoi dans PGA_FIXTURES
+  var fixt = null;
+  for(var i=0;i<PGA_FIXTURES.length;i++){
+    if(PGA_FIXTURES[i].id===cur.id){fixt=PGA_FIXTURES[i];break;}
+  }
+  if(!fixt || !fixt.apiId) {
+    console.log("Pas d'apiId pour ce tournoi, saisie manuelle requise");
+    return;
+  }
+
+  console.log("Checking results for", cur.name, "apiId:", fixt.apiId);
+
+  apiCall("/leaderboard/"+fixt.apiId).then(function(data){
+    var leaderboard = data.results && data.results.leaderboard ? data.results.leaderboard : [];
+    var status = data.results && data.results.tournament && data.results.tournament.live_details
+      ? data.results.tournament.live_details.status : "";
+
+    if(status !== "completed") {
+      console.log("Tournoi pas encore terminé:", status);
+      return;
+    }
+
+    // Construire top3 (positions 1,2,3 avec status active)
+    var sorted = leaderboard.filter(function(p){return p.position>0;}).sort(function(a,b){return a.position-b.position;});
+    var top3Names = sorted.slice(0,3).map(function(p){return p.first_name+" "+p.last_name;});
+
+    // Construire positions pour tous les joueurs
+    var positions = {};
+    leaderboard.forEach(function(p){
+      var name = p.first_name+" "+p.last_name;
+      positions[name] = posToCategory(p.position, p.status);
+    });
+
+    var results = {top3: top3Names, positions: positions};
+    var score = calculateScore(S.picks, results);
+
+    // Sauvegarder dans history
+    var histEntry = {
+      tid: cur.id,
+      tname: cur.name,
+      date: new Date().toLocaleDateString("fr-FR"),
+      pts: score,
+      top3: S.picks.top3.slice(),
+      tenPlayers: (S.picks.tenPlayers||[]).slice(),
+      tenPicks: JSON.parse(JSON.stringify(S.picks.tenPicks||{})),
+      results: results,
+      // Sauvegarder noms/flags pour l'historique
+      pnames: {},
+      pflags: {}
+    };
+
+    // Sauvegarder noms des joueurs dans l'entrée history
+    (S.picks.top3||[]).forEach(function(pid){
+      var p=getP(pid); if(p){histEntry.pnames[pid]=p.name;histEntry.pflags[pid]="⛳";}
+    });
+    (S.picks.tenPlayers||[]).forEach(function(pid){
+      var p=getP(pid); if(p){histEntry.pnames[pid]=p.name;histEntry.pflags[pid]="⛳";}
+    });
+
+    // Vérifier pas déjà dans history
+    var alreadySaved = S.history.some(function(h){return h.tid===cur.id && h.results;});
+    if(!alreadySaved){
+      S.history.push(histEntry);
+      S.pts += score;
+    }
+
+    S.resultsChecked = true;
+    saveS();
+    renderHome();
+    renderClassement();
+
+    // Toast résultat
+    showToast("✓ Résultats "+cur.name+" : +"+score+" pts !");
+    console.log("Results saved:", score, "pts");
+
+  }).catch(function(e){
+    console.error("Leaderboard error:", e);
+  });
+}
+
+// Saisie manuelle des résultats (pour tournois avant juin)
+function setManualResults(tournoiId, apiResults) {
+  // apiResults = {top3:["Nom1","Nom2","Nom3"], positions:{"Nom":"Top 10",...}}
+  var cur = getCur();
+  if(!cur || cur.id !== tournoiId) return;
+  if(!S.saved) { console.log("Pas de picks sauvegardés"); return; }
+
+  var score = calculateScore(S.picks, apiResults);
+
+  var histEntry = {
+    tid: cur.id, tname: cur.name,
+    date: new Date().toLocaleDateString("fr-FR"),
+    pts: score,
+    top3: S.picks.top3.slice(),
+    tenPlayers: (S.picks.tenPlayers||[]).slice(),
+    tenPicks: JSON.parse(JSON.stringify(S.picks.tenPicks||{})),
+    results: apiResults,
+    pnames: {}, pflags: {}
+  };
+
+  (S.picks.top3||[]).forEach(function(pid){
+    var p=getP(pid); if(p){histEntry.pnames[pid]=p.name;histEntry.pflags[pid]="⛳";}
+  });
+  (S.picks.tenPlayers||[]).forEach(function(pid){
+    var p=getP(pid); if(p){histEntry.pnames[pid]=p.name;histEntry.pflags[pid]="⛳";}
+  });
+
+  var alreadySaved = S.history.some(function(h){return h.tid===cur.id && h.results;});
+  if(!alreadySaved){
+    S.history.push(histEntry);
+    S.pts += score;
+  }
+  S.resultsChecked = true;
+  saveS(); renderHome(); renderClassement();
+  showToast("✓ Résultats enregistrés : +"+score+" pts !");
+}
+
 // ============================================================
 // SAVE PICKS
 // ============================================================
@@ -812,7 +1061,7 @@ function savePicks(){
 // ============================================================
 // NAVIGATION
 // ============================================================
-var SCREENS={home:"sc-home",class:"sc-class",picks:"sc-picks",profil:"sc-profil"};
+var SCREENS={home:"sc-home",class:"sc-class",picks:"sc-picks",profil:"sc-profil",hdet:"sc-hdet"};
 function navTo(tab){
   Object.keys(SCREENS).forEach(function(k){
     var el=document.getElementById(SCREENS[k]);
@@ -825,7 +1074,14 @@ function navTo(tab){
   if(tab==="class")renderClassement();
   if(tab==="profil")renderProfil();
 }
-function goToPicks(){navTo("picks");}
+function goToPicks(){
+  if(isDeadlinePassed() && !S.saved){
+    // Show locked message without navigating
+    navTo("picks");
+    return;
+  }
+  navTo("picks");
+}
 
 // ============================================================
 // CLASSEMENT
@@ -833,13 +1089,137 @@ function goToPicks(){navTo("picks");}
 function renderClassement(){
   var el=document.getElementById("cl-content");
   if(!el)return;
-  var html='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;">';
   var badge=getBadge(S.pts);
-  html+='<div style="font-family:var(--fd);font-size:24px;font-weight:900;color:var(--gold);width:30px;">1</div>';
-  html+='<div style="font-size:28px;">'+badge.emoji+'</div>';
-  html+='<div style="flex:1;"><div style="font-family:var(--fd);font-size:16px;font-weight:800;">'+S.pseudo+'</div><div style="font-size:12px;color:var(--muted);">'+badge.name+'</div></div>';
-  html+='<div style="font-family:var(--fd);font-size:20px;font-weight:900;">'+S.pts+'<span style="font-size:12px;color:var(--muted);"> pts</span></div></div>';
+  var nxt=getNextBadge(S.pts);
+  var prog=getProgress(S.pts);
+
+  var html='<div style="background:linear-gradient(135deg,#1a0d14,#1a1228);border:1.5px solid rgba(232,35,58,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;">';
+  html+='<div style="font-size:48px;">'+badge.emoji+'</div>';
+  html+='<div style="font-family:var(--fd);font-size:56px;font-weight:900;line-height:1;">'+S.pts+' <span style="font-size:20px;color:var(--muted);">PTS</span></div>';
+  html+='<div style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--red);letter-spacing:1px;">'+badge.name.toUpperCase()+'</div>';
+  html+='<div style="margin-top:14px;">';
+  html+='<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;">PROGRESSION</span>';
+  html+='<span style="font-size:11px;color:var(--red);font-family:var(--fd);font-weight:700;">'+prog+'%</span></div>';
+  html+='<div class="prog-bar-bg"><div class="prog-bar" style="width:'+prog+'%;"></div></div>';
+  if(nxt)html+='<div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">'+nxt.pts+' pts → '+nxt.name+'</div>';
+  html+='</div></div>';
+
+  // Stats grid
+  var nb=S.history.length;
+  var best=nb?Math.max.apply(null,S.history.map(function(h){return h.pts;})):0;
+  var avg=nb?Math.round(S.history.reduce(function(a,h){return a+h.pts;},0)/nb):0;
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;">'+nb+'</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">Tournois joués</div></div>';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;">'+best+'</div><div style="font-size:11px;color:var(--muted);margin-top:4px;">Meilleur score</div></div>';
+  html+='</div>';
+
+  html+='<div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:12px;">HISTORIQUE</div>';
+
+  if(!nb){
+    html+='<div style="text-align:center;padding:40px 20px;color:var(--muted);"><div style="font-size:48px;margin-bottom:12px;">📋</div><div style="font-family:var(--fd);font-size:16px;font-weight:700;">Aucun historique pour l'instant</div></div>';
+  } else {
+    S.history.slice().reverse().forEach(function(h,ri){
+      var idx=S.history.length-1-ri;
+      var hasResults=h.results?true:false;
+      html+='<div onclick="openHistDetail('+idx+')" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;">';
+      html+='<div style="font-size:22px;">⛳</div>';
+      html+='<div style="flex:1;"><div style="font-family:var(--fd);font-size:15px;font-weight:700;">'+h.tname+'</div>';
+      html+='<div style="font-size:12px;color:var(--muted);margin-top:1px;">'+h.date+'</div></div>';
+      html+='<div style="text-align:right;">';
+      html+='<div style="font-family:var(--fd);font-size:20px;font-weight:900;color:'+(!hasResults?"var(--gold)":"var(--green)")+';">+'+h.pts+'</div>';
+      html+='<div style="font-size:10px;color:var(--muted);font-family:var(--fd);font-weight:700;">'+(!hasResults?"EN ATTENTE":"DÉTAIL →")+"</div>";
+      html+='</div></div>';
+    });
+  }
   el.innerHTML=html;
+}
+
+function openHistDetail(idx){
+  var h=S.history[idx]; if(!h) return;
+  document.getElementById("hdet-title").textContent=h.tname||"Tournoi";
+  var c=document.getElementById("hdet-content");
+  var posC=["#FFD700","#C0C0C0","#CD7F32"];
+  var posL=["1er","2e","3e"];
+
+  var html='<div style="background:linear-gradient(135deg,#0d1f10,#0d1a2e);border:1.5px solid rgba(34,197,94,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;">';
+  html+='<div style="font-family:var(--fd);font-size:60px;font-weight:900;color:var(--green);line-height:1;">'+h.pts+' <span style="font-size:20px;color:var(--muted);">PTS</span></div>';
+  html+='<div style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--white);margin-top:6px;">'+h.tname+'</div>';
+  html+='<div style="font-size:12px;color:var(--muted);margin-top:2px;">'+h.date+'</div></div>';
+
+  // TOP 3
+  if(h.top3&&h.top3.length){
+    html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
+    html+='<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">TON TOP 3</div>';
+    h.top3.forEach(function(pid,i){
+      var nm=h.pnames&&h.pnames[pid]?h.pnames[pid]:pid;
+      var correct=false,exact=false,ptsE=0;
+      if(h.results&&h.results.top3){
+        correct=h.results.top3.indexOf(nm)!==-1;
+        exact=h.results.top3[i]===nm;
+        if(exact){
+          // Get coeff from PGA_PLAYERS
+          var coeff=8.0;
+          for(var k=0;k<PGA_PLAYERS.length;k++){if(PGA_PLAYERS[k].name===nm){coeff=PGA_PLAYERS[k].coeff;break;}}
+          ptsE=Math.round(50*coeff);
+        }
+      }
+      html+='<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
+      html+='<div style="font-family:var(--fd);font-size:18px;font-weight:900;width:26px;text-align:center;color:'+posC[i]+';">'+posL[i]+'</div>';
+      html+='<div style="font-family:var(--fd);font-size:15px;font-weight:700;flex:1;">'+nm+'</div>';
+      if(h.results){
+        html+='<div style="font-size:11px;font-weight:700;font-family:var(--fd);color:'+(exact?"var(--green)":correct?"var(--green)":"var(--muted2)")+'">';
+        html+=(exact?"✓ Exact":correct?"✓ Top 3":"✗ Absent")+'</div>';
+        html+='<div style="font-family:var(--fd);font-size:15px;font-weight:900;min-width:40px;text-align:right;color:'+(ptsE>0?"var(--green)":"var(--muted2)")+'">'+( ptsE>0?"+"+ptsE:"—")+'</div>';
+      } else {
+        html+='<div style="font-size:11px;color:var(--gold);font-family:var(--fd);">⏳ En attente</div>';
+      }
+      html+='</div>';
+    });
+    if(h.results&&h.results.top3){
+      html+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
+      html+='<div style="font-size:11px;color:var(--muted);font-family:var(--fd);font-weight:700;letter-spacing:1px;margin-bottom:8px;">RÉSULTAT RÉEL</div>';
+      h.results.top3.forEach(function(nm,i){
+        html+='<div style="display:flex;align-items:center;gap:8px;padding:4px 0;">';
+        html+='<span style="font-family:var(--fd);font-size:16px;font-weight:900;color:'+posC[i]+';width:24px;">'+( i+1)+'</span>';
+        html+='<span style="font-family:var(--fd);font-size:14px;font-weight:700;">'+nm+'</span></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+
+  // 10 JOUEURS
+  if(h.tenPlayers&&h.tenPlayers.length){
+    html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px;">';
+    html+='<div style="font-family:var(--fd);font-size:12px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">TES 10 JOUEURS</div>';
+    h.tenPlayers.forEach(function(pid){
+      var nm=h.pnames&&h.pnames[pid]?h.pnames[pid]:pid;
+      var cat=h.tenPicks&&h.tenPicks[pid]?h.tenPicks[pid]:"—";
+      var realCat=h.results&&h.results.positions?h.results.positions[nm]:null;
+      var ok=realCat&&realCat===cat;
+      var coeff=8.0;
+      for(var k=0;k<PGA_PLAYERS.length;k++){if(PGA_PLAYERS[k].name===nm){coeff=PGA_PLAYERS[k].coeff;break;}}
+      var ptsE=ok?Math.round(50*coeff):0;
+      html+='<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">';
+      html+='<div style="font-family:var(--fd);font-size:13px;font-weight:700;flex:1;">'+nm+'</div>';
+      html+='<div style="font-size:11px;font-family:var(--fd);font-weight:700;padding:3px 8px;border-radius:6px;background:'+(h.results?(ok?"rgba(34,197,94,0.15)":"rgba(255,255,255,0.05)"):"rgba(245,166,35,0.1)")+';color:'+(h.results?(ok?"var(--green)":"var(--muted)"):"var(--gold)")+';">'+cat+'</div>';
+      if(h.results)html+='<div style="font-family:var(--fd);font-size:14px;font-weight:900;min-width:36px;text-align:right;color:'+(ptsE>0?"var(--green)":"var(--muted2)")+'">'+( ptsE>0?"+"+ptsE:"—")+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+
+  if(!h.results){
+    html+='<div style="background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.3);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--gold);font-family:var(--fd);font-weight:700;">⏳ Résultats disponibles après la fin du tournoi.</div>';
+  }
+
+  c.innerHTML=html;
+  Object.keys(SCREENS).forEach(function(k){
+    var el=document.getElementById(SCREENS[k]);
+    if(el)el.classList.toggle("on",k==="hdet");
+  });
+  document.querySelectorAll(".bnav button").forEach(function(b){b.classList.remove("act");});
+  document.getElementById("nav-class").classList.add("act");
 }
 
 // ============================================================
