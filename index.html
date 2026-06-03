@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Sunday Picks"/>
+<link rel="canonical" href="https://steven210793.github.io/Sunday-Picks"/>
 <link rel="apple-touch-icon" href="https://i.imgur.com/qaj1nmJ.png"/>
 <link rel="icon" href="https://i.imgur.com/qaj1nmJ.png"/>
 <title>Sunday Picks</title>
@@ -14,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
+:root{
   --bg:#0B1629;--bg2:#0F1E36;--card:#13203A;--card2:#192B47;
   --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);
   --red:#E8233A;--green:#22C55E;--gold:#F5A623;--blue:#3B82F6;
@@ -34,26 +35,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .bnav button svg{width:22px;height:22px;}
 .btn-red{width:100%;padding:15px;background:var(--red);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:17px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
 .btn-blue{width:100%;padding:15px;background:var(--blue);border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:17px;font-weight:800;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-.box-err{background:rgba(232,35,58,0.1);border:1px solid rgba(232,35,58,0.3);border-radius:10px;padding:12px 16px;color:var(--red);font-size:13px;margin-bottom:12px;}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:flex-end;}
-.modal-box{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:80vh;display:flex;flex-direction:column;}
-.modal-header{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;}
-.modal-list{overflow-y:auto;flex:1;padding:8px 0;}
-.modal-list::-webkit-scrollbar{display:none;}
-.modal-item{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);cursor:pointer;}
-.modal-item:active{background:var(--card);}
-.search-box{padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.search-input{width:100%;padding:10px 14px;background:var(--card);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;}
-.prog-bar-bg{background:var(--card2);border-radius:4px;height:6px;margin-bottom:16px;}
-.result-ok{color:var(--green);}
-.result-ko{color:var(--muted2);}
-.result-wait{color:var(--gold);}
-.prog-bar{background:linear-gradient(90deg,var(--red),#ff6b35);height:6px;border-radius:4px;transition:width 0.6s ease;}
-.prog-bar-blue{background:linear-gradient(90deg,var(--blue),#60a5fa);height:6px;border-radius:4px;transition:width 0.6s ease;}
-/* Tour badge */
 .tour-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;}
 .tour-badge.pga{background:rgba(232,35,58,0.15);color:var(--red);border:1px solid rgba(232,35,58,0.3);}
 .tour-badge.dp{background:rgba(59,130,246,0.15);color:var(--blue);border:1px solid rgba(59,130,246,0.3);}
+.cat-btn{flex:1;padding:8px 2px;border:1.5px solid var(--border2);border-radius:8px;background:var(--card2);color:var(--muted);font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:0.3px;cursor:pointer;text-align:center;}
+.cat-btn.sel-top20{background:rgba(34,197,94,0.2);border-color:var(--green);color:var(--green);}
+.cat-btn.sel-top40{background:rgba(245,166,35,0.2);border-color:var(--gold);color:var(--gold);}
+.cat-btn.sel-top40p{background:rgba(107,127,158,0.2);border-color:var(--muted);color:var(--muted);}
+.cat-btn.sel-cut{background:rgba(232,35,58,0.15);border-color:var(--red);color:var(--red);}
+.prog-bar-bg{background:var(--card2);border-radius:4px;height:6px;margin-bottom:16px;}
+.prog-bar{background:linear-gradient(90deg,var(--red),#ff6b35);height:6px;border-radius:4px;transition:width 0.6s ease;}
 @keyframes sp{0%,100%{opacity:1}50%{opacity:0.3}}
 </style>
 </head>
@@ -80,11 +71,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
     <div style="font-family:var(--fd);font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);" id="h-greet">BONJOUR</div>
   </div>
   <div style="padding:0 18px 100px;flex:1;">
-
-    <!-- PGA TOURNOI CARD -->
-    <div style="margin-bottom:8px;">
-      <span class="tour-badge pga">⛳ PGA TOUR</span>
-    </div>
+    <!-- PGA CARD -->
+    <div style="margin-bottom:8px;"><span class="tour-badge pga">⛳ PGA TOUR</span></div>
     <div style="background:linear-gradient(135deg,#162847,#0F1E36 60%,#1a0a0a);border:1px solid var(--border2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
       <div style="padding:18px;">
         <div id="h-livebadge" style="margin-bottom:6px;"></div>
@@ -111,11 +99,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
         </button>
       </div>
     </div>
-
-    <!-- DP WORLD TOUR CARD -->
-    <div style="margin-bottom:8px;">
-      <span class="tour-badge dp">🏴󠁧󠁢󠁥󠁮󠁧󠁿 DP WORLD TOUR</span>
-    </div>
+    <!-- DP CARD -->
+    <div style="margin-bottom:8px;"><span class="tour-badge dp">🏴󠁧󠁢󠁥󠁮󠁧󠁿 DP WORLD TOUR</span></div>
     <div style="background:linear-gradient(135deg,#0d1f3c,#0F1E36 60%,#071428);border:1px solid rgba(59,130,246,0.2);border-radius:16px;margin-bottom:16px;overflow:hidden;">
       <div style="padding:18px;">
         <div id="dp-livebadge" style="margin-bottom:6px;"></div>
@@ -142,7 +127,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
         </button>
       </div>
     </div>
-
     <!-- SCORE -->
     <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
       <div style="flex:1;">
@@ -151,24 +135,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
       </div>
       <div style="font-size:52px;" id="h-badge-img">🏌️</div>
     </div>
-
     <!-- PROGRESSION -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);">PROGRESSION</div>
       <div style="font-size:12px;" id="h-prog-txt"></div>
     </div>
     <div class="prog-bar-bg"><div class="prog-bar" id="h-prog-bar" style="width:0%;"></div></div>
-
-    <!-- PROCHAINS PGA -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);">PROCHAINS — PGA TOUR</div>
-    </div>
+    <div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:12px;">PROCHAINS — PGA TOUR</div>
     <div id="h-prochains"></div>
-
-    <!-- PROCHAINS DP -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;margin-top:8px;">
-      <div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);">PROCHAINS — DP WORLD TOUR</div>
-    </div>
+    <div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:12px;margin-top:8px;">PROCHAINS — DP WORLD TOUR</div>
     <div id="dp-prochains"></div>
   </div>
 </div>
@@ -177,26 +152,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 <div class="scr" id="sc-picks">
   <div style="padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg2);">
     <button onclick="navTo('home')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
-    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="pk-title">MES PICKS</div>
-    <button onclick="savePicks()" style="background:none;border:none;color:var(--red);font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;cursor:pointer;">Valider</button>
+    <div style="font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" id="pk-title">MES PICKS</div>
+    <button onclick="savePicks()" id="pk-save-btn" style="background:none;border:none;color:var(--red);font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:1px;cursor:pointer;flex-shrink:0;">Valider</button>
   </div>
-  <div id="pk-content" style="padding:16px 18px 160px;flex:1;overflow-y:auto;"></div>
-  <div id="vbar" style="position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding:12px 18px;background:var(--bg2);border-top:1px solid var(--border);">
+  <div id="pk-content" style="padding:16px 18px 140px;flex:1;overflow-y:auto;"></div>
+  <div style="position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding:12px 18px;background:var(--bg2);border-top:1px solid var(--border);z-index:10;">
     <button class="btn-red" id="vbtn" onclick="savePicks()">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       VALIDER MES PICKS
     </button>
   </div>
-</div>
-
-<!-- HISTORIQUE DETAIL -->
-<div class="scr" id="sc-hdet">
-  <div style="padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg2);">
-    <button onclick="navTo('class')" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;line-height:1;">←</button>
-    <div style="font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:1px;flex:1;text-align:center;" id="hdet-title">Détail tournoi</div>
-    <div style="width:50px;"></div>
-  </div>
-  <div id="hdet-content" style="padding:16px 18px 100px;flex:1;overflow-y:auto;"></div>
 </div>
 
 <!-- CLASSEMENT -->
@@ -208,7 +173,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 </div>
 
 <!-- PROFIL -->
-<div class="scr" id="sc-profil" style="padding:16px 18px 100px;">
+<div class="scr" id="sc-profil" style="padding:16px 18px 100px;overflow-y:auto;">
   <div style="font-family:var(--fd);font-size:20px;font-weight:900;letter-spacing:2px;margin-bottom:20px;">MON PROFIL</div>
   <div id="profil-content"></div>
 </div>
@@ -216,34 +181,25 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 <!-- BOTTOM NAV -->
 <nav class="bnav" id="bnav">
   <button onclick="navTo('home')" id="nav-home" class="act">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Accueil
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Accueil
   </button>
   <button onclick="navTo('class')" id="nav-class">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    Classement
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Classement
   </button>
   <button onclick="goToPicks('pga')" id="nav-picks">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-    Picks
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Picks
   </button>
   <button onclick="navTo('profil')" id="nav-profil">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Profil
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil
   </button>
 </nav>
 </div>
 
 <script>
 // ============================================================
-// STORAGE
+// DATA
 // ============================================================
-var STORE_KEY = "sp_v12";
-
-// ============================================================
-// BADGES
-// ============================================================
-var BADGES = [
+var BADGES=[
   {name:"Monsieur Provisoire",emoji:"🏌️",pts:0},
   {name:"Bogeyman",emoji:"😤",pts:1000},
   {name:"Par Seeker",emoji:"🎯",pts:3000},
@@ -252,10 +208,14 @@ var BADGES = [
   {name:"Tiger Woods connecté",emoji:"🐯",pts:25000}
 ];
 
-// ============================================================
-// PGA TOUR FIXTURES 2026
-// ============================================================
-var PGA_FIXTURES = [
+var CATS=[
+  {id:"top20",label:"Top 20",cls:"sel-top20"},
+  {id:"top40",label:"Top 21-40",cls:"sel-top40"},
+  {id:"top40p",label:"Top 40+",cls:"sel-top40p"},
+  {id:"cut",label:"Pas le cut",cls:"sel-cut"}
+];
+
+var PGA_FIXTURES=[
   {id:"f001",name:"The Sentry",loc:"Plantation Course at Kapalua, Hawaii",start:"2026-01-08",end:"2026-01-11",major:false},
   {id:"f002",name:"Sony Open in Hawaii",loc:"Waialae CC, Hawaii",start:"2026-01-15",end:"2026-01-18",major:false},
   {id:"f003",name:"The American Express",loc:"PGA West, California",start:"2026-01-22",end:"2026-01-25",major:false},
@@ -304,197 +264,211 @@ var PGA_FIXTURES = [
   {id:"f046",name:"The RSM Classic",loc:"Sea Island Resort, Georgia",start:"2026-11-19",end:"2026-11-22",major:false}
 ];
 
-// ============================================================
-// DP WORLD TOUR FIXTURES 2026
-// ============================================================
-var DP_FIXTURES = [
-  {id:"dp001",name:"Abu Dhabi Championship",loc:"Yas Links, Abu Dhabi",start:"2026-01-15",end:"2026-01-18",major:false},
-  {id:"dp002",name:"Ras Al Khaimah Championship",loc:"Al Hamra GC, RAK",start:"2026-01-22",end:"2026-01-25",major:false},
-  {id:"dp003",name:"Dubai Desert Classic",loc:"Emirates GC, Dubaï",start:"2026-01-29",end:"2026-02-01",major:false},
-  {id:"dp004",name:"Qatar Masters",loc:"Education City GC, Qatar",start:"2026-02-12",end:"2026-02-15",major:false},
-  {id:"dp005",name:"Oman Championship",loc:"Al Mouj GC, Mascate",start:"2026-02-19",end:"2026-02-22",major:false},
-  {id:"dp006",name:"Magical Kenya Open",loc:"Muthaiga GC, Nairobi",start:"2026-02-26",end:"2026-03-01",major:false},
-  {id:"dp007",name:"Indian Ocean Classic",loc:"Constance Belle Mare Plage, Maurice",start:"2026-03-05",end:"2026-03-08",major:false},
-  {id:"dp008",name:"Nedbank Golf Challenge",loc:"Sun City, Afrique du Sud",start:"2026-03-12",end:"2026-03-15",major:false},
-  {id:"dp009",name:"Hero Indian Open",loc:"DLF GC, New Delhi",start:"2026-03-19",end:"2026-03-22",major:false},
-  {id:"dp010",name:"Porsche European Open",loc:"Green Eagle GC, Hambourg",start:"2026-04-23",end:"2026-04-26",major:false},
-  {id:"dp011",name:"Soudal Open",loc:"Rinkven International GC, Belgique",start:"2026-04-30",end:"2026-05-03",major:false},
-  {id:"dp012",name:"Betfred British Masters",loc:"The Belfry, Angleterre",start:"2026-05-07",end:"2026-05-10",major:false},
-  {id:"dp013",name:"Scandinavian Mixed",loc:"TBA, Suède",start:"2026-05-28",end:"2026-05-31",major:false},
-  {id:"dp014",name:"Italian Open",loc:"Marco Simone GC, Rome",start:"2026-06-04",end:"2026-06-07",major:false},
-  {id:"dp015",name:"Cazoo Classic",loc:"Celtic Manor Resort, Pays de Galles",start:"2026-06-11",end:"2026-06-14",major:false},
-  {id:"dp016",name:"Horizon Irish Open",loc:"Royal County Down, Irlande du Nord",start:"2026-06-25",end:"2026-06-28",major:false},
-  {id:"dp017",name:"BMW International Open",loc:"Golfclub München Eichenried, Allemagne",start:"2026-07-02",end:"2026-07-05",major:false},
-  {id:"dp018",name:"Genesis Scottish Open",loc:"The Renaissance Club, Ecosse",start:"2026-07-09",end:"2026-07-12",major:false},
-  {id:"dp019",name:"Barbasol Championship",loc:"Keene Trace GC, Kentucky",start:"2026-07-16",end:"2026-07-19",major:false},
-  {id:"dp020",name:"ISPS Handa World Invitational",loc:"Galgorm Castle GC, Irlande du Nord",start:"2026-07-23",end:"2026-07-26",major:false},
-  {id:"dp021",name:"Hero Open",loc:"Fairmont St Andrews, Ecosse",start:"2026-07-30",end:"2026-08-02",major:false},
-  {id:"dp022",name:"ISPS Handa European Open",loc:"Himmerland G&SPA, Danemark",start:"2026-08-06",end:"2026-08-09",major:false},
-  {id:"dp023",name:"Czech Masters",loc:"Albatross Golf Resort, Prague",start:"2026-08-13",end:"2026-08-16",major:false},
-  {id:"dp024",name:"Omega European Masters",loc:"Crans-sur-Sierre GC, Suisse",start:"2026-08-27",end:"2026-08-30",major:false},
-  {id:"dp025",name:"BMW PGA Championship",loc:"Wentworth Club, Angleterre",start:"2026-09-10",end:"2026-09-13",major:false},
-  {id:"dp026",name:"Alfred Dunhill Links Championship",loc:"St Andrews, Ecosse",start:"2026-10-01",end:"2026-10-04",major:false},
-  {id:"dp027",name:"Open de France",loc:"Le Golf National, France",start:"2026-10-08",end:"2026-10-11",major:false},
-  {id:"dp028",name:"Abu Dhabi HSBC Championship",loc:"Yas Links, Abu Dhabi",start:"2026-10-22",end:"2026-10-25",major:false},
-  {id:"dp029",name:"Estrella Damm N.A. Andalucía Masters",loc:"Real Club Valderrama, Espagne",start:"2026-10-29",end:"2026-11-01",major:false},
-  {id:"dp030",name:"Turkish Airlines Open",loc:"Montgomerie Maxx Royal, Antalya",start:"2026-11-05",end:"2026-11-08",major:false},
-  {id:"dp031",name:"Nedbank Golf Challenge",loc:"Sun City, Afrique du Sud",start:"2026-11-12",end:"2026-11-15",major:false},
-  {id:"dp032",name:"DP World Tour Championship",loc:"Jumeirah Golf Estates, Dubaï",start:"2026-11-19",end:"2026-11-22",major:false}
+var DP_FIXTURES=[
+  {id:"dp001",name:"Abu Dhabi Championship",loc:"Yas Links, Abu Dhabi",start:"2026-01-15",end:"2026-01-18"},
+  {id:"dp002",name:"Ras Al Khaimah Championship",loc:"Al Hamra GC, RAK",start:"2026-01-22",end:"2026-01-25"},
+  {id:"dp003",name:"Dubai Desert Classic",loc:"Emirates GC, Dubai",start:"2026-01-29",end:"2026-02-01"},
+  {id:"dp004",name:"Qatar Masters",loc:"Education City GC, Qatar",start:"2026-02-12",end:"2026-02-15"},
+  {id:"dp005",name:"Oman Championship",loc:"Al Mouj GC, Mascate",start:"2026-02-19",end:"2026-02-22"},
+  {id:"dp006",name:"Magical Kenya Open",loc:"Muthaiga GC, Nairobi",start:"2026-02-26",end:"2026-03-01"},
+  {id:"dp007",name:"Indian Ocean Classic",loc:"Constance Belle Mare Plage, Maurice",start:"2026-03-05",end:"2026-03-08"},
+  {id:"dp008",name:"Nedbank Golf Challenge",loc:"Sun City, Afrique du Sud",start:"2026-03-12",end:"2026-03-15"},
+  {id:"dp009",name:"Hero Indian Open",loc:"DLF GC, New Delhi",start:"2026-03-19",end:"2026-03-22"},
+  {id:"dp010",name:"Porsche European Open",loc:"Green Eagle GC, Hambourg",start:"2026-04-23",end:"2026-04-26"},
+  {id:"dp011",name:"Soudal Open",loc:"Rinkven International GC, Belgique",start:"2026-04-30",end:"2026-05-03"},
+  {id:"dp012",name:"Betfred British Masters",loc:"The Belfry, Angleterre",start:"2026-05-07",end:"2026-05-10"},
+  {id:"dp013",name:"Scandinavian Mixed",loc:"TBA, Suede",start:"2026-05-28",end:"2026-05-31"},
+  {id:"dp014",name:"Italian Open",loc:"Marco Simone GC, Rome",start:"2026-06-04",end:"2026-06-07"},
+  {id:"dp015",name:"Cazoo Classic",loc:"Celtic Manor Resort, Pays de Galles",start:"2026-06-11",end:"2026-06-14"},
+  {id:"dp016",name:"Horizon Irish Open",loc:"Royal County Down, Irlande du Nord",start:"2026-06-25",end:"2026-06-28"},
+  {id:"dp017",name:"BMW International Open",loc:"Golfclub Munchen Eichenried, Allemagne",start:"2026-07-02",end:"2026-07-05"},
+  {id:"dp018",name:"Genesis Scottish Open",loc:"The Renaissance Club, Ecosse",start:"2026-07-09",end:"2026-07-12"},
+  {id:"dp019",name:"ISPS Handa World Invitational",loc:"Galgorm Castle GC, Irlande du Nord",start:"2026-07-23",end:"2026-07-26"},
+  {id:"dp020",name:"Hero Open",loc:"Fairmont St Andrews, Ecosse",start:"2026-07-30",end:"2026-08-02"},
+  {id:"dp021",name:"ISPS Handa European Open",loc:"Himmerland G&SPA, Danemark",start:"2026-08-06",end:"2026-08-09"},
+  {id:"dp022",name:"Czech Masters",loc:"Albatross Golf Resort, Prague",start:"2026-08-13",end:"2026-08-16"},
+  {id:"dp023",name:"Omega European Masters",loc:"Crans-sur-Sierre GC, Suisse",start:"2026-08-27",end:"2026-08-30"},
+  {id:"dp024",name:"BMW PGA Championship",loc:"Wentworth Club, Angleterre",start:"2026-09-10",end:"2026-09-13"},
+  {id:"dp025",name:"Alfred Dunhill Links Championship",loc:"St Andrews, Ecosse",start:"2026-10-01",end:"2026-10-04"},
+  {id:"dp026",name:"Open de France",loc:"Le Golf National, France",start:"2026-10-08",end:"2026-10-11"},
+  {id:"dp027",name:"Estrella Damm N.A. Andalucia Masters",loc:"Real Club Valderrama, Espagne",start:"2026-10-29",end:"2026-11-01"},
+  {id:"dp028",name:"Turkish Airlines Open",loc:"Montgomerie Maxx Royal, Antalya",start:"2026-11-05",end:"2026-11-08"},
+  {id:"dp029",name:"Nedbank Golf Challenge",loc:"Sun City, Afrique du Sud",start:"2026-11-12",end:"2026-11-15"},
+  {id:"dp030",name:"DP World Tour Championship",loc:"Jumeirah Golf Estates, Dubai",start:"2026-11-19",end:"2026-11-22"}
 ];
 
-// ============================================================
-// PGA PLAYERS (top ~50)
-// ============================================================
-var PGA_PLAYERS = [
-  {id:"p001",name:"Scottie Scheffler",wr:1,coeff:1.5},
-  {id:"p002",name:"Rory McIlroy",wr:2,coeff:1.5},
-  {id:"p003",name:"Collin Morikawa",wr:3,coeff:1.5},
-  {id:"p004",name:"Xander Schauffele",wr:4,coeff:1.5},
-  {id:"p005",name:"Viktor Hovland",wr:5,coeff:1.5},
-  {id:"p006",name:"Bryson DeChambeau",wr:6,coeff:1.3},
-  {id:"p007",name:"Brooks Koepka",wr:7,coeff:1.3},
-  {id:"p008",name:"Jon Rahm",wr:8,coeff:1.3},
-  {id:"p009",name:"Justin Thomas",wr:9,coeff:1.3},
-  {id:"p010",name:"Patrick Cantlay",wr:10,coeff:1.3},
-  {id:"p011",name:"Ludvig Åberg",wr:11,coeff:1.2},
-  {id:"p012",name:"Matt Fitzpatrick",wr:12,coeff:1.2},
-  {id:"p013",name:"Tony Finau",wr:13,coeff:1.2},
-  {id:"p014",name:"Sam Burns",wr:14,coeff:1.2},
-  {id:"p015",name:"Max Homa",wr:15,coeff:1.2},
-  {id:"p016",name:"Cameron Young",wr:16,coeff:1.2},
-  {id:"p017",name:"Wyndham Clark",wr:17,coeff:1.2},
-  {id:"p018",name:"Tom Kim",wr:18,coeff:1.1},
-  {id:"p019",name:"Shane Lowry",wr:19,coeff:1.1},
-  {id:"p020",name:"Jason Day",wr:20,coeff:1.1},
-  {id:"p021",name:"Sungjae Im",wr:21,coeff:1.1},
-  {id:"p022",name:"Russell Henley",wr:22,coeff:1.1},
-  {id:"p023",name:"Tommy Fleetwood",wr:23,coeff:1.1},
-  {id:"p024",name:"Adam Scott",wr:24,coeff:1.1},
-  {id:"p025",name:"Rickie Fowler",wr:25,coeff:1.1},
-  {id:"p026",name:"Will Zalatoris",wr:26,coeff:1.0},
-  {id:"p027",name:"Keegan Bradley",wr:27,coeff:1.0},
-  {id:"p028",name:"Hideki Matsuyama",wr:28,coeff:1.0},
-  {id:"p029",name:"Chris Kirk",wr:29,coeff:1.0},
-  {id:"p030",name:"Taylor Moore",wr:30,coeff:1.0},
-  {id:"p031",name:"Adam Hadwin",wr:31,coeff:1.0},
-  {id:"p032",name:"Nick Taylor",wr:32,coeff:1.0},
-  {id:"p033",name:"Sepp Straka",wr:33,coeff:1.0},
-  {id:"p034",name:"Davis Riley",wr:34,coeff:1.0},
-  {id:"p035",name:"Sahith Theegala",wr:35,coeff:1.0},
-  {id:"p036",name:"J.T. Poston",wr:36,coeff:1.0},
-  {id:"p037",name:"Taylor Pendrith",wr:37,coeff:1.0},
-  {id:"p038",name:"Eric Cole",wr:38,coeff:1.0},
-  {id:"p039",name:"Emiliano Grillo",wr:39,coeff:1.0},
-  {id:"p040",name:"Nico Echavarria",wr:40,coeff:1.0},
-  {id:"p041",name:"Austin Eckroat",wr:41,coeff:1.0},
-  {id:"p042",name:"Corey Conners",wr:42,coeff:1.0},
-  {id:"p043",name:"Si Woo Kim",wr:43,coeff:1.0},
-  {id:"p044",name:"Denny McCarthy",wr:44,coeff:1.0},
-  {id:"p045",name:"Luke List",wr:45,coeff:1.0},
-  {id:"p046",name:"Ben Griffin",wr:46,coeff:1.0},
-  {id:"p047",name:"Andrew Novak",wr:47,coeff:1.0},
-  {id:"p048",name:"Brian Harman",wr:48,coeff:1.0},
-  {id:"p049",name:"Kurt Kitayama",wr:49,coeff:1.0},
-  {id:"p050",name:"Akshay Bhatia",wr:50,coeff:1.0}
+// PGA PLAYERS — top 50 + francais
+var PGA_PLAYERS=[
+  {id:"p001",name:"Scottie Scheffler",wr:1,nat:"US"},
+  {id:"p002",name:"Rory McIlroy",wr:2,nat:"IE"},
+  {id:"p003",name:"Collin Morikawa",wr:3,nat:"US"},
+  {id:"p004",name:"Xander Schauffele",wr:4,nat:"US"},
+  {id:"p005",name:"Viktor Hovland",wr:5,nat:"NO"},
+  {id:"p006",name:"Bryson DeChambeau",wr:6,nat:"US"},
+  {id:"p007",name:"Brooks Koepka",wr:7,nat:"US"},
+  {id:"p008",name:"Jon Rahm",wr:8,nat:"ES"},
+  {id:"p009",name:"Justin Thomas",wr:9,nat:"US"},
+  {id:"p010",name:"Patrick Cantlay",wr:10,nat:"US"},
+  {id:"p011",name:"Ludvig Aberg",wr:11,nat:"SE"},
+  {id:"p012",name:"Matt Fitzpatrick",wr:12,nat:"GB"},
+  {id:"p013",name:"Tony Finau",wr:13,nat:"US"},
+  {id:"p014",name:"Sam Burns",wr:14,nat:"US"},
+  {id:"p015",name:"Max Homa",wr:15,nat:"US"},
+  {id:"p016",name:"Cameron Young",wr:16,nat:"US"},
+  {id:"p017",name:"Wyndham Clark",wr:17,nat:"US"},
+  {id:"p018",name:"Tom Kim",wr:18,nat:"KR"},
+  {id:"p019",name:"Shane Lowry",wr:19,nat:"IE"},
+  {id:"p020",name:"Jason Day",wr:20,nat:"AU"},
+  {id:"p021",name:"Sungjae Im",wr:21,nat:"KR"},
+  {id:"p022",name:"Russell Henley",wr:22,nat:"US"},
+  {id:"p023",name:"Tommy Fleetwood",wr:23,nat:"GB"},
+  {id:"p024",name:"Adam Scott",wr:24,nat:"AU"},
+  {id:"p025",name:"Rickie Fowler",wr:25,nat:"US"},
+  {id:"p026",name:"Will Zalatoris",wr:26,nat:"US"},
+  {id:"p027",name:"Keegan Bradley",wr:27,nat:"US"},
+  {id:"p028",name:"Hideki Matsuyama",wr:28,nat:"JP"},
+  {id:"p029",name:"Sepp Straka",wr:29,nat:"AT"},
+  {id:"p030",name:"Sahith Theegala",wr:30,nat:"US"},
+  {id:"p031",name:"Davis Riley",wr:31,nat:"US"},
+  {id:"p032",name:"Taylor Pendrith",wr:32,nat:"CA"},
+  {id:"p033",name:"Eric Cole",wr:33,nat:"US"},
+  {id:"p034",name:"Emiliano Grillo",wr:34,nat:"AR"},
+  {id:"p035",name:"Austin Eckroat",wr:35,nat:"US"},
+  {id:"p036",name:"Corey Conners",wr:36,nat:"CA"},
+  {id:"p037",name:"Si Woo Kim",wr:37,nat:"KR"},
+  {id:"p038",name:"Denny McCarthy",wr:38,nat:"US"},
+  {id:"p039",name:"Brian Harman",wr:39,nat:"US"},
+  {id:"p040",name:"Kurt Kitayama",wr:40,nat:"US"},
+  {id:"p041",name:"Akshay Bhatia",wr:41,nat:"US"},
+  {id:"p042",name:"Nick Taylor",wr:42,nat:"CA"},
+  {id:"p043",name:"Adam Hadwin",wr:43,nat:"CA"},
+  {id:"p044",name:"J.T. Poston",wr:44,nat:"US"},
+  {id:"p045",name:"Ben Griffin",wr:45,nat:"US"},
+  {id:"p046",name:"Chris Kirk",wr:46,nat:"US"},
+  {id:"p047",name:"Andrew Novak",wr:47,nat:"US"},
+  {id:"p048",name:"Taylor Moore",wr:48,nat:"US"},
+  {id:"p049",name:"Nico Echavarria",wr:49,nat:"CO"},
+  {id:"p050",name:"Luke List",wr:50,nat:"US"},
+  // Francais PGA
+  {id:"p051",name:"Victor Perez",wr:55,nat:"FR"},
+  {id:"p052",name:"Matthieu Pavon",wr:62,nat:"FR"},
+  {id:"p053",name:"Romain Langasque",wr:95,nat:"FR"}
 ];
 
-// ============================================================
-// DP WORLD TOUR PLAYERS — Race to Dubai Top 50
-// ============================================================
-var DP_PLAYERS = [
-  {id:"dp001",name:"Rory McIlroy",wr:1,coeff:1.5},
-  {id:"dp002",name:"Tommy Fleetwood",wr:2,coeff:1.5},
-  {id:"dp003",name:"Shane Lowry",wr:3,coeff:1.5},
-  {id:"dp004",name:"Matt Fitzpatrick",wr:4,coeff:1.5},
-  {id:"dp005",name:"Tyrrell Hatton",wr:5,coeff:1.5},
-  {id:"dp006",name:"Viktor Hovland",wr:6,coeff:1.3},
-  {id:"dp007",name:"Ludvig Åberg",wr:7,coeff:1.3},
-  {id:"dp008",name:"Nicolai Højgaard",wr:8,coeff:1.3},
-  {id:"dp009",name:"Rasmus Højgaard",wr:9,coeff:1.3},
-  {id:"dp010",name:"Robert MacIntyre",wr:10,coeff:1.3},
-  {id:"dp011",name:"Adrian Meronk",wr:11,coeff:1.2},
-  {id:"dp012",name:"Sepp Straka",wr:12,coeff:1.2},
-  {id:"dp013",name:"Thorbjørn Olesen",wr:13,coeff:1.2},
-  {id:"dp014",name:"Tom McKibbin",wr:14,coeff:1.2},
-  {id:"dp015",name:"Matteo Manassero",wr:15,coeff:1.2},
-  {id:"dp016",name:"Alex Noren",wr:16,coeff:1.2},
-  {id:"dp017",name:"Bernd Wiesberger",wr:17,coeff:1.2},
-  {id:"dp018",name:"Dean Burmester",wr:18,coeff:1.1},
-  {id:"dp019",name:"Guido Migliozzi",wr:19,coeff:1.1},
-  {id:"dp020",name:"Pablo Larrazábal",wr:20,coeff:1.1},
-  {id:"dp021",name:"Yannik Paul",wr:21,coeff:1.1},
-  {id:"dp022",name:"John Catlin",wr:22,coeff:1.1},
-  {id:"dp023",name:"Ewen Ferguson",wr:23,coeff:1.1},
-  {id:"dp024",name:"David Puig",wr:24,coeff:1.1},
-  {id:"dp025",name:"Marcus Armitage",wr:25,coeff:1.1},
-  {id:"dp026",name:"Calum Hill",wr:26,coeff:1.0},
-  {id:"dp027",name:"Jordan Smith",wr:27,coeff:1.0},
-  {id:"dp028",name:"Daniel Hillier",wr:28,coeff:1.0},
-  {id:"dp029",name:"Julien Guerrier",wr:29,coeff:1.0},
-  {id:"dp030",name:"Sean Crocker",wr:30,coeff:1.0},
-  {id:"dp031",name:"Jacques Kruyswijk",wr:31,coeff:1.0},
-  {id:"dp032",name:"Marcus Kinhult",wr:32,coeff:1.0},
-  {id:"dp033",name:"Niklas Nørgaard",wr:33,coeff:1.0},
-  {id:"dp034",name:"Nacho Elvira",wr:34,coeff:1.0},
-  {id:"dp035",name:"Jens Dantorp",wr:35,coeff:1.0},
-  {id:"dp036",name:"Connor Syme",wr:36,coeff:1.0},
-  {id:"dp037",name:"Tom Vaillant",wr:37,coeff:1.0},
-  {id:"dp038",name:"Francesco Laporta",wr:38,coeff:1.0},
-  {id:"dp039",name:"Jorge Campillo",wr:39,coeff:1.0},
-  {id:"dp040",name:"Joost Luiten",wr:40,coeff:1.0},
-  {id:"dp041",name:"Sebastian Söderberg",wr:41,coeff:1.0},
-  {id:"dp042",name:"Jeong Weon Ko",wr:42,coeff:1.0},
-  {id:"dp043",name:"Ben Schmidt",wr:43,coeff:1.0},
-  {id:"dp044",name:"Ross McGowan",wr:44,coeff:1.0},
-  {id:"dp045",name:"Tapio Pulkkanen",wr:45,coeff:1.0},
-  {id:"dp046",name:"Joel Girrbach",wr:46,coeff:1.0},
-  {id:"dp047",name:"Richard Mansell",wr:47,coeff:1.0},
-  {id:"dp048",name:"Daan Huizing",wr:48,coeff:1.0},
-  {id:"dp049",name:"Edoardo Molinari",wr:49,coeff:1.0},
-  {id:"dp050",name:"Robin Sciot-Siegrist",wr:50,coeff:1.0}
+// DP PLAYERS — Race to Dubai top 50 + francais
+var DP_PLAYERS=[
+  {id:"d001",name:"Rory McIlroy",wr:1,nat:"IE"},
+  {id:"d002",name:"Tommy Fleetwood",wr:2,nat:"GB"},
+  {id:"d003",name:"Shane Lowry",wr:3,nat:"IE"},
+  {id:"d004",name:"Matt Fitzpatrick",wr:4,nat:"GB"},
+  {id:"d005",name:"Tyrrell Hatton",wr:5,nat:"GB"},
+  {id:"d006",name:"Viktor Hovland",wr:6,nat:"NO"},
+  {id:"d007",name:"Ludvig Aberg",wr:7,nat:"SE"},
+  {id:"d008",name:"Nicolai Hojgaard",wr:8,nat:"DK"},
+  {id:"d009",name:"Rasmus Hojgaard",wr:9,nat:"DK"},
+  {id:"d010",name:"Robert MacIntyre",wr:10,nat:"GB"},
+  {id:"d011",name:"Adrian Meronk",wr:11,nat:"PL"},
+  {id:"d012",name:"Sepp Straka",wr:12,nat:"AT"},
+  {id:"d013",name:"Thorbjorn Olesen",wr:13,nat:"DK"},
+  {id:"d014",name:"Tom McKibbin",wr:14,nat:"IE"},
+  {id:"d015",name:"Matteo Manassero",wr:15,nat:"IT"},
+  {id:"d016",name:"Alex Noren",wr:16,nat:"SE"},
+  {id:"d017",name:"Bernd Wiesberger",wr:17,nat:"AT"},
+  {id:"d018",name:"Dean Burmester",wr:18,nat:"ZA"},
+  {id:"d019",name:"Guido Migliozzi",wr:19,nat:"IT"},
+  {id:"d020",name:"Pablo Larrazabal",wr:20,nat:"ES"},
+  {id:"d021",name:"Yannik Paul",wr:21,nat:"DE"},
+  {id:"d022",name:"John Catlin",wr:22,nat:"US"},
+  {id:"d023",name:"Ewen Ferguson",wr:23,nat:"GB"},
+  {id:"d024",name:"David Puig",wr:24,nat:"ES"},
+  {id:"d025",name:"Marcus Armitage",wr:25,nat:"GB"},
+  {id:"d026",name:"Calum Hill",wr:26,nat:"GB"},
+  {id:"d027",name:"Jordan Smith",wr:27,nat:"GB"},
+  {id:"d028",name:"Daniel Hillier",wr:28,nat:"NZ"},
+  {id:"d029",name:"Sean Crocker",wr:29,nat:"US"},
+  {id:"d030",name:"Jacques Kruyswijk",wr:30,nat:"ZA"},
+  {id:"d031",name:"Marcus Kinhult",wr:31,nat:"SE"},
+  {id:"d032",name:"Niklas Norgaard",wr:32,nat:"DK"},
+  {id:"d033",name:"Nacho Elvira",wr:33,nat:"ES"},
+  {id:"d034",name:"Connor Syme",wr:34,nat:"GB"},
+  {id:"d035",name:"Francesco Laporta",wr:35,nat:"IT"},
+  {id:"d036",name:"Jorge Campillo",wr:36,nat:"ES"},
+  {id:"d037",name:"Joost Luiten",wr:37,nat:"NL"},
+  {id:"d038",name:"Sebastian Soderberg",wr:38,nat:"SE"},
+  {id:"d039",name:"Jeong Weon Ko",wr:39,nat:"FR"},
+  {id:"d040",name:"Tapio Pulkkanen",wr:40,nat:"FI"},
+  {id:"d041",name:"Richard Mansell",wr:41,nat:"GB"},
+  {id:"d042",name:"Daan Huizing",wr:42,nat:"NL"},
+  {id:"d043",name:"Edoardo Molinari",wr:43,nat:"IT"},
+  {id:"d044",name:"Robin Sciot-Siegrist",wr:44,nat:"FR"},
+  {id:"d045",name:"Joel Girrbach",wr:45,nat:"CH"},
+  {id:"d046",name:"Ben Schmidt",wr:46,nat:"DE"},
+  {id:"d047",name:"Ross McGowan",wr:47,nat:"GB"},
+  {id:"d048",name:"Tom Vaillant",wr:48,nat:"FR"},
+  {id:"d049",name:"Julien Guerrier",wr:49,nat:"FR"},
+  {id:"d050",name:"Jens Dantorp",wr:50,nat:"SE"},
+  // Francais DP supplementaires
+  {id:"d051",name:"Victor Perez",wr:52,nat:"FR"},
+  {id:"d052",name:"Matthieu Pavon",wr:58,nat:"FR"},
+  {id:"d053",name:"Romain Langasque",wr:70,nat:"FR"},
+  {id:"d054",name:"Adrien Saddier",wr:88,nat:"FR"},
+  {id:"d055",name:"Benjamin Hebert",wr:92,nat:"FR"}
 ];
+
+// Nat flags map
+var FLAGS={US:"🇺🇸",IE:"🇮🇪",NO:"🇳🇴",ES:"🇪🇸",AU:"🇦🇺",KR:"🇰🇷",GB:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",SE:"🇸🇪",AT:"🇦🇹",JP:"🇯🇵",CA:"🇨🇦",AR:"🇦🇷",CO:"🇨🇴",FR:"🇫🇷",DK:"🇩🇰",PL:"🇵🇱",IT:"🇮🇹",DE:"🇩🇪",ZA:"🇿🇦",NZ:"🇳🇿",NL:"🇳🇱",CH:"🇨🇭",FI:"🇫🇮"};
+function flag(nat){return FLAGS[nat]||"🏳️";}
 
 // ============================================================
 // STATE
 // ============================================================
-var STATE = {
-  pseudo: "",
-  score: 0,
-  picks: {},    // { fixtureId: [playerId, ...] }
-  results: {},  // { fixtureId: { positions: {playerId: rank}, scored: true } }
-  onboardDone: false
+var STORE_KEY="sp_v14";
+var STATE={pseudo:"",score:0,onboardDone:false,
+  tierce:{},  // "pga_fXXX":[pid1,pid2,pid3] / "dp_dpXXX":[...]
+  random:{},  // "pga_fXXX":[pid1..5] / "dp_dpXXX":[...]
+  cats:{}     // "pga_fXXX":{pid:catId} / "dp_dpXXX":{...}
 };
-
-function loadState() {
-  try {
-    var s = localStorage.getItem(STORE_KEY);
-    if (s) STATE = JSON.parse(s);
-  } catch(e) {}
-}
-
-function saveState() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(STATE)); } catch(e) {}
-}
+function loadState(){try{var s=localStorage.getItem(STORE_KEY);if(s)STATE=JSON.parse(s);}catch(e){}}
+function saveState(){try{localStorage.setItem(STORE_KEY,JSON.stringify(STATE));}catch(e){}}
 
 // ============================================================
-// ONBOARDING — button disabled once done
+// HELPERS
 // ============================================================
-function startApp() {
-  var pseudo = document.getElementById("ob-pseudo").value.trim();
-  if (!pseudo) {
-    document.getElementById("ob-pseudo").style.borderColor = "var(--red)";
-    return;
+function getActiveFixture(fx){
+  var now=new Date(),active=null,next=null;
+  for(var i=0;i<fx.length;i++){
+    var f=fx[i],s=new Date(f.start+"T00:00:00"),e=new Date(f.end+"T23:59:59");
+    if(now>=s&&now<=e){active=f;break;}
+    if(!next&&s>now)next=f;
   }
-  STATE.pseudo = pseudo;
-  STATE.onboardDone = true;
+  return active||next||fx[fx.length-1];
+}
+function getCtTarget(f){return new Date(f.start+"T08:00:00");}
+function fmtDate(str){var d=new Date(str+"T00:00:00");return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"short"});}
+function pad(n){return String(n).padStart(2,"0");}
+function getPlayer(tour,pid){return(tour==="pga"?PGA_PLAYERS:DP_PLAYERS).find(function(p){return p.id===pid;});}
+
+// Random draw — fixed per fixture
+function ensureRandom(tour,fid){
+  var key=tour+"_"+fid;
+  if(STATE.random[key]&&STATE.random[key].length===5)return;
+  var pool=(tour==="pga"?PGA_PLAYERS:DP_PLAYERS).map(function(p){return p.id;});
+  var tierce=STATE.tierce[key]||[];
+  pool=pool.filter(function(id){return tierce.indexOf(id)===-1;});
+  var sh=pool.slice().sort(function(){return Math.random()-0.5;});
+  STATE.random[key]=sh.slice(0,5);
   saveState();
+}
 
-  // Disable button so it can't be triggered again
-  var btn = document.getElementById("ob-btn");
-  btn.disabled = true;
-  btn.style.opacity = "0.4";
-  btn.style.cursor = "not-allowed";
-
+// ============================================================
+// ONBOARDING
+// ============================================================
+function startApp(){
+  var p=document.getElementById("ob-pseudo").value.trim();
+  if(!p){document.getElementById("ob-pseudo").style.borderColor="var(--red)";return;}
+  STATE.pseudo=p;STATE.onboardDone=true;saveState();
+  var btn=document.getElementById("ob-btn");
+  btn.disabled=true;btn.style.opacity="0.4";btn.style.cursor="not-allowed";
   document.getElementById("bnav").classList.add("show");
   navTo("home");
 }
@@ -502,482 +476,333 @@ function startApp() {
 // ============================================================
 // NAVIGATION
 // ============================================================
-var SCREENS = ["onboard","home","picks","class","profil","hdet"];
+var SCRIDS=["onboard","home","picks","class","profil"];
+function navTo(id){
+  SCRIDS.forEach(function(s){var el=document.getElementById("sc-"+s);if(el)el.classList.remove("on");});
+  var t=document.getElementById("sc-"+id);if(t)t.classList.add("on");
+  ["home","class","picks","profil"].forEach(function(n){var b=document.getElementById("nav-"+n);if(b)b.classList.remove("act");});
+  var a=document.getElementById("nav-"+id);if(a)a.classList.add("act");
+  if(id==="home")renderHome();
+  if(id==="class")renderClass();
+  if(id==="profil")renderProfil();
+}
 
-function navTo(id) {
-  SCREENS.forEach(function(s) {
-    var el = document.getElementById("sc-"+s);
-    if (el) el.classList.remove("on");
+// ============================================================
+// COUNTDOWNS
+// ============================================================
+var _pgaT=null,_dpT=null;
+function startCd(f,ids){
+  function tick(){
+    var diff=Math.max(0,getCtTarget(f)-new Date());
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    var el;
+    el=document.getElementById(ids.d);if(el)el.textContent=pad(d);
+    el=document.getElementById(ids.h);if(el)el.textContent=pad(h);
+    el=document.getElementById(ids.m);if(el)el.textContent=pad(m);
+    el=document.getElementById(ids.s);if(el)el.textContent=pad(s);
+  }
+  tick();return setInterval(tick,1000);
+}
+
+// ============================================================
+// HOME
+// ============================================================
+function renderHome(){
+  var hr=new Date().getHours();
+  var g=hr<12?"BONJOUR":hr<18?"BONNE APRES-MIDI":"BONSOIR";
+  document.getElementById("h-greet").textContent=g+(STATE.pseudo?", "+STATE.pseudo.toUpperCase():"");
+  var now=new Date();
+
+  function setupCard(tour,fixtures,ids,accent,btnId){
+    var f=getActiveFixture(fixtures);
+    document.getElementById(ids.name).textContent=f.name;
+    document.getElementById(ids.loc).textContent=f.loc;
+    var s=new Date(f.start+"T00:00:00"),e=new Date(f.end+"T23:59:59");
+    var live=document.getElementById(ids.badge);
+    if(now>=s&&now<=e){
+      live.innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;background:rgba('+accent+',0.15);border:1px solid rgba('+accent+',0.4);border-radius:20px;padding:3px 10px;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;color:rgb('+accent+');"><span style="width:6px;height:6px;border-radius:50%;background:rgb('+accent+');animation:sp 1s infinite;display:inline-block;"></span>EN COURS</span>';
+    }else{
+      live.innerHTML=(f.major&&tour==="pga")?'<span style="background:var(--gold);color:#000;padding:2px 8px;border-radius:10px;font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:1px;">MAJOR</span>':'';
+    }
+    var key=tour+"_"+f.id;
+    var tierce=STATE.tierce[key]||[];
+    var cats=STATE.cats[key]||{};
+    var rnd=STATE.random[key]||[];
+    var done=tierce.length===3&&rnd.length===5&&rnd.every(function(pid){return !!cats[pid];});
+    var closed=now>=getCtTarget(f);
+    var btn=document.getElementById(btnId);
+    var cls=tour==="dp"?"btn-blue":"btn-red";
+    if(closed){btn.textContent="PICKS FERMES";btn.disabled=true;btn.style.opacity="0.5";}
+    else if(done){btn.className=cls;btn.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> MODIFIER MES PICKS '+(tour==="dp"?"DP":"PGA");btn.disabled=false;btn.style.opacity="1";}
+    else{btn.className=cls;btn.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS '+(tour==="dp"?"DP":"PGA");btn.disabled=false;btn.style.opacity="1";}
+    return f;
+  }
+
+  var pgaF=setupCard("pga",PGA_FIXTURES,{name:"h-tname",loc:"h-tloc",badge:"h-livebadge"},"232,35,58","h-picksbtn");
+  var dpF=setupCard("dp",DP_FIXTURES,{name:"dp-tname",loc:"dp-tloc",badge:"dp-livebadge"},"59,130,246","dp-picksbtn");
+
+  if(_pgaT)clearInterval(_pgaT);_pgaT=startCd(pgaF,{d:"h-d",h:"h-h",m:"h-m",s:"h-s"});
+  if(_dpT)clearInterval(_dpT);_dpT=startCd(dpF,{d:"dp-d",h:"dp-h",m:"dp-m",s:"dp-s"});
+
+  var score=STATE.score||0;
+  document.getElementById("h-score").textContent=score;
+  var badge=BADGES[0];
+  for(var i=BADGES.length-1;i>=0;i--){if(score>=BADGES[i].pts){badge=BADGES[i];break;}}
+  document.getElementById("h-badge-name").textContent=badge.name.toUpperCase();
+  document.getElementById("h-badge-img").textContent=badge.emoji;
+  var nb=null;
+  for(var j=0;j<BADGES.length;j++){if(BADGES[j].pts>score){nb=BADGES[j];break;}}
+  var pt=document.getElementById("h-prog-txt"),pb=document.getElementById("h-prog-bar");
+  if(nb){var pct=Math.round((score/nb.pts)*100);pt.textContent=score+" / "+nb.pts+" pts → "+nb.name;pb.style.width=pct+"%";}
+  else{pt.textContent="MAX LEVEL 🏆";pb.style.width="100%";}
+
+  renderProchains("h-prochains",PGA_FIXTURES,pgaF.id,"var(--gold)");
+  renderProchains("dp-prochains",DP_FIXTURES,dpF.id,"var(--blue)");
+}
+
+function renderProchains(cid,fixtures,activeId,color){
+  var now=new Date();
+  var up=fixtures.filter(function(f){return f.id!==activeId&&new Date(f.start+"T00:00:00")>now;}).slice(0,3);
+  var c=document.getElementById(cid);if(!c)return;
+  if(!up.length){c.innerHTML='<div style="color:var(--muted);font-size:13px;margin-bottom:16px;">Aucun tournoi à venir.</div>';return;}
+  var html="";
+  up.forEach(function(f){
+    html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">';
+    html+='<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">'+f.name+'</div>';
+    html+='<div style="font-size:12px;color:var(--muted);margin-top:2px;">'+f.loc+'</div></div>';
+    html+='<div style="text-align:right;flex-shrink:0;margin-left:12px;">';
+    html+='<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:'+color+';">'+fmtDate(f.start)+'</div>';
+    if(f.major)html+='<div style="font-size:10px;background:var(--gold);color:#000;border-radius:6px;padding:1px 6px;margin-top:2px;font-weight:800;">MAJOR</div>';
+    html+='</div></div>';
   });
-  var target = document.getElementById("sc-"+id);
-  if (target) target.classList.add("on");
-
-  // bottom nav active state
-  ["home","class","picks","profil"].forEach(function(n) {
-    var btn = document.getElementById("nav-"+n);
-    if (btn) btn.classList.remove("act");
-  });
-  var active = document.getElementById("nav-"+id);
-  if (active) active.classList.add("act");
-
-  if (id === "home") renderHome();
-  if (id === "class") renderClass();
-  if (id === "profil") renderProfil();
-}
-
-// ============================================================
-// HELPERS — find current/next fixture
-// ============================================================
-function getActiveFixture(fixtures) {
-  var now = new Date();
-  var active = null, next = null;
-  for (var i = 0; i < fixtures.length; i++) {
-    var f = fixtures[i];
-    var s = new Date(f.start + "T00:00:00");
-    var e = new Date(f.end + "T23:59:59");
-    if (now >= s && now <= e) { active = f; break; }
-    if (!next && s > now) next = f;
-  }
-  return active || next || fixtures[fixtures.length - 1];
-}
-
-function getCountdownTarget(fixture) {
-  // Picks close at start of tournament (Thursday 08:00)
-  return new Date(fixture.start + "T08:00:00");
-}
-
-function formatDate(str) {
-  var d = new Date(str + "T00:00:00");
-  return d.toLocaleDateString("fr-FR", {day:"2-digit", month:"short"});
-}
-
-// ============================================================
-// COUNTDOWN
-// ============================================================
-var _pgaTimer = null, _dpTimer = null;
-
-function startCountdown(fixture, ids) {
-  function tick() {
-    var target = getCountdownTarget(fixture);
-    var now = new Date();
-    var diff = target - now;
-    if (diff < 0) diff = 0;
-    var days = Math.floor(diff / 86400000);
-    var hrs  = Math.floor((diff % 86400000) / 3600000);
-    var mins = Math.floor((diff % 3600000) / 60000);
-    var secs = Math.floor((diff % 60000) / 1000);
-    var pad = function(n){ return String(n).padStart(2,"0"); };
-    var d = document.getElementById(ids.d);
-    var h = document.getElementById(ids.h);
-    var m = document.getElementById(ids.m);
-    var s = document.getElementById(ids.s);
-    if(d) d.textContent = pad(days);
-    if(h) h.textContent = pad(hrs);
-    if(m) m.textContent = pad(mins);
-    if(s) s.textContent = pad(secs);
-  }
-  tick();
-  return setInterval(tick, 1000);
-}
-
-// ============================================================
-// HOME RENDER
-// ============================================================
-function renderHome() {
-  // Greeting
-  var h = new Date().getHours();
-  var greet = h < 12 ? "BONJOUR" : h < 18 ? "BONNE APRÈS-MIDI" : "BONSOIR";
-  document.getElementById("h-greet").textContent = greet + (STATE.pseudo ? ", " + STATE.pseudo.toUpperCase() : "");
-
-  // --- PGA ---
-  var pgaF = getActiveFixture(PGA_FIXTURES);
-  document.getElementById("h-tname").textContent = pgaF.name;
-  document.getElementById("h-tloc").textContent = pgaF.loc;
-
-  // Live badge PGA
-  var now = new Date();
-  var pgaStart = new Date(pgaF.start+"T00:00:00"), pgaEnd = new Date(pgaF.end+"T23:59:59");
-  var pgaLiveBadge = document.getElementById("h-livebadge");
-  if (now >= pgaStart && now <= pgaEnd) {
-    pgaLiveBadge.innerHTML = '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(232,35,58,0.15);border:1px solid rgba(232,35,58,0.4);border-radius:20px;padding:3px 10px;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;color:var(--red);"><span style="width:6px;height:6px;border-radius:50%;background:var(--red);animation:sp 1s infinite;display:inline-block;"></span>EN COURS</span>';
-  } else {
-    var maj = pgaF.major ? '<span style="background:var(--gold);color:#000;padding:2px 8px;border-radius:10px;font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:1px;">MAJOR</span>' : '';
-    pgaLiveBadge.innerHTML = maj;
-  }
-
-  // Countdown PGA
-  if (_pgaTimer) clearInterval(_pgaTimer);
-  _pgaTimer = startCountdown(pgaF, {d:"h-d",h:"h-h",m:"h-m",s:"h-s"});
-
-  // Picks button PGA
-  var hasPgaPicks = STATE.picks[pgaF.id] && STATE.picks[pgaF.id].length > 0;
-  var picksClosed = now >= getCountdownTarget(pgaF);
-  var pgaBtn = document.getElementById("h-picksbtn");
-  if (picksClosed) {
-    pgaBtn.textContent = "PICKS FERMÉS";
-    pgaBtn.disabled = true;
-    pgaBtn.style.opacity = "0.5";
-  } else if (hasPgaPicks) {
-    pgaBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> MODIFIER MES PICKS PGA';
-    pgaBtn.disabled = false;
-    pgaBtn.style.opacity = "1";
-  } else {
-    pgaBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS PGA';
-    pgaBtn.disabled = false;
-    pgaBtn.style.opacity = "1";
-  }
-
-  // --- DP WORLD TOUR ---
-  var dpF = getActiveFixture(DP_FIXTURES);
-  document.getElementById("dp-tname").textContent = dpF.name;
-  document.getElementById("dp-tloc").textContent = dpF.loc;
-
-  // Live badge DP
-  var dpStart = new Date(dpF.start+"T00:00:00"), dpEnd = new Date(dpF.end+"T23:59:59");
-  var dpLiveBadge = document.getElementById("dp-livebadge");
-  if (now >= dpStart && now <= dpEnd) {
-    dpLiveBadge.innerHTML = '<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.4);border-radius:20px;padding:3px 10px;font-family:var(--fd);font-size:11px;font-weight:800;letter-spacing:2px;color:var(--blue);"><span style="width:6px;height:6px;border-radius:50%;background:var(--blue);animation:sp 1s infinite;display:inline-block;"></span>EN COURS</span>';
-  } else {
-    dpLiveBadge.innerHTML = '';
-  }
-
-  // Countdown DP
-  if (_dpTimer) clearInterval(_dpTimer);
-  _dpTimer = startCountdown(dpF, {d:"dp-d",h:"dp-h",m:"dp-m",s:"dp-s"});
-
-  // Picks button DP
-  var hasDpPicks = STATE.picks["dp_"+dpF.id] && STATE.picks["dp_"+dpF.id].length > 0;
-  var dpPicksClosed = now >= getCountdownTarget(dpF);
-  var dpBtn = document.getElementById("dp-picksbtn");
-  if (dpPicksClosed) {
-    dpBtn.textContent = "PICKS FERMÉS";
-    dpBtn.disabled = true;
-    dpBtn.style.opacity = "0.5";
-  } else if (hasDpPicks) {
-    dpBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> MODIFIER MES PICKS DP';
-    dpBtn.disabled = false;
-    dpBtn.style.opacity = "1";
-  } else {
-    dpBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> FAIRE MES PICKS DP';
-    dpBtn.disabled = false;
-    dpBtn.style.opacity = "1";
-  }
-
-  // --- SCORE & BADGE ---
-  var score = STATE.score || 0;
-  document.getElementById("h-score").textContent = score;
-  var badge = BADGES[0];
-  for (var i = BADGES.length - 1; i >= 0; i--) {
-    if (score >= BADGES[i].pts) { badge = BADGES[i]; break; }
-  }
-  document.getElementById("h-badge-name").textContent = badge.name.toUpperCase();
-  document.getElementById("h-badge-img").textContent = badge.emoji;
-
-  // Progression to next badge
-  var nextBadge = null;
-  for (var j = 0; j < BADGES.length; j++) {
-    if (BADGES[j].pts > score) { nextBadge = BADGES[j]; break; }
-  }
-  var progTxt = document.getElementById("h-prog-txt");
-  var progBar = document.getElementById("h-prog-bar");
-  if (nextBadge) {
-    var pct = Math.round((score / nextBadge.pts) * 100);
-    progTxt.textContent = score + " / " + nextBadge.pts + " pts → " + nextBadge.name;
-    progBar.style.width = pct + "%";
-  } else {
-    progTxt.textContent = "MAX LEVEL 🏆";
-    progBar.style.width = "100%";
-  }
-
-  // --- PROCHAINS PGA ---
-  renderProchains("h-prochains", PGA_FIXTURES, pgaF.id, false);
-  // --- PROCHAINS DP ---
-  renderProchains("dp-prochains", DP_FIXTURES, dpF.id, true);
-}
-
-function renderProchains(containerId, fixtures, activeId, isDP) {
-  var now = new Date();
-  var upcoming = fixtures.filter(function(f) {
-    return f.id !== activeId && new Date(f.start+"T00:00:00") > now;
-  }).slice(0, 3);
-  var container = document.getElementById(containerId);
-  if (!upcoming.length) { container.innerHTML = '<div style="color:var(--muted);font-size:13px;">Aucun tournoi à venir.</div>'; return; }
-  var html = "";
-  upcoming.forEach(function(f) {
-    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">';
-    html += '<div>';
-    html += '<div style="font-family:var(--fd);font-size:15px;font-weight:800;letter-spacing:0.5px;">' + f.name + '</div>';
-    html += '<div style="font-size:12px;color:var(--muted);margin-top:2px;">' + f.loc + '</div>';
-    html += '</div>';
-    html += '<div style="text-align:right;flex-shrink:0;margin-left:12px;">';
-    html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;color:' + (isDP ? 'var(--blue)' : 'var(--gold)') + ';">' + formatDate(f.start) + '</div>';
-    if (f.major) html += '<div style="font-size:10px;background:var(--gold);color:#000;border-radius:6px;padding:1px 6px;margin-top:2px;font-weight:800;">MAJOR</div>';
-    html += '</div>';
-    html += '</div>';
-  });
-  container.innerHTML = html;
+  c.innerHTML=html;
 }
 
 // ============================================================
 // PICKS SCREEN
 // ============================================================
-var _currentTour = "pga"; // "pga" or "dp"
-var _currentFixture = null;
-var _currentPlayers = [];
-var _currentPicks = []; // array of player ids
+var _tour="pga",_fix=null,_key="",_tierce=[null,null,null],_cats={},_slot=-1,_srch="";
 
-function goToPicks(tour) {
-  _currentTour = tour || "pga";
-  _currentFixture = getActiveFixture(_currentTour === "pga" ? PGA_FIXTURES : DP_FIXTURES);
-  _currentPlayers = _currentTour === "pga" ? PGA_PLAYERS : DP_PLAYERS;
-
-  var pickKey = _currentTour === "dp" ? "dp_" + _currentFixture.id : _currentFixture.id;
-  _currentPicks = (STATE.picks[pickKey] || []).slice();
-
-  // Title
-  var tourLabel = _currentTour === "dp" ? "DP WORLD TOUR" : "PGA TOUR";
-  document.getElementById("pk-title").textContent = _currentFixture.name.toUpperCase();
-
-  // Update validate button color for DP
-  var vbtn = document.getElementById("vbtn");
-  if (_currentTour === "dp") {
-    vbtn.style.background = "var(--blue)";
-  } else {
-    vbtn.style.background = "var(--red)";
-  }
-
+function goToPicks(tour){
+  _tour=tour||"pga";
+  _fix=getActiveFixture(_tour==="pga"?PGA_FIXTURES:DP_FIXTURES);
+  _key=_tour+"_"+_fix.id;
+  _tierce=(STATE.tierce[_key]||[null,null,null]).slice();
+  while(_tierce.length<3)_tierce.push(null);
+  ensureRandom(_tour,_fix.id);
+  _cats=Object.assign({},STATE.cats[_key]||{});
+  document.getElementById("pk-title").textContent=_fix.name.toUpperCase();
+  var isDP=_tour==="dp";
+  var vbtn=document.getElementById("vbtn");
+  var sbtn=document.getElementById("pk-save-btn");
+  vbtn.style.background=isDP?"var(--blue)":"var(--red)";
+  sbtn.style.color=isDP?"var(--blue)":"var(--red)";
   renderPicksScreen();
   navTo("picks");
 }
 
-function renderPicksScreen() {
-  var pickKey = _currentTour === "dp" ? "dp_" + _currentFixture.id : _currentFixture.id;
-  var isDP = _currentTour === "dp";
-  var accentColor = isDP ? "var(--blue)" : "var(--red)";
-  var MAX_PICKS = 5;
+function renderPicksScreen(){
+  var isDP=_tour==="dp";
+  var accent=isDP?"var(--blue)":"var(--red)";
+  var tourLabel=isDP?"DP WORLD TOUR":"PGA TOUR";
+  var rndPids=STATE.random[_key]||[];
+  var medals=["🥇 1ER","🥈 2EME","🥉 3EME"];
+  var html="";
 
-  var html = "";
+  html+='<div style="margin-bottom:14px;"><span class="tour-badge '+_tour+'">'+tourLabel+'</span></div>';
 
-  // Tour badge
-  html += '<div style="margin-bottom:12px;">';
-  html += '<span class="tour-badge ' + _currentTour + '">' + (_currentTour === "dp" ? "🏴󠁧󠁢󠁥󠁮󠁧󠁿 DP WORLD TOUR" : "⛳ PGA TOUR") + '</span>';
-  html += '</div>';
+  // TIERCE SECTION
+  html+='<div style="background:var(--card2);border-radius:12px;padding:14px;margin-bottom:16px;">';
+  html+='<div style="font-family:var(--fd);font-size:14px;font-weight:800;letter-spacing:2px;color:'+accent+';margin-bottom:4px;">🏆 TIERCE — TOP 3</div>';
+  html+='<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Place 3 joueurs dans l\'ordre du podium.</div>';
+  html+='<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:11px;color:var(--muted);line-height:1.5;">';
+  html+='1 joueur top 3 = <b style="color:'+accent+'">25pts</b> &nbsp;|&nbsp; 2 = <b style="color:'+accent+'">50pts</b> &nbsp;|&nbsp; 3 = <b style="color:'+accent+'">100pts</b><br/>Bonne position exacte = <b style="color:var(--gold)">+50pts bonus</b>';
+  html+='</div>';
 
-  // Instructions
-  html += '<div style="background:var(--card2);border-radius:10px;padding:12px 14px;margin-bottom:16px;">';
-  html += '<div style="font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:1px;color:' + accentColor + ';margin-bottom:4px;">CHOISIS 5 JOUEURS</div>';
-  html += '<div style="font-size:12px;color:var(--muted);">Sélectionne 5 joueurs pour ' + _currentFixture.name + '. Points basés sur leur classement final.</div>';
-  html += '</div>';
-
-  // Selected picks summary
-  html += '<div style="margin-bottom:16px;">';
-  html += '<div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:8px;">MES SÉLECTIONS (' + _currentPicks.length + '/' + MAX_PICKS + ')</div>';
-  html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
-  for (var i = 0; i < MAX_PICKS; i++) {
-    if (_currentPicks[i]) {
-      var pl = _currentPlayers.find(function(p){ return p.id === _currentPicks[i]; });
-      html += '<div onclick="removePick(\'' + _currentPicks[i] + '\')" style="background:' + accentColor + ';border-radius:20px;padding:5px 12px;font-family:var(--fd);font-size:13px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:5px;">';
-      html += (pl ? pl.name : "?") + ' <span style="opacity:0.7;">✕</span></div>';
-    } else {
-      html += '<div style="background:var(--card2);border:1px dashed var(--muted2);border-radius:20px;padding:5px 14px;font-family:var(--fd);font-size:13px;color:var(--muted2);">Slot ' + (i+1) + '</div>';
+  for(var i=0;i<3;i++){
+    var pid=_tierce[i],pl=pid?getPlayer(_tour,pid):null;
+    html+='<div onclick="openSlot('+i+')" style="background:var(--card);border:1.5px solid '+(pid?accent:'var(--border2)')+';border-radius:10px;padding:11px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">';
+    html+='<div style="display:flex;align-items:center;gap:10px;">';
+    if(pl){
+      html+='<div style="font-size:20px;">'+medals[i].split(" ")[0]+'</div>';
+      html+='<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">'+flag(pl.nat)+' '+pl.name+'</div>';
+      html+='<div style="font-size:11px;color:var(--muted);">'+medals[i]+' · WR #'+pl.wr+'</div></div>';
+    }else{
+      html+='<div style="font-family:var(--fd);font-size:16px;color:'+accent+';">'+medals[i]+'</div>';
+      html+='<div style="font-size:13px;color:var(--muted2);margin-left:4px;">Choisir un joueur...</div>';
     }
+    html+='</div>';
+    if(pid)html+='<div onclick="event.stopPropagation();clearSlot('+i+')" style="color:var(--muted);font-size:20px;padding:2px 6px;">✕</div>';
+    else html+='<div style="color:'+accent+';font-size:20px;">＋</div>';
+    html+='</div>';
   }
-  html += '</div></div>';
+  html+='</div>';
 
-  // Search bar
-  html += '<div style="margin-bottom:12px;">';
-  html += '<input id="pk-search" type="text" placeholder="Rechercher un joueur..." oninput="filterPickPlayers()" ';
-  html += 'style="width:100%;padding:10px 14px;background:var(--card);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;"/>';
-  html += '</div>';
+  // RANDOM SECTION
+  html+='<div style="background:var(--card2);border-radius:12px;padding:14px;margin-bottom:80px;">';
+  html+='<div style="font-family:var(--fd);font-size:14px;font-weight:800;letter-spacing:2px;color:'+accent+';margin-bottom:4px;">🎲 5 JOUEURS ALEATOIRES</div>';
+  html+='<div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Tirés pour ce tournoi · 10pts par bonne catégorie</div>';
+  html+='<div style="font-size:11px;color:var(--muted2);margin-bottom:12px;">Ces joueurs restent fixes jusqu\'à la fin du tournoi.</div>';
 
-  // Player list
-  html += '<div id="pk-playerlist">';
-  html += buildPlayerList(_currentPlayers);
-  html += '</div>';
-
-  document.getElementById("pk-content").innerHTML = html;
-}
-
-function buildPlayerList(players) {
-  var isDP = _currentTour === "dp";
-  var accentColor = isDP ? "var(--blue)" : "var(--red)";
-  var html = "";
-  players.forEach(function(p) {
-    var selected = _currentPicks.indexOf(p.id) !== -1;
-    var bg = selected ? (isDP ? "rgba(59,130,246,0.12)" : "rgba(232,35,58,0.1)") : "var(--card)";
-    var borderColor = selected ? accentColor : "var(--border)";
-    var coeffColor = p.coeff >= 1.5 ? "var(--gold)" : p.coeff >= 1.2 ? "#a78bfa" : "var(--muted)";
-    html += '<div onclick="togglePick(\'' + p.id + '\')" ';
-    html += 'style="background:' + bg + ';border:1px solid ' + borderColor + ';border-radius:10px;padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">';
-    html += '<div style="display:flex;align-items:center;gap:10px;">';
-    html += '<div style="width:28px;height:28px;border-radius:50%;background:' + (selected ? accentColor : "var(--card2)") + ';display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;font-weight:800;color:' + (selected ? "#fff" : "var(--muted)") + ';">' + (selected ? "✓" : p.wr) + '</div>';
-    html += '<div>';
-    html += '<div style="font-family:var(--fd);font-size:16px;font-weight:800;">' + p.name + '</div>';
-    html += '<div style="font-size:11px;color:var(--muted);">World Rank #' + p.wr + '</div>';
-    html += '</div></div>';
-    html += '<div style="font-family:var(--fd);font-size:14px;font-weight:800;color:' + coeffColor + ';">x' + p.coeff.toFixed(1) + '</div>';
-    html += '</div>';
+  rndPids.forEach(function(pid){
+    var pl=getPlayer(_tour,pid);if(!pl)return;
+    var selCat=_cats[pid]||null;
+    html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:10px;">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">';
+    html+='<span style="font-size:15px;">'+flag(pl.nat)+'</span>';
+    html+='<div style="font-family:var(--fd);font-size:15px;font-weight:800;flex:1;">'+pl.name+'</div>';
+    html+='<div style="font-size:11px;color:var(--muted);">WR #'+pl.wr+'</div>';
+    html+='</div>';
+    html+='<div style="display:flex;gap:5px;">';
+    CATS.forEach(function(cat){
+      var sel=selCat===cat.id;
+      html+='<button class="cat-btn'+(sel?' '+cat.cls:'')+'" onclick="setCat(\''+pid+'\',\''+cat.id+'\')">'+cat.label+'</button>';
+    });
+    html+='</div></div>';
   });
-  return html;
+  html+='</div>';
+
+  document.getElementById("pk-content").innerHTML=html;
 }
 
-function filterPickPlayers() {
-  var q = (document.getElementById("pk-search").value || "").toLowerCase();
-  var filtered = _currentPlayers.filter(function(p){ return p.name.toLowerCase().indexOf(q) !== -1; });
-  document.getElementById("pk-playerlist").innerHTML = buildPlayerList(filtered);
+// Tierce modal
+function openSlot(slot){
+  _slot=slot;_srch="";renderModal();
 }
+function renderModal(){
+  var existing=document.getElementById("slot-modal");if(existing)existing.remove();
+  var players=((_tour==="pga")?PGA_PLAYERS:DP_PLAYERS).filter(function(p){
+    for(var i=0;i<3;i++){if(i!==_slot&&_tierce[i]===p.id)return false;}
+    if(_srch&&p.name.toLowerCase().indexOf(_srch.toLowerCase())===-1)return false;
+    return true;
+  });
+  var isDP=_tour==="dp";var accent=isDP?"var(--blue)":"var(--red)";
+  var div=document.createElement("div");
+  div.id="slot-modal";
+  div.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:200;display:flex;align-items:flex-end;";
+  var rows=players.map(function(p){
+    return '<div onclick="pickPlayer(\''+p.id+'\')" style="padding:13px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);cursor:pointer;">'
+      +'<div style="display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">'+flag(p.nat)+'</span>'
+      +'<div><div style="font-family:var(--fd);font-size:15px;font-weight:800;">'+p.name+'</div>'
+      +'<div style="font-size:11px;color:var(--muted);">WR #'+p.wr+'</div></div></div>'
+      +'<div style="color:'+accent+';font-size:18px;">+</div></div>';
+  }).join('');
+  div.innerHTML='<div style="background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:430px;margin:0 auto;max-height:80vh;display:flex;flex-direction:column;">'
+    +'<div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;">'
+    +'<div style="font-family:var(--fd);font-size:16px;font-weight:800;">SLOT '+(_slot+1)+' — CHOISIR</div>'
+    +'<button onclick="closeModal()" style="background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;">✕</button></div>'
+    +'<div style="padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0;">'
+    +'<input id="modal-srch" type="text" placeholder="Rechercher..." oninput="onSrch(this.value)" value="'+_srch+'" '
+    +'style="width:100%;padding:10px 14px;background:var(--card);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;"/></div>'
+    +'<div style="overflow-y:auto;flex:1;padding:8px 0;">'+rows+'</div></div>';
+  document.body.appendChild(div);
+  setTimeout(function(){var el=document.getElementById("modal-srch");if(el)el.focus();},50);
+}
+function onSrch(v){_srch=v;renderModal();setTimeout(function(){var el=document.getElementById("modal-srch");if(el){el.focus();el.setSelectionRange(v.length,v.length);}},0);}
+function pickPlayer(pid){_tierce[_slot]=pid;closeModal();renderPicksScreen();}
+function closeModal(){var m=document.getElementById("slot-modal");if(m)m.remove();}
+function clearSlot(slot){_tierce[slot]=null;renderPicksScreen();}
+function setCat(pid,catId){_cats[pid]=catId;renderPicksScreen();}
 
-function togglePick(pid) {
-  var idx = _currentPicks.indexOf(pid);
-  if (idx !== -1) {
-    _currentPicks.splice(idx, 1);
-  } else {
-    if (_currentPicks.length >= 5) return;
-    _currentPicks.push(pid);
+// ============================================================
+// SAVE → direct home
+// ============================================================
+function savePicks(){
+  if(_tierce[0]===null||_tierce[1]===null||_tierce[2]===null){
+    alert("Place 3 joueurs dans le tiercé avant de valider.");return;
   }
-  renderPicksScreen();
-}
-
-function removePick(pid) {
-  var idx = _currentPicks.indexOf(pid);
-  if (idx !== -1) _currentPicks.splice(idx, 1);
-  renderPicksScreen();
-}
-
-function savePicks() {
-  if (_currentPicks.length < 5) {
-    alert("Sélectionne 5 joueurs avant de valider.");
-    return;
-  }
-  var pickKey = _currentTour === "dp" ? "dp_" + _currentFixture.id : _currentFixture.id;
-  STATE.picks[pickKey] = _currentPicks.slice();
+  var rnd=STATE.random[_key]||[];
+  var allCats=rnd.every(function(pid){return !!_cats[pid];});
+  if(!allCats){alert("Assigne une catégorie à chacun des 5 joueurs aléatoires.");return;}
+  STATE.tierce[_key]=_tierce.slice();
+  STATE.cats[_key]=Object.assign({},_cats);
   saveState();
-
-  // Confirmation
-  document.getElementById("pk-content").innerHTML =
-    '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:16px;">' +
-    '<div style="font-size:64px;">✅</div>' +
-    '<div style="font-family:var(--fd);font-size:28px;font-weight:900;letter-spacing:2px;">PICKS VALIDÉS !</div>' +
-    '<div style="font-size:14px;color:var(--muted);text-align:center;">Tes picks pour ' + _currentFixture.name + ' sont enregistrés.</div>' +
-    '<button onclick="navTo(\'home\')" style="margin-top:12px;padding:14px 28px;background:' + (_currentTour==="dp"?"var(--blue)":"var(--red)") + ';border:none;border-radius:12px;color:#fff;font-family:var(--fd);font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;">RETOUR ACCUEIL</button>' +
-    '</div>';
+  navTo("home"); // direct retour accueil
 }
 
 // ============================================================
 // CLASSEMENT
 // ============================================================
-function renderClass() {
-  var html = "";
-
-  // PGA Section
-  html += '<div style="margin-bottom:8px;"><span class="tour-badge pga">⛳ PGA TOUR</span></div>';
-  var pgaF = getActiveFixture(PGA_FIXTURES);
-  var pgaPicks = STATE.picks[pgaF.id] || [];
-  if (pgaPicks.length) {
-    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;">';
-    html += '<div style="font-family:var(--fd);font-size:15px;font-weight:800;margin-bottom:10px;">' + pgaF.name + '</div>';
-    pgaPicks.forEach(function(pid, i) {
-      var pl = PGA_PLAYERS.find(function(p){ return p.id === pid; });
-      if (!pl) return;
-      html += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
-      html += '<div style="font-family:var(--fd);font-size:16px;font-weight:800;width:20px;color:var(--muted);">' + (i+1) + '</div>';
-      html += '<div style="flex:1;font-family:var(--fd);font-size:15px;font-weight:700;">' + pl.name + '</div>';
-      html += '<div style="font-size:12px;color:var(--gold);">x' + pl.coeff.toFixed(1) + '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-  } else {
-    html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;color:var(--muted);font-size:13px;">Aucun pick PGA pour ' + pgaF.name + '</div>';
+function renderClass(){
+  var html="";
+  function section(tour,fixtures,players,badgeCls,tourLabel){
+    var f=getActiveFixture(fixtures);
+    var key=tour+"_"+f.id;
+    var tierce=STATE.tierce[key]||[];
+    var rnd=STATE.random[key]||[];
+    var cats=STATE.cats[key]||{};
+    var accent=tour==="dp"?"var(--blue)":"var(--red)";
+    html+='<div style="margin-bottom:8px;"><span class="tour-badge '+badgeCls+'">'+tourLabel+'</span></div>';
+    html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:20px;">';
+    html+='<div style="font-family:var(--fd);font-size:15px;font-weight:800;margin-bottom:12px;">'+f.name+'</div>';
+    html+='<div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">🏆 TIERCE</div>';
+    if(tierce.length===3){
+      ["🥇","🥈","🥉"].forEach(function(m,i){
+        var pl=players.find(function(p){return p.id===tierce[i];});if(!pl)return;
+        html+='<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">';
+        html+='<div style="font-size:18px;">'+m+'</div>';
+        html+='<div style="flex:1;font-family:var(--fd);font-size:14px;font-weight:700;">'+flag(pl.nat)+' '+pl.name+'</div>';
+        html+='<div style="font-size:11px;color:var(--muted);">WR #'+pl.wr+'</div></div>';
+      });
+    }else{html+='<div style="font-size:13px;color:var(--muted2);padding:8px 0;">Tiercé non rempli.</div>';}
+    html+='<div style="font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-top:12px;margin-bottom:8px;">🎲 ALEATOIRES</div>';
+    if(rnd.length){
+      rnd.forEach(function(pid){
+        var pl=players.find(function(p){return p.id===pid;});if(!pl)return;
+        var cat=cats[pid],catLabel=cat?(CATS.find(function(c){return c.id===cat;})||{label:"?"}).label:"Non catégorisé";
+        html+='<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">';
+        html+='<span style="font-size:14px;">'+flag(pl.nat)+'</span>';
+        html+='<div style="flex:1;font-family:var(--fd);font-size:14px;font-weight:700;">'+pl.name+'</div>';
+        html+='<div style="font-size:11px;color:'+(cat?accent:'var(--muted2)')+';">'+catLabel+'</div></div>';
+      });
+    }else{html+='<div style="font-size:13px;color:var(--muted2);padding:8px 0;">Joueurs pas encore tirés.</div>';}
+    html+='</div>';
   }
-
-  // DP Section
-  html += '<div style="margin-bottom:8px;"><span class="tour-badge dp">🏴󠁧󠁢󠁥󠁮󠁧󠁿 DP WORLD TOUR</span></div>';
-  var dpF = getActiveFixture(DP_FIXTURES);
-  var dpPicks = STATE.picks["dp_"+dpF.id] || [];
-  if (dpPicks.length) {
-    html += '<div style="background:var(--card);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:14px;margin-bottom:16px;">';
-    html += '<div style="font-family:var(--fd);font-size:15px;font-weight:800;margin-bottom:10px;">' + dpF.name + '</div>';
-    dpPicks.forEach(function(pid, i) {
-      var pl = DP_PLAYERS.find(function(p){ return p.id === pid; });
-      if (!pl) return;
-      html += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">';
-      html += '<div style="font-family:var(--fd);font-size:16px;font-weight:800;width:20px;color:var(--muted);">' + (i+1) + '</div>';
-      html += '<div style="flex:1;font-family:var(--fd);font-size:15px;font-weight:700;">' + pl.name + '</div>';
-      html += '<div style="font-size:12px;color:var(--blue);">x' + pl.coeff.toFixed(1) + '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-  } else {
-    html += '<div style="background:var(--card);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:14px;margin-bottom:16px;color:var(--muted);font-size:13px;">Aucun pick DP pour ' + dpF.name + '</div>';
-  }
-
-  document.getElementById("cl-content").innerHTML = html;
+  section("pga",PGA_FIXTURES,PGA_PLAYERS,"pga","⛳ PGA TOUR");
+  section("dp",DP_FIXTURES,DP_PLAYERS,"dp","DP WORLD TOUR");
+  document.getElementById("cl-content").innerHTML=html;
 }
 
 // ============================================================
 // PROFIL
 // ============================================================
-function renderProfil() {
-  var score = STATE.score || 0;
-  var badge = BADGES[0];
-  for (var i = BADGES.length - 1; i >= 0; i--) {
-    if (score >= BADGES[i].pts) { badge = BADGES[i]; break; }
-  }
-
-  var pgaCount = Object.keys(STATE.picks).filter(function(k){ return k.indexOf("dp_") === -1; }).length;
-  var dpCount = Object.keys(STATE.picks).filter(function(k){ return k.indexOf("dp_") === 0; }).length;
-
-  var html = "";
-  html += '<div style="text-align:center;margin-bottom:24px;">';
-  html += '<div style="font-size:72px;margin-bottom:8px;">' + badge.emoji + '</div>';
-  html += '<div style="font-family:var(--fd);font-size:24px;font-weight:900;">' + (STATE.pseudo || "Joueur") + '</div>';
-  html += '<div style="font-family:var(--fd);font-size:14px;font-weight:800;letter-spacing:2px;color:var(--red);margin-top:4px;">' + badge.name.toUpperCase() + '</div>';
-  html += '</div>';
-
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
-  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">';
-  html += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;">' + score + '</div>';
-  html += '<div style="font-size:11px;color:var(--muted);letter-spacing:1px;">POINTS TOTAL</div>';
-  html += '</div>';
-  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;">';
-  html += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;">' + (pgaCount + dpCount) + '</div>';
-  html += '<div style="font-size:11px;color:var(--muted);letter-spacing:1px;">TOURNOIS PICKÉS</div>';
-  html += '</div>';
-  html += '<div style="background:var(--card);border:1px solid rgba(232,35,58,0.2);border-radius:12px;padding:14px;text-align:center;">';
-  html += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--red);">' + pgaCount + '</div>';
-  html += '<div style="font-size:11px;color:var(--muted);letter-spacing:1px;">PICKS PGA</div>';
-  html += '</div>';
-  html += '<div style="background:var(--card);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:14px;text-align:center;">';
-  html += '<div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--blue);">' + dpCount + '</div>';
-  html += '<div style="font-size:11px;color:var(--muted);letter-spacing:1px;">PICKS DP</div>';
-  html += '</div>';
-  html += '</div>';
-
-  // Badges progress
-  html += '<div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:10px;">BADGES</div>';
-  BADGES.forEach(function(b) {
-    var unlocked = score >= b.pts;
-    html += '<div style="background:var(--card);border:1px solid ' + (unlocked ? "var(--gold)" : "var(--border)") + ';border-radius:10px;padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:12px;opacity:' + (unlocked ? "1" : "0.4") + ';">';
-    html += '<div style="font-size:28px;">' + b.emoji + '</div>';
-    html += '<div style="flex:1;"><div style="font-family:var(--fd);font-size:14px;font-weight:800;">' + b.name + '</div>';
-    html += '<div style="font-size:12px;color:var(--muted);">' + b.pts.toLocaleString() + ' pts requis</div></div>';
-    if (unlocked) html += '<div style="color:var(--gold);font-size:18px;">✓</div>';
-    html += '</div>';
+function renderProfil(){
+  var score=STATE.score||0;
+  var badge=BADGES[0];
+  for(var i=BADGES.length-1;i>=0;i--){if(score>=BADGES[i].pts){badge=BADGES[i];break;}}
+  var pgaCount=Object.keys(STATE.tierce).filter(function(k){return k.indexOf("pga_")===0;}).length;
+  var dpCount=Object.keys(STATE.tierce).filter(function(k){return k.indexOf("dp_")===0;}).length;
+  var html='<div style="text-align:center;margin-bottom:24px;">';
+  html+='<div style="font-size:72px;margin-bottom:8px;">'+badge.emoji+'</div>';
+  html+='<div style="font-family:var(--fd);font-size:24px;font-weight:900;">'+(STATE.pseudo||"Joueur")+'</div>';
+  html+='<div style="font-family:var(--fd);font-size:14px;font-weight:800;letter-spacing:2px;color:var(--red);margin-top:4px;">'+badge.name.toUpperCase()+'</div></div>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;">'+score+'</div><div style="font-size:11px;color:var(--muted);letter-spacing:1px;">POINTS</div></div>';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;">'+(pgaCount+dpCount)+'</div><div style="font-size:11px;color:var(--muted);letter-spacing:1px;">TOURNOIS</div></div>';
+  html+='<div style="background:var(--card);border:1px solid rgba(232,35,58,0.2);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--red);">'+pgaCount+'</div><div style="font-size:11px;color:var(--muted);letter-spacing:1px;">PICKS PGA</div></div>';
+  html+='<div style="background:var(--card);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:14px;text-align:center;"><div style="font-family:var(--fd);font-size:32px;font-weight:900;color:var(--blue);">'+dpCount+'</div><div style="font-size:11px;color:var(--muted);letter-spacing:1px;">PICKS DP</div></div>';
+  html+='</div>';
+  html+='<div style="font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:3px;color:var(--muted);margin-bottom:10px;">BADGES</div>';
+  BADGES.forEach(function(b){
+    var u=score>=b.pts;
+    html+='<div style="background:var(--card);border:1px solid '+(u?'var(--gold)':'var(--border)')+';border-radius:10px;padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:12px;opacity:'+(u?'1':'0.4')+'">';
+    html+='<div style="font-size:28px;">'+b.emoji+'</div><div style="flex:1;">';
+    html+='<div style="font-family:var(--fd);font-size:14px;font-weight:800;">'+b.name+'</div>';
+    html+='<div style="font-size:12px;color:var(--muted);">'+b.pts.toLocaleString()+' pts requis</div></div>';
+    if(u)html+='<div style="color:var(--gold);font-size:18px;">✓</div>';
+    html+='</div>';
   });
-
-  document.getElementById("profil-content").innerHTML = html;
+  document.getElementById("profil-content").innerHTML=html;
 }
 
 // ============================================================
 // INIT
 // ============================================================
-(function init() {
+(function init(){
   loadState();
-  if (STATE.onboardDone && STATE.pseudo) {
-    // Disable onboard button so it can't be reused
-    var btn = document.getElementById("ob-btn");
-    if (btn) { btn.disabled = true; btn.style.opacity = "0.4"; btn.style.cursor = "not-allowed"; }
-
+  if(STATE.onboardDone&&STATE.pseudo){
+    var btn=document.getElementById("ob-btn");
+    if(btn){btn.disabled=true;btn.style.opacity="0.4";btn.style.cursor="not-allowed";}
     document.getElementById("bnav").classList.add("show");
     navTo("home");
   }
